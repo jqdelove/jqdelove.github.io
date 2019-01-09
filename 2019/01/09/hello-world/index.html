@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">506</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">514</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -401,7 +401,7 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h4 id="无参和有参的概念"><a href="#无参和有参的概念" class="headerlink" title="无参和有参的概念"></a>无参和有参的概念</h4><p>最近在复习Java，发现回头重新看语法，不光加深了印象，还有了和以前不同的理解。就拿Java中的无参和有参构造方法来说，每new()一次就会调用一次构造方法，当没有显示的实现无参构造方法时，系统会默认提供一个无参构造方法，当开发人员手动实现构造方法，系统不会再提供无参构造方法，我们以新建一个User类为例。</p>
+        <h4 id="无参构造方法和有参构造方法的概念"><a href="#无参构造方法和有参构造方法的概念" class="headerlink" title="无参构造方法和有参构造方法的概念"></a>无参构造方法和有参构造方法的概念</h4><p>最近在复习Java，发现回头重新看语法，不光加深了印象，还有了和以前不同的理解。就拿Java中的无参和有参构造方法来说，每new()一次就会调用一次构造方法，当没有显示的实现无参构造方法时，系统会默认提供一个无参构造方法，当开发人员手动实现构造方法，系统不会再提供无参构造方法，我们以新建一个User类为例。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//无参构造方法</span><br><span class="line">public <span class="function"><span class="title">User</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//有参构造方法，实现该有参构造方法，系统将不再提供无参构造方法</span><br><span class="line">public User(String uId,String uName) &#123;</span><br><span class="line">    this.userId = uId;</span><br><span class="line">    this.userName = uName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="调用构造方法"><a href="#调用构造方法" class="headerlink" title="调用构造方法"></a>调用构造方法</h4><p>在实例化User对象时就能看出无参构造方法和有参构造方法的区别。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//调用无参构造方法</span><br><span class="line">User user = new User();</span><br><span class="line">user.userId = <span class="string">"1"</span>;</span><br><span class="line">user.userName = <span class="string">"admin"</span>;</span><br><span class="line"></span><br><span class="line">//调用有参构造方法</span><br><span class="line">User user2 = new User(<span class="string">"2"</span>, <span class="string">"Admin"</span>);</span><br></pre></td></tr></table></figure>
@@ -421,7 +421,7 @@ height:50vh;
             <p>原文作者：<a href="http://yoursite.com">金奇</a>
             </p><p>原文链接：<a href="http://yoursite.com/2019/01/09/hello-world/">http://yoursite.com/2019/01/09/hello-world/</a>
             </p><p>发表日期：<a href="http://yoursite.com/2019/01/09/hello-world/">January 9th 2019, 3:24:58 pm</a>
-            </p><p>更新日期：<a href="http://yoursite.com/2019/01/09/hello-world/">January 9th 2019, 6:22:36 pm</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/01/09/hello-world/">January 9th 2019, 6:27:38 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -553,7 +553,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#无参和有参的概念"><span class="toc-number">1.</span> <span class="toc-text">无参和有参的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调用构造方法"><span class="toc-number">2.</span> <span class="toc-text">调用构造方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#封装的概念"><span class="toc-number">3.</span> <span class="toc-text">封装的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建get和set方法"><span class="toc-number">4.</span> <span class="toc-text">创建get和set方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调用get和set方法"><span class="toc-number">5.</span> <span class="toc-text">调用get和set方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#输出结果"><span class="toc-number">6.</span> <span class="toc-text">输出结果</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#无参构造方法和有参构造方法的概念"><span class="toc-number">1.</span> <span class="toc-text">无参构造方法和有参构造方法的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调用构造方法"><span class="toc-number">2.</span> <span class="toc-text">调用构造方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#封装的概念"><span class="toc-number">3.</span> <span class="toc-text">封装的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建get和set方法"><span class="toc-number">4.</span> <span class="toc-text">创建get和set方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调用get和set方法"><span class="toc-number">5.</span> <span class="toc-text">调用get和set方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#输出结果"><span class="toc-number">6.</span> <span class="toc-text">输出结果</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
