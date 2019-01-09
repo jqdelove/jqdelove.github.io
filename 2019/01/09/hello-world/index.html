@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">510</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">516</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -407,9 +407,9 @@ height:50vh;
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//调用无参构造方法</span><br><span class="line">User user = new User();</span><br><span class="line">user.userId = <span class="string">"1"</span>;</span><br><span class="line">user.userName = <span class="string">"admin"</span>;</span><br><span class="line"></span><br><span class="line">//调用有参构造方法</span><br><span class="line">User user2 = new User(<span class="string">"2"</span>, <span class="string">"Admin"</span>);</span><br></pre></td></tr></table></figure>
 <h4 id="封装的概念"><a href="#封装的概念" class="headerlink" title="封装的概念"></a>封装的概念</h4><p>下面来总结一下Java中封装的概念，即将类的某些信息隐藏在类的内部，不允许外部直接访问，通过该类提供的方法来实现对隐藏信息的操作和访问。首先第一步将类中的所有成员变量私有化，即只有本类能够访问，我们还以User类为例。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//成员变量全部私有化</span><br><span class="line">private String userId;</span><br><span class="line">private String userName;</span><br></pre></td></tr></table></figure>
-<h4 id="创建get和set方法"><a href="#创建get和set方法" class="headerlink" title="创建get和set方法"></a>创建get和set方法</h4><p>第二步，创建get和set方法，外部只能通过这两个方法来对User类中的属性进行访问和操作。</p>
+<h4 id="创建get-和set-方法"><a href="#创建get-和set-方法" class="headerlink" title="创建get()和set()方法"></a>创建get()和set()方法</h4><p>第二步，创建get()和set()方法，外部只能通过这两个方法来对User类中的属性进行访问和操作。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public void setId(String uId) &#123;</span><br><span class="line">    this.userId = uId;</span><br><span class="line">&#125;</span><br><span class="line">public String <span class="function"><span class="title">getId</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> userId;</span><br><span class="line">&#125;</span><br><span class="line">public void setName(String uName) &#123;</span><br><span class="line">    this.userName = uName;</span><br><span class="line">&#125;</span><br><span class="line">public String <span class="function"><span class="title">getName</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> userName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="调用get和set方法"><a href="#调用get和set方法" class="headerlink" title="调用get和set方法"></a>调用get和set方法</h4><p>外部通过get和set方法对userId和userName进行操作。</p>
+<h4 id="调用get-和set-方法"><a href="#调用get-和set-方法" class="headerlink" title="调用get()和set()方法"></a>调用get()和set()方法</h4><p>外部通过get()和set()方法对userId和userName进行操作。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">User user = new User();</span><br><span class="line">user.setId(<span class="string">"3"</span>);</span><br><span class="line">user.setName(<span class="string">"test"</span>);</span><br><span class="line">System.out.println(user.getId());</span><br><span class="line">System.out.println(user.getName());</span><br></pre></td></tr></table></figure>
 <h4 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h4><p>我们可以输出得到结果如下。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line"><span class="built_in">test</span></span><br></pre></td></tr></table></figure>
@@ -421,7 +421,7 @@ height:50vh;
             <p>原文作者：<a href="http://yoursite.com">金奇</a>
             </p><p>原文链接：<a href="http://yoursite.com/2019/01/09/hello-world/">http://yoursite.com/2019/01/09/hello-world/</a>
             </p><p>发表日期：<a href="http://yoursite.com/2019/01/09/hello-world/">January 9th 2019, 3:24:58 pm</a>
-            </p><p>更新日期：<a href="http://yoursite.com/2019/01/09/hello-world/">January 9th 2019, 8:25:40 pm</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/01/09/hello-world/">January 9th 2019, 9:13:06 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -553,7 +553,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#无参和有参构造方法的概念"><span class="toc-number">1.</span> <span class="toc-text">无参和有参构造方法的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调用构造方法"><span class="toc-number">2.</span> <span class="toc-text">调用构造方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#封装的概念"><span class="toc-number">3.</span> <span class="toc-text">封装的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建get和set方法"><span class="toc-number">4.</span> <span class="toc-text">创建get和set方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调用get和set方法"><span class="toc-number">5.</span> <span class="toc-text">调用get和set方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#输出结果"><span class="toc-number">6.</span> <span class="toc-text">输出结果</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#无参和有参构造方法的概念"><span class="toc-number">1.</span> <span class="toc-text">无参和有参构造方法的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调用构造方法"><span class="toc-number">2.</span> <span class="toc-text">调用构造方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#封装的概念"><span class="toc-number">3.</span> <span class="toc-text">封装的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建get-和set-方法"><span class="toc-number">4.</span> <span class="toc-text">创建get()和set()方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调用get-和set-方法"><span class="toc-number">5.</span> <span class="toc-text">调用get()和set()方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#输出结果"><span class="toc-number">6.</span> <span class="toc-text">输出结果</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
