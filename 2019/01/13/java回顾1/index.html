@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">545</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">648</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -407,6 +407,7 @@ height:50vh;
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    private String name;</span><br><span class="line">    public String <span class="function"><span class="title">getName</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    //含参方法，参数名和成员变量同名，用this关键字调用成员变量</span><br><span class="line">    //this关键字只能在类的方法中使用，不能在外部使用</span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>而像我们最常用的for循环，我们经常能够见到定义循环次数变量i，两个不同的for循环中，能够重复使用变量i，此时的变量i会冲突吗？答案是不会，因为在循环内部声明的变量，外部是无法识别的，所以一个同名的变量在不同循环中是没有冲突的，但当循环之间有包含关系时，就会引起冲突。if/while/try…catch语句同理。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args)&#123;</span><br><span class="line">    //两个不同的循环，含有同名变量，但不冲突</span><br><span class="line">    <span class="keyword">for</span>(int i = 1, int j = 0; i &lt; 10; i++)&#123;</span><br><span class="line">        j += i;</span><br><span class="line">        System.out.println(<span class="string">"j = "</span> + j);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(int i = 1, int j = 1; i &lt; 5; i++)&#123;</span><br><span class="line">        j *= i;</span><br><span class="line">        System.out.println(<span class="string">"j = "</span> + j);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>为什么有时候两个方法块内会出现同名的变量而不会有冲突呢？这是因为，当执行完第一个方法后，该方法所使用的局部变量就会被回收，下一个方法再执行时，JVM会对该局部变量重新声明并使用，所以两个方法块内的同名变量并不会产生冲突。</p>
 
     </article>
     <!-- license  -->
@@ -549,7 +550,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java中变量的作用范围"><span class="toc-number">1.</span> <span class="toc-text">Java中变量的作用范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊情况"><span class="toc-number">2.</span> <span class="toc-text">特殊情况</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java中变量的作用范围"><span class="toc-number">1.</span> <span class="toc-text">Java中变量的作用范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊情况"><span class="toc-number">2.</span> <span class="toc-text">特殊情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意"><span class="toc-number">3.</span> <span class="toc-text">注意</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
