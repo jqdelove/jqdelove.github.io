@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">520</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">542</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -402,7 +402,7 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <p>前面已经总结过了封装，今天来总结一下多态。</p>
-<h2 id="多态存在的条件"><a href="#多态存在的条件" class="headerlink" title="多态存在的条件"></a>多态存在的条件</h2><h3 id="1、类的继承"><a href="#1、类的继承" class="headerlink" title="1、类的继承"></a>1、类的继承</h3><p>提到多态就必须要讲一下继承的概念，当一个类继承于另一个类时，该类则是前一个类的子类，而被继承的类就称为这个子类的父类。子类继承父类可以得到父类的全部属性和方法（构造方法除外），当没有写出该类继承于哪一个类时，默认继承Object类，即Object类是所有类的父类。</p>
+<h2 id="多态存在的条件"><a href="#多态存在的条件" class="headerlink" title="多态存在的条件"></a>多态存在的条件</h2><h3 id="1、类的继承"><a href="#1、类的继承" class="headerlink" title="1、类的继承"></a>1、类的继承</h3><p>提到多态就必须要讲一下继承的概念，当一个类继承于另一个类时，该类则是前一个类的子类，而被继承的类就称为这个子类的父类。子类继承父类可以得到父类的全部属性和方法（构造方法除外），即子类对象可以调用父类的未被重写的所有方法。而当没有写出该类继承于哪一个类时，默认继承Object类，即Object类是所有类的父类。</p>
 <h3 id="2、方法的重写"><a href="#2、方法的重写" class="headerlink" title="2、方法的重写"></a>2、方法的重写</h3><p>指的是子类重写父类的方法，当父类方法不能满足子类的实现时，需要重写父类的方法。</p>
 <h3 id="3、父类引用指向子类对象"><a href="#3、父类引用指向子类对象" class="headerlink" title="3、父类引用指向子类对象"></a>3、父类引用指向子类对象</h3><p>下面我们通过实际代码进行理解，我们首先定义一个Animal类，再定义一个Dog类和Cat类继承Animal类。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Animal &#123;</span><br><span class="line">    public void <span class="function"><span class="title">shout</span></span>() &#123;</span><br><span class="line">        System.out.println(<span class="string">"叫了一声！"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
