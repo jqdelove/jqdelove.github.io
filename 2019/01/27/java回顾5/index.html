@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>destination · King&#39;s Studio</title>
+    <title>手写字节流文件拷贝类 · King&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">King&#39;s Studio</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">手写字节流文件拷贝类</a>
+            </div>
+    </div>
     
     <a class="home-link" href="/">King's Studio</a>
 </header>
@@ -220,24 +231,74 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/xg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            手写字节流文件拷贝类
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="学习">学习</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">385</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/01/27</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -340,7 +401,10 @@
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        
+        <p>今天手写了利用字节流拷贝文件的方法类，调用该方法可传入源文件、目的文件绝对路径，也可传入源文件、目的文件对象。</p>
+<h2 id="CopyFileUtil类"><a href="#CopyFileUtil类" class="headerlink" title="CopyFileUtil类"></a>CopyFileUtil类</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class CopyFileUtil &#123;</span><br><span class="line"></span><br><span class="line">    //一、该方法需要提供源文件和目的文件路径</span><br><span class="line">    public static void copyFile(String srcPath,String destPaht) throws IOException,FileNotFoundException &#123;</span><br><span class="line">        //建立联系</span><br><span class="line">        copyFile(new File(srcPath), new File(destPaht));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //二、对copyFile()方法进行重载，需要提供源文件和目的文件对象</span><br><span class="line">    public static void copyFile(File src,File dest) throws IOException,FileNotFoundException &#123;</span><br><span class="line">        //逻辑判断，如果是文件夹则抛出该异常</span><br><span class="line">        <span class="keyword">if</span> (!src.isFile()) &#123;</span><br><span class="line">            System.out.println(<span class="string">"只能拷贝文件"</span>);</span><br><span class="line">            throw new IOException(<span class="string">"只能拷贝文件"</span>);//若是文件夹抛出该异常</span><br><span class="line">        &#125;</span><br><span class="line">        //2、选择流</span><br><span class="line">        InputStream is = new FileInputStream(src);//多态</span><br><span class="line">        OutputStream os = new FileOutputStream(dest);</span><br><span class="line"></span><br><span class="line">        //3、文件拷贝    </span><br><span class="line">        byte[] flush = new byte[1024];//接收数组</span><br><span class="line">        int len = 0;</span><br><span class="line">        <span class="keyword">while</span>(-1!=(len= (is.read(flush)))) &#123;</span><br><span class="line">            //将读入的数组写出</span><br><span class="line">            os.write(flush);</span><br><span class="line">        &#125;</span><br><span class="line">        //强制刷新</span><br><span class="line">        os.flush();</span><br><span class="line">        //先创建的后释放，后创建的先释放</span><br><span class="line">        os.close();</span><br><span class="line">        is.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="调用测试"><a href="#调用测试" class="headerlink" title="调用测试"></a>调用测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class CopyFileTest extends CopyFileUtil&#123;//继承自己写的CopyFileUtil工具类，就拥有了copyFile()方法</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //源文件地址</span><br><span class="line">        String src = <span class="string">"/Users/jinqi/Desktop/b.txt"</span>;</span><br><span class="line">        //目的文件地址</span><br><span class="line">        String dest = <span class="string">"/Users/jinqi/Desktop/c.txt"</span>;</span><br><span class="line">        try &#123;</span><br><span class="line">            //调用拷贝文件方法，将文件源地址和目的地址传进去</span><br><span class="line">            copyFile(src, dest);</span><br><span class="line">        &#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.out.println(<span class="string">"文件不存在"</span>);</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.out.println(<span class="string">"文件拷贝失败||关闭资源失败"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
     </article>
     <!-- license  -->
     
@@ -350,6 +414,11 @@
             
         </li>
         <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/01/26/java回顾4/" title="Java中的异常处理">
+                    <div class="prevTitle">Java中的异常处理</div>
+                </a>
             
         </li>
     </ul>
@@ -456,6 +525,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CopyFileUtil类"><span class="toc-number">1.</span> <span class="toc-text">CopyFileUtil类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调用测试"><span class="toc-number">2.</span> <span class="toc-text">调用测试</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -645,6 +732,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
