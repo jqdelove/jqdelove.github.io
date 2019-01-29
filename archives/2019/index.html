@@ -351,8 +351,8 @@
                 <span>手写字节流文件拷贝类</span>
         </a>
         <div class="abstract-content">
-            今天手写了利用字节流拷贝文件的方法类，调用该方法可传入源文件、目的文件绝对路径，也可传入源文件、目的文件对象。
-CopyFileUtil类12345678910111213141516171819202122232425262728293031323334public class CopyFileUtil &#123;    //一、该方法需要提供源文件和目的文件路径    public static void copyFile(String srcPath,String destPaht) throws IOException,FileNotFoundException &#123; ...
+            今天手写了利用字节流拷贝文件的方法类，调用该方法可传入源文件、目的文件绝对路径，也可传入源文件、目的文件对象；后更新了文件夹拷贝方法，有一些不同，如果源对象是文件就直接调用文件拷贝方法，注意不能创建与文件夹同名的文件。
+CopyFileUtil类1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980public class CopyFileUt...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -626,6 +626,10 @@ Java中变量的作用范围类的变量的作用域是整个类，即类中的�
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
     
     
     
