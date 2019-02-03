@@ -402,7 +402,7 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <p>今天总结一下Java中的异常和处理机制，首先我们知道Error类和Exception类都是Throwable的子类，Error类以及它子类的实例，代表了JVM本身的错误，程序员无法通过代码处理，因此我们需要去关注Exception类以及它的子类。异常通常可以分为两类，一类是unckecked exception，这类异常在编译时不会提示，通常是代码本身的问题，如除0异常ArithmeticException，数组下标越界ArrayIndexOutOfBoundsException，空指针NullPointerException等。</p>
-<h1 id="unckecked-exception"><a href="#unckecked-exception" class="headerlink" title="unckecked exception"></a>unckecked exception</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Untitled &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        int i = 1/0;</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="unckecked-exception"><a href="#unckecked-exception" class="headerlink" title="unckecked exception"></a>unckecked exception</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Untitled</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">1</span>/<span class="number">0</span>;</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这类异常在编译时能够通过，但是运行时会提示错误，诸如此类代码需要程序员自己去进行修改。运行时会提示如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Exception <span class="keyword">in</span> thread <span class="string">"main"</span> java.lang.ArithmeticException: / by zero</span><br><span class="line">        at Untitled.main(Untitled.java:4)</span><br></pre></td></tr></table></figure>
 <p>另一类是checked exception，这是除了Error和RuntimeException的其它异常，这类异常强制要求程序员做处理，否则编译不能通过，这样的异常一般是由程序的运行环境导致的，如SQLException，IOException，ClassNotFoundException等。</p>
@@ -654,9 +654,22 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 7
+        Total : 8
         </div>
         <!-- search  -->
         
@@ -669,6 +682,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/java回顾7/">Java多线程</a>
+        </li>
     
     
         <li class="archive-post-item">

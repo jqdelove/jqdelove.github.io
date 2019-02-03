@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Java中的无参和有参构造方法以及封装的概念 · King&#39;s Studio</title>
+    <title>King&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,23 +203,12 @@
 </head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/">King&#39;s Studio</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">Java中的无参和有参构造方法以及封装的概念</a>
-            </div>
-    </div>
     
     <a class="home-link" href="/">King's Studio</a>
 </header>
@@ -231,74 +220,24 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/xg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-            
-            Java中的无参和有参构造方法以及封装的概念
-            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                    <div class="post-intro-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="学习">学习</a>
-    
-</div>
-                
-                
-                    <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">516</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/01/09</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
         
     </div>
 </div>
@@ -399,52 +338,44 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <h4 id="无参和有参构造方法的概念"><a href="#无参和有参构造方法的概念" class="headerlink" title="无参和有参构造方法的概念"></a>无参和有参构造方法的概念</h4><p>最近在复习Java，发现回头重新看语法，不光加深了印象，还有了和以前不同的理解。就拿Java中的无参和有参构造方法来说，每new()一次就会调用一次构造方法，当没有显示的实现无参构造方法时，系统会默认提供一个无参构造方法，当开发人员手动实现构造方法，系统不会再提供无参构造方法，我们以新建一个User类为例。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//无参构造方法</span><br><span class="line">public <span class="function"><span class="title">User</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//有参构造方法，实现该有参构造方法，系统将不再提供无参构造方法</span><br><span class="line">public User(String uId,String uName) &#123;</span><br><span class="line">    this.userId = uId;</span><br><span class="line">    this.userName = uName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="调用构造方法"><a href="#调用构造方法" class="headerlink" title="调用构造方法"></a>调用构造方法</h4><p>在实例化User对象时就能看出无参构造方法和有参构造方法的区别。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//调用无参构造方法</span><br><span class="line">User user = new User();</span><br><span class="line">user.userId = <span class="string">"1"</span>;</span><br><span class="line">user.userName = <span class="string">"admin"</span>;</span><br><span class="line"></span><br><span class="line">//调用有参构造方法</span><br><span class="line">User user2 = new User(<span class="string">"2"</span>, <span class="string">"Admin"</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="封装的概念"><a href="#封装的概念" class="headerlink" title="封装的概念"></a>封装的概念</h4><p>下面来总结一下Java中封装的概念，即将类的某些信息隐藏在类的内部，不允许外部直接访问，通过该类提供的方法来实现对隐藏信息的操作和访问。首先第一步将类中的所有成员变量私有化，即只有本类能够访问，我们还以User类为例。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//成员变量全部私有化</span><br><span class="line">private String userId;</span><br><span class="line">private String userName;</span><br></pre></td></tr></table></figure>
-<h4 id="创建get-和set-方法"><a href="#创建get-和set-方法" class="headerlink" title="创建get()和set()方法"></a>创建get()和set()方法</h4><p>第二步，创建get()和set()方法，外部只能通过这两个方法来对User类中的属性进行访问和操作。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public void setId(String uId) &#123;</span><br><span class="line">    this.userId = uId;</span><br><span class="line">&#125;</span><br><span class="line">public String <span class="function"><span class="title">getId</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> userId;</span><br><span class="line">&#125;</span><br><span class="line">public void setName(String uName) &#123;</span><br><span class="line">    this.userName = uName;</span><br><span class="line">&#125;</span><br><span class="line">public String <span class="function"><span class="title">getName</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> userName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="调用get-和set-方法"><a href="#调用get-和set-方法" class="headerlink" title="调用get()和set()方法"></a>调用get()和set()方法</h4><p>外部通过get()和set()方法对userId和userName进行操作。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">User user = new User();</span><br><span class="line">user.setId(<span class="string">"3"</span>);</span><br><span class="line">user.setName(<span class="string">"test"</span>);</span><br><span class="line">System.out.println(user.getId());</span><br><span class="line">System.out.println(user.getName());</span><br></pre></td></tr></table></figure>
-<h4 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h4><p>我们可以输出得到结果如下。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line"><span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+            <main class="main index-page">
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/02/03/java回顾7/">
+            
+                <span>Java多线程</span>
+        </a>
+        <div class="abstract-content">
+            要理解Java多线程，首先要区分进程和线程的概念。
+进程每个进程是一个应用程序，都有独立的内存空间。在同一个操作系统中，可以同时启动多个进程。
+线程线程是一个进程中的执行场景，一个进程可以启动多个线程。那么多线程有什么作用呢？多线程不是为了提高执行速度，而是提高应用程序的使用率，给人的感觉是多个线程在同时并发执行。
+创建线程创建线程一共有三种方式，在这里我们总结一下常用的两种：
+继承 Thread类创建一个类，通过继承Thread类来开辟一个线程，然后在main()方法中h创建子类对象，调用start()方法启动线程，当前类中我们关注创建的子类对象启动的线程和main线程。
 
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/03</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="学习">学习</a>
+    
+</div>
+            
+        </div>
     </article>
-    <!-- license  -->
     
     <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/01/13/java回顾1/" title="Java中变量的作用范围">
-                    <div class="nextTitle">Java中变量的作用范围</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
     
-    
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
-
-
-    
-    
-
-    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -534,24 +465,6 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#无参和有参构造方法的概念"><span class="toc-number">1.</span> <span class="toc-text">无参和有参构造方法的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调用构造方法"><span class="toc-number">2.</span> <span class="toc-text">调用构造方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#封装的概念"><span class="toc-number">3.</span> <span class="toc-text">封装的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建get-和set-方法"><span class="toc-number">4.</span> <span class="toc-text">创建get()和set()方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调用get-和set-方法"><span class="toc-number">5.</span> <span class="toc-text">调用get()和set()方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#输出结果"><span class="toc-number">6.</span> <span class="toc-text">输出结果</span></a></li></ol>
-    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -785,8 +698,6 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
