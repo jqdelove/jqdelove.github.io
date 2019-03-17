@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>撇除杂念 · King&#39;s Studio</title>
+    <title>基于Maven的SSM框架的搭建 · King&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">King&#39;s Studio</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">撇除杂念</a>
+                <a href="#" class="post-name">基于Maven的SSM框架的搭建</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            撇除杂念
+            基于Maven的SSM框架的搭建
             <!-- 404 -->
             
         </h1>
@@ -266,18 +266,18 @@ height:50vh;
                 
                     <div class="post-intro-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="励志">励志</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="框架">框架</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">176</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">652</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/02/14</span>
+                    <span class="post-intro-time">2019/03/17</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -401,8 +401,20 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>很久没更博了，这也是第一次写给自己打气的博客，进入到本命年以来，很多事没有想象中的那么顺利，现在我想清楚了，如果想做成一件事不能靠什么不靠谱的命运，还是得靠自己，为了能成功在魔都站稳脚跟，接下来的半年时间，我一定要撇除杂念，静下心来去学习，我已经不再是那个还能天天混的年纪了，回想在部队经历的种种，眼前的灯红酒绿不过是过眼云烟，只有自己对理想的不懈奋斗才能充实每天的生活，加油，魔都见！</p>
-
+        <p>在简单的面向对象关系映射框架的基础上，我对集成化程度更高的SpringMVC+Spring+MyBatis框架（以下简称SSM框架）进行了学习和总结，在这里我们主要总结如何在Maven的基础上搭建SSM框架并使用。</p>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h2><p>Maven是一个项目管理工具，它包含了一个项目对象模型，一组标准集合，一个项目生命周期，一个依赖管理系统，和用来运行定义在生命周期阶段中插件目标的逻辑。当你使用Maven的时候，你用一个明确定义的项目对象模型来描述你的项目，然后Maven可以应用横切的逻辑，这些逻辑来自一组共享的（或者自定义的）插件。此外，Maven能够很方便的帮你管理项目报告，生成站点，管理JAR文件，等等。</p>
+<h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><p>Spring就像是整个项目中装配bean的大工厂，在配置文件中可以指定使用特定的参数去调用实体类的构造方法来实例化对象。也可以称之为项目中的粘合剂。Spring的核心思想是IoC（控制反转），即不再需要程序员去显式地new一个对象，而是让Spring框架帮你来完成这一切。</p>
+<h2 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h2><p>SpringMVC在项目中拦截用户请求，它的核心Servlet即DispatcherServlet承担中介或是前台这样的职责，将用户请求通过HandlerMapping去匹配Controller，Controller就是具体对应请求所执行的操作。</p>
+<h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><p>mybatis是对jdbc的封装，它让数据库底层操作变的透明。mybatis的操作都是围绕一个sqlSessionFactory实例展开的。mybatis通过配置文件关联到各实体类的Mapper文件，Mapper文件中配置了每个类对数据库所需进行的sql语句映射。在每次与数据库交互时，通过sqlSessionFactory拿到一个sqlSession，再执行sql命令。<br>页面发送请求给控制器，控制器调用业务层处理逻辑，逻辑层向持久层发送请求，持久层与数据库交互，后将结果返回给业务层，业务层将处理逻辑发送给控制器，控制器再调用视图展现数据。</p>
+<h1 id="具体配置"><a href="#具体配置" class="headerlink" title="具体配置"></a>具体配置</h1><h2 id="创建Maven工程"><a href="#创建Maven工程" class="headerlink" title="创建Maven工程"></a>创建Maven工程</h2><p>1、File -&gt; New project，进入创建项目窗口，选择Maven项目。(1)勾选Create from archetype，(2)选择maven-archetype-webapp，(3)点击Next。</p>
+<p><img src="/2019/03/17/SSM框架总结1/创建Maven工程.png" alt="创建Maven工程"></p>
+<p>2、输入GroupId和Artifactld，点击Next。</p>
+<p><img src="/2019/03/17/SSM框架总结1/输入.png" alt="输入"></p>
+<p>3、选择Maven home directory为maven安装路径，点击Next。</p>
+<p><img src="/2019/03/17/SSM框架总结1/配置Maven路径.png" alt="配置Maven路径"></p>
+<p>4、输入Project name，点击Finish，完成Maven项目的创建。</p>
+<p><img src="/2019/03/17/SSM框架总结1/项目名称.png" alt="项目名称"></p>
+<h2 id="项目配置文件"><a href="#项目配置文件" class="headerlink" title="项目配置文件"></a>项目配置文件</h2>
     </article>
     <!-- license  -->
     
@@ -410,17 +422,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/02/19/java回顾8/" title="总结Java中的JDBC">
-                    <div class="nextTitle">总结Java中的JDBC</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/02/03/分享1/" title="分享">
-                    <div class="prevTitle">分享</div>
+                <a href="/2019/02/28/java回顾10/" title="手写简单Object Relationship Mapping框架">
+                    <div class="prevTitle">手写简单Object Relationship Mapping框架</div>
                 </a>
             
         </li>
@@ -544,7 +551,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基本概念"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Maven"><span class="toc-number">1.1.</span> <span class="toc-text">Maven</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring"><span class="toc-number">1.2.</span> <span class="toc-text">Spring</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringMVC"><span class="toc-number">1.3.</span> <span class="toc-text">SpringMVC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyBatis"><span class="toc-number">1.4.</span> <span class="toc-text">MyBatis</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#具体配置"><span class="toc-number">2.</span> <span class="toc-text">具体配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建Maven工程"><span class="toc-number">2.1.</span> <span class="toc-text">创建Maven工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目配置文件"><span class="toc-number">2.2.</span> <span class="toc-text">项目配置文件</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
