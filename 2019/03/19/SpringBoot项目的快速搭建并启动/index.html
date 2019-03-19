@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">799</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">802</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -401,7 +401,7 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>通常我们创建Spring的项目都需要先创建Maven工程，然后再引入各种Spring的依赖，这样的步骤我们早已经习惯了，不过在Spring Boot使用过后，我们发现以前创建项目的步骤实在是太过繁琐了。现在我们来向大家介绍Spring Boot提供的目前最便捷迅速的构建Spring项目的方式。</p>
+        <p>通常我们创建Spring的项目都需要先创建Maven工程，然后再引入各种Spring的依赖，这样的步骤我们早已经习惯了，不过在使用过Spring Boot之后，我们发现以前创建项目的步骤实在是太过繁琐了。现在我们来向大家介绍Spring Boot提供的目前最便捷迅速的构建Spring项目的方式。</p>
 <h1 id="使用Spring-Initializer快速创建Spring-Boot项目"><a href="#使用Spring-Initializer快速创建Spring-Boot项目" class="headerlink" title="使用Spring Initializer快速创建Spring Boot项目"></a>使用Spring Initializer快速创建Spring Boot项目</h1><h2 id="如何创建"><a href="#如何创建" class="headerlink" title="如何创建"></a>如何创建</h2><p>首先File–&gt;New Project，选择Spring Initializer，点击Next。</p>
 <p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/SpringInitializer启动.png" alt="SpringInitializer启动"></p>
 <p>然后输入Group和Artifact，点击Next。</p>
@@ -418,14 +418,14 @@ height:50vh;
 <p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/运行测试.png" alt="运行测试"></p>
 <p>我们在浏览器中输入localhost:8082/hello进行测试，由于我在application.properties配置文件中将端口改为了8082，所以我给出这样的地址进行访问。可以看到请求已经成功，这就是Spring Boot给我们提供的快速高效的创建项目的体验。</p>
 <p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/helloworld1.png" alt="helloworld1"></p>
-<h2 id="将Spring-Boot打包成jar包，使用java-jar命令启动项目"><a href="#将Spring-Boot打包成jar包，使用java-jar命令启动项目" class="headerlink" title="将Spring Boot打包成jar包，使用java -jar命令启动项目"></a>将Spring Boot打包成jar包，使用java -jar命令启动项目</h2><p>Spring Boot项目采用的是将项目打包成jar包的形式，然后执行java -jar命令运行项目，因此我们就不需要再去手动配置tomcat的环境，这样的执行方式为我们提供了极大的便利。</p>
+<h2 id="将Spring-Boot项目打包成jar包，使用java-jar命令启动项目"><a href="#将Spring-Boot项目打包成jar包，使用java-jar命令启动项目" class="headerlink" title="将Spring Boot项目打包成jar包，使用java -jar命令启动项目"></a>将Spring Boot项目打包成jar包，使用java -jar命令启动项目</h2><p>Spring Boot项目采用的是将项目打包成jar包的形式，然后执行java -jar命令运行项目，因此我们就不需要再去手动配置tomcat的环境，这样的执行方式为我们提供了极大的便利。</p>
 <h1 id="简单讨论Spring-Boot快速搭建的主要原因"><a href="#简单讨论Spring-Boot快速搭建的主要原因" class="headerlink" title="简单讨论Spring Boot快速搭建的主要原因"></a>简单讨论Spring Boot快速搭建的主要原因</h1><p>体验过Spring Boot创建项目的便捷迅速之后，我们来简单研究一下为什么Spring Boot能够做到这一点，让它成为现在企业使用的主流框架呢？</p>
 <h2 id="pom-xml文件"><a href="#pom-xml文件" class="headerlink" title="pom.xml文件"></a>pom.xml文件</h2><p>表面上来看，我们在创建项目时进行了依赖的勾选，让项目创建完成时就已经自动完成了依赖的引入，这是表层我们所看到的。</p>
 <h2 id="主程序类"><a href="#主程序类" class="headerlink" title="主程序类"></a>主程序类</h2><h3 id="SpringBootApplication注解"><a href="#SpringBootApplication注解" class="headerlink" title="@SpringBootApplication注解"></a>@SpringBootApplication注解</h3><p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/启动类.png" alt="启动类"></p>
 <p>深层次来讲，我们进入到主程序类上所添加的@SpringBootApplication注解来看，@SpringBootApplication注解标注在某一个类上，说明该类是Spring Boot的主配置类，Spring Boot通过运行这个类的main方法来启动应用。</p>
 <h3 id="EnableAutoConfiguation注解"><a href="#EnableAutoConfiguation注解" class="headerlink" title="@EnableAutoConfiguation注解"></a>@EnableAutoConfiguation注解</h3><p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/EnableAutoConfiguation.png" alt="EnableAutoConfiguation"></p>
 <p>在开启自动配置功能的注解中，我们能够看到@AutoConfigurationPackage的注解，这个注解表明的意思是自动配置包功能，它能够将主配置类（@SpringBootApplication注解标注的类）所在包及子包中的所有组件扫描到Spring容器中。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>J2EE的整个整合解决方案和自动配置都放在了spring-boot-autoconfigure-x.x.xRELEASE.jar中，当我们需要修改配置时，我们可以进入到该jarz包中进行查看。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>J2EE的整个整合解决方案和自动配置都放在了spring-boot-autoconfigure-x.x.xRELEASE.jar中，当我们需要修改配置时，我们可以进入到该jar包中进行查看。</p>
 
     </article>
     <!-- license  -->
@@ -563,7 +563,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#使用Spring-Initializer快速创建Spring-Boot项目"><span class="toc-number">1.</span> <span class="toc-text">使用Spring Initializer快速创建Spring Boot项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何创建"><span class="toc-number">1.1.</span> <span class="toc-text">如何创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动Spring-Boot-Application"><span class="toc-number">1.2.</span> <span class="toc-text">启动Spring Boot Application</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将Spring-Boot打包成jar包，使用java-jar命令启动项目"><span class="toc-number">1.3.</span> <span class="toc-text">将Spring Boot打包成jar包，使用java -jar命令启动项目</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#简单讨论Spring-Boot快速搭建的主要原因"><span class="toc-number">2.</span> <span class="toc-text">简单讨论Spring Boot快速搭建的主要原因</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pom-xml文件"><span class="toc-number">2.1.</span> <span class="toc-text">pom.xml文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主程序类"><span class="toc-number">2.2.</span> <span class="toc-text">主程序类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringBootApplication注解"><span class="toc-number">2.2.1.</span> <span class="toc-text">@SpringBootApplication注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EnableAutoConfiguation注解"><span class="toc-number">2.2.2.</span> <span class="toc-text">@EnableAutoConfiguation注解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">2.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#使用Spring-Initializer快速创建Spring-Boot项目"><span class="toc-number">1.</span> <span class="toc-text">使用Spring Initializer快速创建Spring Boot项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何创建"><span class="toc-number">1.1.</span> <span class="toc-text">如何创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动Spring-Boot-Application"><span class="toc-number">1.2.</span> <span class="toc-text">启动Spring Boot Application</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将Spring-Boot项目打包成jar包，使用java-jar命令启动项目"><span class="toc-number">1.3.</span> <span class="toc-text">将Spring Boot项目打包成jar包，使用java -jar命令启动项目</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#简单讨论Spring-Boot快速搭建的主要原因"><span class="toc-number">2.</span> <span class="toc-text">简单讨论Spring Boot快速搭建的主要原因</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pom-xml文件"><span class="toc-number">2.1.</span> <span class="toc-text">pom.xml文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主程序类"><span class="toc-number">2.2.</span> <span class="toc-text">主程序类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringBootApplication注解"><span class="toc-number">2.2.1.</span> <span class="toc-text">@SpringBootApplication注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EnableAutoConfiguation注解"><span class="toc-number">2.2.2.</span> <span class="toc-text">@EnableAutoConfiguation注解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">2.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
