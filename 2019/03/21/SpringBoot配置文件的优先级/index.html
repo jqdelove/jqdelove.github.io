@@ -417,7 +417,7 @@ height:50vh;
 <p>结论：可见在同一目录下，<strong>properties配置优先级 &gt; YAML配置优先级，所以我们在jar包启动时带上properties写法的配置可以覆盖配置。</strong></p>
 <h3 id="工程路径下各properties文件的优先级"><a href="#工程路径下各properties文件的优先级" class="headerlink" title="工程路径下各properties文件的优先级"></a>工程路径下各properties文件的优先级</h3><p>Spring Boot配置文件可以放置在多种路径下，不同路径下的配置优先级有所不同。</p>
 <p>1、file:./config/ (当前项目路径config目录下)；<br>2、file:./ (当前项目路径下)；<br>3、classpath:/config/ (类路径config目录下)；<br>4、classpath:/ (类路径config下)。</p>
-<p><strong>以上目录的优先级由高到底，高优先级的配置会覆盖低优先级的配置；<br>Spring Boot会从这四个位置全部加载配置文件并进行互补配置；</strong></p>
+<p><strong>以上目录的优先级由高到底，高优先级的配置会覆盖低优先级的配置；Spring Boot会从这四个位置全部加载配置文件并进行互补配置。</strong></p>
 
     </article>
     <!-- license  -->
@@ -568,8 +568,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
     
     
     
