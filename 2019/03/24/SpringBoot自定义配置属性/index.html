@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>静水流深，沧笙踏歌；三生阴晴圆缺，一朝悲欢离合 · King&#39;s Studio</title>
+    <title>Spring Boot自定义配置属性 · King&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,7 +203,7 @@
 </head>
 
     
-        <body class="about-body">
+        <body class="post-body">
     
     
 <header class="header">
@@ -211,6 +211,15 @@
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">King&#39;s Studio</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Spring Boot自定义配置属性</a>
+            </div>
+    </div>
     
     <a class="home-link" href="/">King's Studio</a>
 </header>
@@ -229,23 +238,67 @@ height:50vh;
     <!-- 主页  -->
     
     
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/about-bg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/xg7.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            静水流深，沧笙踏歌；三生阴晴圆缺，一朝悲欢离合
+            Spring Boot自定义配置属性
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">593</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/03/24</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -346,11 +399,70 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <!-- 不可以删除，否则会调用post的layout  -->
-<main class="main about-page">
+            <main class="main post-page">
     <article class="article-entry">
-        
+        <h1 id="自定义配置属性"><a href="#自定义配置属性" class="headerlink" title="自定义配置属性"></a>自定义配置属性</h1><p>Spring Boot提供了许多的配置，但通常情况我们需要自定义的配置应用自己的系统中，例如你需要配置一个默认的用户名密码做为系统的登录用。首先创建一个实体类，作为配置注入用，并使用@ConfigurationProperties注解进行批量注入，也可以使用Spring底层注解@Value的方式一个一个注入达到同样的效果。</p>
+<h2 id="ConfigurationProperties注解"><a href="#ConfigurationProperties注解" class="headerlink" title="@ConfigurationProperties注解"></a>@ConfigurationProperties注解</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"person"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String lastName;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> Boolean boss;</span><br><span class="line">    <span class="keyword">private</span> Date birth;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Value注解"><a href="#Value注解" class="headerlink" title="@Value注解"></a>@Value注解</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;person.lastName&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String lastName;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"#&#123;11*2&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"true"</span>)</span><br><span class="line">    <span class="keyword">private</span> Boolean boss;</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>测试类代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootHelloQuickApplicationTests</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    Person person;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(person);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试结果</p>
+<p><a href="/SpringBoot自定义配置属性/result.png">result</a></p>
+<h2 id="ConfigurationProperties与-Value两种注解对比"><a href="#ConfigurationProperties与-Value两种注解对比" class="headerlink" title="@ConfigurationProperties与@Value两种注解对比"></a>@ConfigurationProperties与@Value两种注解对比</h2><pre><code> | @ConfigurationProperties | @Value 
+ :-:  | :-: | :-: 
+功能 | 批量注入配置文件属性 | 一个个指定 
+松散绑定 | 支持| 不支持 
+SpEL | 不支持 | 支持 
+JSR303数据校验 | 支持 | 不支持 
+复杂类型封装 | 支持 | 不支持
+</code></pre><ul>
+<li><p>如果我们只在某个业务逻辑中需要获取配置文件的某项值，使用@Value注解。</p>
+</li>
+<li><p>如果我们专门编写一个JavaBean类来和配置文件进行映射，就直接使用@ConfigurationProperties注解。</p>
+</li>
+</ul>
+<h1 id="指定配置文件的配置"><a href="#指定配置文件的配置" class="headerlink" title="指定配置文件的配置"></a>指定配置文件的配置</h1><p>通常情况下我们将配置放在application开头的主配置文件中，这样随着项目的增大配置项的增多会使文件变得非常臃肿，其实Spring Boot早已考虑到了该问题，Spring Boot提供了@PropertySource和@ImportResource两个注解用于加载外部配置文件使用。</p>
+<ul>
+<li><p>@PropertySource注解通常用于属性加载配置文件，注意：@PropertySource注解不支持加载yaml文件，仅支持properties文件。</p>
+</li>
+<li><p>@ImportResource注解通常用于加载Spring的xml配置文件。</p>
+</li>
+</ul>
+<h2 id="PropertySource注解"><a href="#PropertySource注解" class="headerlink" title="@PropertySource注解"></a>@PropertySource注解</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PropertySource</span>(value = &#123;<span class="string">"classpath:person.properties"</span>&#125;)</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String lastName;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> Boolean boss;</span><br><span class="line">    <span class="keyword">private</span> Date birth;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ImportResource注解"><a href="#ImportResource注解" class="headerlink" title="@ImportResource注解"></a>@ImportResource注解</h2><p>Spring Boot提出零xml的配置，因此Spring Boot默认情况下时不会识别项目中Spring的xml配置文件。为了能够加载xml的配置文件，Spring Boot提供了@ImportResource注解该注解可以加载Spring的xml配置文件，通常加于启动类上。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ImportResource</span>(locations = &#123;<span class="string">"classpath:beans.xml"</span>&#125;)</span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootHelloQuickApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(SpringBootHelloQuickApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
     </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/03/24/SpringBoot自动配置原理/" title="Spring Boot自动配置原理">
+                    <div class="prevTitle">Spring Boot自动配置原理</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -440,6 +552,24 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#自定义配置属性"><span class="toc-number">1.</span> <span class="toc-text">自定义配置属性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ConfigurationProperties注解"><span class="toc-number">1.1.</span> <span class="toc-text">@ConfigurationProperties注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Value注解"><span class="toc-number">1.2.</span> <span class="toc-text">@Value注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ConfigurationProperties与-Value两种注解对比"><span class="toc-number">1.3.</span> <span class="toc-text">@ConfigurationProperties与@Value两种注解对比</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#指定配置文件的配置"><span class="toc-number">2.</span> <span class="toc-text">指定配置文件的配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PropertySource注解"><span class="toc-number">2.1.</span> <span class="toc-text">@PropertySource注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ImportResource注解"><span class="toc-number">2.2.</span> <span class="toc-text">@ImportResource注解</span></a></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -869,6 +999,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
