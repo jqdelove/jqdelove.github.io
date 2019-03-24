@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">593</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">594</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -407,15 +407,44 @@ height:50vh;
 <p>测试类代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootHelloQuickApplicationTests</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    Person person;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(person);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>测试结果</p>
-<p><a href="/SpringBoot自定义配置属性/result.png">result</a></p>
-<h2 id="ConfigurationProperties与-Value两种注解对比"><a href="#ConfigurationProperties与-Value两种注解对比" class="headerlink" title="@ConfigurationProperties与@Value两种注解对比"></a>@ConfigurationProperties与@Value两种注解对比</h2><pre><code> | @ConfigurationProperties | @Value 
- :-:  | :-: | :-: 
-功能 | 批量注入配置文件属性 | 一个个指定 
-松散绑定 | 支持| 不支持 
-SpEL | 不支持 | 支持 
-JSR303数据校验 | 支持 | 不支持 
-复杂类型封装 | 支持 | 不支持
-</code></pre><ul>
+<p><img src="/2019/03/24/SpringBoot自定义配置属性/result.png" alt="result"></p>
+<h2 id="ConfigurationProperties与-Value两种注解对比"><a href="#ConfigurationProperties与-Value两种注解对比" class="headerlink" title="@ConfigurationProperties与@Value两种注解对比"></a>@ConfigurationProperties与@Value两种注解对比</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th style="text-align:center">@ConfigurationProperties</th>
+<th style="text-align:right">@Value </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>功能</td>
+<td style="text-align:center">批量注入配置文件属性</td>
+<td style="text-align:right">一个个指定 </td>
+</tr>
+<tr>
+<td>松散绑定</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:right">不支持 </td>
+</tr>
+<tr>
+<td>SpEL</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:right">支持 </td>
+</tr>
+<tr>
+<td>JSR303数据校验</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:right">不支持 </td>
+</tr>
+<tr>
+<td>复杂类型封装</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:right">不支持</td>
+</tr>
+</tbody>
+</table>
+<ul>
 <li><p>如果我们只在某个业务逻辑中需要获取配置文件的某项值，使用@Value注解。</p>
 </li>
 <li><p>如果我们专门编写一个JavaBean类来和配置文件进行映射，就直接使用@ConfigurationProperties注解。</p>
@@ -581,6 +610,12 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
     
     
     
