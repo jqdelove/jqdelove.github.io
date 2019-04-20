@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>手写字节流文件拷贝类 · King&#39;s Studio</title>
+    <title>King&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,23 +203,12 @@
 </head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/">King&#39;s Studio</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">手写字节流文件拷贝类</a>
-            </div>
-    </div>
     
     <a class="home-link" href="/">King's Studio</a>
 </header>
@@ -231,74 +220,24 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/xg7.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-            
-            手写字节流文件拷贝类
-            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                    <div class="post-intro-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-                
-                
-                    <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">829</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/01/27</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
         
     </div>
 </div>
@@ -399,49 +338,44 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <p>今天手写了利用字节流拷贝文件的方法类，调用该方法可传入源文件、目的文件绝对路径，也可传入源文件、目的文件对象；后更新了文件夹拷贝方法，有一些不同，如果源对象是文件就直接调用文件拷贝方法，注意不能创建与文件夹同名的文件。</p>
-<h2 id="CopyFileUtil类"><a href="#CopyFileUtil类" class="headerlink" title="CopyFileUtil类"></a>CopyFileUtil类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CopyFileUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//参数是路径</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copyDir</span><span class="params">(String srcPath,String destPath)</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">//创建源文件夹对象</span></span><br><span class="line">        File src = <span class="keyword">new</span> File(srcPath);</span><br><span class="line">        <span class="comment">//创建目的文件夹对象</span></span><br><span class="line">        File dest = <span class="keyword">new</span> File(destPath);</span><br><span class="line">        copyDir(src, dest);    </span><br><span class="line">    &#125;    </span><br><span class="line"></span><br><span class="line">    <span class="comment">//参数是文件对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copyDir</span><span class="params">(File src,File dest)</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (src.isDirectory()) &#123;<span class="comment">//如果源目录是文件夹</span></span><br><span class="line">            dest = <span class="keyword">new</span> File(dest,src.getName());<span class="comment">//就在目的目录的基础上创建该源目录的文件夹</span></span><br><span class="line">        &#125;    </span><br><span class="line">        copyDirectory(src, dest);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//拷贝文件夹具体操作</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copyDirectory</span><span class="params">(File src,File dest)</span> <span class="keyword">throws</span> FileNotFoundException,IOException</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (src.isFile()) &#123;<span class="comment">//是文件就调用文件拷贝方法</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//直接调用写好的文件拷贝方法</span></span><br><span class="line">                CopyFileUtil.copyFile(src, dest);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">                <span class="comment">//e.printStackTrace();</span></span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                <span class="comment">//e.printStackTrace();</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (src.isDirectory()) &#123;<span class="comment">//如果是文件夹</span></span><br><span class="line">            <span class="comment">//先创建文件夹，确保目的文件夹存在</span></span><br><span class="line">            dest.mkdirs();</span><br><span class="line">            <span class="comment">//遍历，获取子孙目录</span></span><br><span class="line">            <span class="keyword">for</span>(File sub:src.listFiles()) &#123;</span><br><span class="line">                <span class="comment">//调用拷贝文件夹方法自己</span></span><br><span class="line">                copyDirectory(sub, <span class="keyword">new</span> File(dest,sub.getName()));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="comment">//一、该方法需要提供源文件和目的文件路径</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copyFile</span><span class="params">(String srcPath,String destPaht)</span> <span class="keyword">throws</span> IOException,FileNotFoundException </span>&#123;</span><br><span class="line">        <span class="comment">//建立联系</span></span><br><span class="line">        copyFile(<span class="keyword">new</span> File(srcPath), <span class="keyword">new</span> File(destPaht));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//二、对copyFile()方法进行重载，需要提供源文件和目的文件对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copyFile</span><span class="params">(File src,File dest)</span> <span class="keyword">throws</span> IOException,FileNotFoundException </span>&#123;</span><br><span class="line">        <span class="comment">//逻辑判断，如果是文件夹则抛出该异常</span></span><br><span class="line">        <span class="keyword">if</span> (!src.isFile()) &#123;</span><br><span class="line">            System.out.println(<span class="string">"只能拷贝文件"</span>);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"只能拷贝文件"</span>);<span class="comment">//若是文件夹抛出该异常</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果dest为已经存在的文件夹，不能建立与文件夹同名的文件</span></span><br><span class="line">        <span class="keyword">if</span> (dest.isDirectory()) &#123;</span><br><span class="line">            System.out.println(<span class="string">"不能建立与文件夹同名的文件"</span>);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"不能建立与文件夹同名的文件"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//2、选择流</span></span><br><span class="line">        <span class="comment">//建议加上字节缓冲流，提高性能，在文件输入输出流外层包裹</span></span><br><span class="line">        InputStream is = <span class="keyword">new</span> BufferedInputStream(<span class="keyword">new</span> FileInputStream(src));<span class="comment">//多态</span></span><br><span class="line">        OutputStream os = <span class="keyword">new</span> BufferedOutputStream(<span class="keyword">new</span> FileOutputStream(dest));</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//3、文件拷贝    </span></span><br><span class="line">        <span class="keyword">byte</span>[] flush = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];<span class="comment">//接收数组</span></span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(-<span class="number">1</span>!=(len= (is.read(flush)))) &#123;</span><br><span class="line">            <span class="comment">//将读入的数组写出</span></span><br><span class="line">            os.write(flush);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//强制刷新</span></span><br><span class="line">        os.flush();</span><br><span class="line">        <span class="comment">//先创建的后释放，后创建的先释放</span></span><br><span class="line">        os.close();</span><br><span class="line">        is.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="文件拷贝测试"><a href="#文件拷贝测试" class="headerlink" title="文件拷贝测试"></a>文件拷贝测试</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CopyFileTest</span> <span class="keyword">extends</span> <span class="title">CopyFileUtil</span></span>&#123;<span class="comment">//继承自己写的CopyFileUtil工具类，就拥有了copyFile()方法</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//源文件地址</span></span><br><span class="line">        String src = <span class="string">"/Users/jinqi/Desktop/b.txt"</span>;</span><br><span class="line">        <span class="comment">//目的文件地址</span></span><br><span class="line">        String dest = <span class="string">"/Users/jinqi/Desktop/c.txt"</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//调用拷贝文件方法，将文件源地址和目的地址传进去</span></span><br><span class="line">            copyFile(src, dest);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.out.println(<span class="string">"文件不存在"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.out.println(<span class="string">"文件拷贝失败||关闭资源失败"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="文件夹拷贝测试"><a href="#文件夹拷贝测试" class="headerlink" title="文件夹拷贝测试"></a>文件夹拷贝测试</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//源目录</span></span><br><span class="line">    String srcPath = <span class="string">"/Users/jinqi/Desktop/test"</span>;</span><br><span class="line">    <span class="comment">//目的目录</span></span><br><span class="line">    String destPath = <span class="string">"/Users/jinqi/Desktop/test2"</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        CopyFileUtil.copyDir(srcPath, destPath);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <main class="main index-page">
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/04/20/SpringBoot嵌入式Servlet容器自动配置原理/">
+            
+                <span>Spring Boot嵌入式Servlet容器自动配置原理</span>
+        </a>
+        <div class="abstract-content">
+            以前的web应用开发我们采取的方式是项目完成后打包成war包，然后配置tomcat启动运行项目，而Spring Boot默认使用的是嵌入式的tomcat，那我们需要如何配置嵌入式的Servlet容器呢？
+定制修改Servlet容器相关配置修改和server有关的配置我们可以到项目的配置文件中直接对server的属性进行修改。
 
+在ServerProperties中我们能够看到所有可以进行配置的属性。
+
+编写一个WebServerFactoryCustomizer：web服务器工厂定制器在Spring Boot2.0及以上版本的学习过程中，我发现了多处与之前版本不同的地方，应该算是Spri...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/20</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot开发">Spring Boot开发</a>
+    
+</div>
+            
+        </div>
     </article>
-    <!-- license  -->
     
     <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/01/30/java回顾6/" title="Java IO总结">
-                    <div class="nextTitle">Java IO总结</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/01/26/java回顾4/" title="Java中的异常处理">
-                    <div class="prevTitle">Java中的异常处理</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
     
-    
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
-
-
-    
-    
-
-    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -531,24 +465,6 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CopyFileUtil类"><span class="toc-number">1.</span> <span class="toc-text">CopyFileUtil类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件拷贝测试"><span class="toc-number">2.</span> <span class="toc-text">文件拷贝测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件夹拷贝测试"><span class="toc-number">3.</span> <span class="toc-text">文件夹拷贝测试</span></a></li></ol>
-    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1004,8 +920,6 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
