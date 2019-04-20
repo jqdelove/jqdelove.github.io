@@ -403,9 +403,9 @@ height:50vh;
     <article class="article-entry">
         <p>以前的web应用开发我们采取的方式是项目完成后打包成war包，然后配置tomcat启动运行项目，而Spring Boot默认使用的是嵌入式的tomcat，那我们需要如何配置嵌入式的Servlet容器呢？</p>
 <h1 id="定制修改Servlet容器相关配置"><a href="#定制修改Servlet容器相关配置" class="headerlink" title="定制修改Servlet容器相关配置"></a>定制修改Servlet容器相关配置</h1><h2 id="修改和server有关的配置"><a href="#修改和server有关的配置" class="headerlink" title="修改和server有关的配置"></a>修改和server有关的配置</h2><p>我们可以到项目的配置文件中直接对server的属性进行修改。</p>
-<p><img src="/2019/04/20/SpringBoot嵌入式Servlet容器自动配置原理/Users/jinqi/Documents/git仓库/hexo1/source/_posts/SpringBoot嵌入式Servlet容器自动配置原理/配置文件.png" alt="配置"></p>
+<p><img src="/2019/04/20/SpringBoot嵌入式Servlet容器自动配置原理/配置文件.png" alt="配置文件"></p>
 <p>在ServerProperties中我们能够看到所有可以进行配置的属性。</p>
-<p><img src="/2019/04/20/SpringBoot嵌入式Servlet容器自动配置原理/Users/jinqi/Documents/git仓库/hexo1/source/_posts/SpringBoot嵌入式Servlet容器自动配置原理/容器配置.png" alt="配置"></p>
+<p><img src="/2019/04/20/SpringBoot嵌入式Servlet容器自动配置原理/容器配置.png" alt="容器配置"></p>
 <h2 id="编写一个WebServerFactoryCustomizer：web服务器工厂定制器"><a href="#编写一个WebServerFactoryCustomizer：web服务器工厂定制器" class="headerlink" title="编写一个WebServerFactoryCustomizer：web服务器工厂定制器"></a>编写一个WebServerFactoryCustomizer：web服务器工厂定制器</h2><p>在Spring Boot2.0及以上版本的学习过程中，我发现了多处与之前版本不同的地方，应该算是Spring Boot开发者的优化。之后我将专门写一篇来对2.0版本进行更新的总结。先说web服务器工厂定制器，在Spring Boot2.0中已经使用WebServerFactoryCustomizer取代了EmbeddedServletContainerCustomizer，当我们需要定制Servlet容器的时候，我们采取这样的方式。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//配置嵌入式的Servlet容器</span></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> WebServerFactoryCustomizer&lt;ConfigurableWebServerFactory&gt; <span class="title">webServerFactoryCustomizer</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> WebServerFactoryCustomizer&lt;ConfigurableWebServerFactory&gt;()&#123;</span><br><span class="line"></span><br><span class="line">          <span class="comment">//定制嵌入式的Servlet容器相关的规则</span></span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">customize</span><span class="params">(ConfigurableWebServerFactory factory)</span> </span>&#123;</span><br><span class="line">              factory.setPort(<span class="number">8083</span>);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <h2 id="注册Servlet三大组件-Servlet、Filter、Listener"><a href="#注册Servlet三大组件-Servlet、Filter、Listener" class="headerlink" title="注册Servlet三大组件(Servlet、Filter、Listener)"></a>注册Servlet三大组件(Servlet、Filter、Listener)</h2><p>以前的Spring项目注册三大组件是在项目下的webapp/WEB-INF/web.xml文件中进行配置，由于Spring Boot是以jar包的方式启动嵌入式的Servlet容器来启动web应用，它并没有web.xml文件，我们注册三大组件采用如下方式：</p>
@@ -821,6 +821,10 @@ top:50vh;
     
     
     
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 20
@@ -894,12 +898,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/分享1/">分享</a>
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/java回顾7/">Java多线程</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/java回顾7/">Java多线程</a>
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/分享1/">分享</a>
         </li>
     
     
