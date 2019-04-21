@@ -346,6 +346,36 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/04/21/SpringBoot嵌入式Servlet容器启动原理/">
+            
+                <span>Spring Boot嵌入式Servlet容器启动原理</span>
+        </a>
+        <div class="abstract-content">
+            嵌入式Servlet容器启动原理前面我们总结了Spring Boot中嵌入式Servlet容器自动配置原理，也提到了Spring Boot2.0版本中使用ServletWebServerFactoryConfiguration替换了EmbeddedServletContainerAutoConfiguration，那么什么时候创建嵌入式的Servlet容器工厂以及什么时候获取嵌入式的Servlet容器并启动Tomcat呢？我们进入到ServletWebServerFactoryConfiguration中查看。
+获取嵌入式的Servlet容器从Spring Boot应用启动运行run()...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/21</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot开发">Spring Boot开发</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/04/20/SpringBoot嵌入式Servlet容器自动配置原理/">
             
                 <span>Spring Boot嵌入式Servlet容器自动配置原理</span>
@@ -380,13 +410,13 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/24/SpringBoot自动配置原理/">
+        <a class="abstract-title" href="/2019/03/24/SpringBoot自定义配置属性/">
             
-                <span>Spring Boot自动配置原理</span>
+                <span>Spring Boot自定义配置属性</span>
         </a>
         <div class="abstract-content">
-            Spring Boot项目快速搭建的核心就在于自动配置的原理，在自动配置的基础上，我们在创建项目的时候就可以选择包含哪些依赖，极大地提高了构建项目的效率。而要熟练掌握Spring Boot的使用，就必须要理解自动配置的原理，我们还从Spring Boot启动的时候加载的主配置类说起。
-原理Spring Boot应用启动时加载主配置类123456@SpringBootApplicationpublic class SpringBootHelloQuickApplication &#123;    public static void main(String[] args) &#123;  ...
+            自定义配置属性Spring Boot提供了许多的配置，但通常情况我们需要自定义的配置应用自己的系统中，例如你需要配置一个默认的用户名密码做为系统的登录用。首先创建一个实体类，作为配置注入用，并使用@ConfigurationProperties注解进行批量注入，也可以使用Spring底层注解@Value的方式一个一个注入达到同样的效果。
+@ConfigurationProperties注解123456789@Component@ConfigurationProperties(prefix = "person")public class Person &#123;    private S...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -410,13 +440,13 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/24/SpringBoot自定义配置属性/">
+        <a class="abstract-title" href="/2019/03/24/SpringBoot自动配置原理/">
             
-                <span>Spring Boot自定义配置属性</span>
+                <span>Spring Boot自动配置原理</span>
         </a>
         <div class="abstract-content">
-            自定义配置属性Spring Boot提供了许多的配置，但通常情况我们需要自定义的配置应用自己的系统中，例如你需要配置一个默认的用户名密码做为系统的登录用。首先创建一个实体类，作为配置注入用，并使用@ConfigurationProperties注解进行批量注入，也可以使用Spring底层注解@Value的方式一个一个注入达到同样的效果。
-@ConfigurationProperties注解123456789@Component@ConfigurationProperties(prefix = "person")public class Person &#123;    private S...
+            Spring Boot项目快速搭建的核心就在于自动配置的原理，在自动配置的基础上，我们在创建项目的时候就可以选择包含哪些依赖，极大地提高了构建项目的效率。而要熟练掌握Spring Boot的使用，就必须要理解自动配置的原理，我们还从Spring Boot启动的时候加载的主配置类说起。
+原理Spring Boot应用启动时加载主配置类123456@SpringBootApplicationpublic class SpringBootHelloQuickApplication &#123;    public static void main(String[] args) &#123;  ...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -627,40 +657,10 @@ Server12345678910111213141516171819public class Server...
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/19/java回顾8/">
-            
-                <span>总结Java中的JDBC</span>
-        </a>
-        <div class="abstract-content">
-            什么是JDBCJDBC全称Java DataBase Connection，中文意思是Java数据库连接。那么JDBC的作用是什么呢，通过使用JDBC，开发者能够非常方便地将SQL语句传送给各种数据库，对数据库进行操作。
-实际操作PreparedStatement123456789101112131415161718192021222324252627282930313233343536373839404142434445464748public class Demo3 &#123;    public static void main(String[] args) &#123;    ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/19</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/archives/2019/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/page/2/">NEXT &#62;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/archives/2019/page/2/">2</a><a class="page-number" href="/archives/2019/page/3/">3</a><a class="extend next" rel="next" href="/archives/2019/page/2/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -1013,9 +1013,24 @@ Server12345678910111213141516171819public class Server...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 20
+        Total : 21
         </div>
         <!-- search  -->
         
@@ -1031,17 +1046,22 @@ Server12345678910111213141516171819public class Server...
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">04/21</span><a class="archive-post-title" href="/2019/04/21/SpringBoot嵌入式Servlet容器启动原理/">Spring Boot嵌入式Servlet容器启动原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">04/20</span><a class="archive-post-title" href="/2019/04/20/SpringBoot嵌入式Servlet容器自动配置原理/">Spring Boot嵌入式Servlet容器自动配置原理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
         </li>
     
     
@@ -1136,13 +1156,13 @@ Server12345678910111213141516171819public class Server...
     
         <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
     
+        <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
+    
         <span class="sidebar-tag-name" data-tags="Spring Boot"><span class="iconfont-archer">&#xe606;</span>Spring Boot</span>
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
-    
-        <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
     
         <span class="sidebar-tag-name" data-tags="SSM"><span class="iconfont-archer">&#xe606;</span>SSM</span>
     
