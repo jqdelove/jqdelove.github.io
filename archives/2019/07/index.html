@@ -78,6 +78,8 @@
     <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
     
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -201,10 +203,8 @@
 </head>
 
     
-        <body class="home-body">
     
-    
-<header class="header index-header">
+<header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
@@ -220,34 +220,21 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 文章页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/xg8.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            King's Studio
-            <!-- 文章页  -->
-            
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
-            
-            
-                Coding to change the world!
-            
-            <!-- 文章页  -->
             
         </p>
         <!-- 文章页meta -->
@@ -359,304 +346,24 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/02/20/java回顾9/">
+        <a class="abstract-title" href="/2019/07/13/手写SpringMVC/">
             
-                <span>Java网络编程</span>
+                <span>手写SpringMVC</span>
         </a>
         <div class="abstract-content">
-            学习了很久的Java网络编程，因为没有实际操作过，所以很久没有总结，但网络编程毕竟是Java系统学习中很重要的一部分，所以今天还是要来总结一下。
-Java网络编程是什么网络编程是指编写运行在多个设备（计算机）的程序，这些设备都通过网络连接起来。java.net包中J2SE的API包含有类和接口，它们提供低层次的通信细节。java.net包中提供了两种常见的网络协议的支持：
-TCPTCP是传输控制协议的缩写，它保障了两个应用程序之间的可靠通信。通常用于互联网协议，被称TCP/IP。
-Server12345678910111213141516171819public class Server...
+            SpringMVC是一款基于MVC架构模式的轻量级Web框架，其目的是将Web开发模块化，对整体架构进行解耦，简化Web开发流程。SpringMVC基于请求驱动，即使用请求-响应模型。由于SpringMVC遵循MVC架构规范，因此分层开发数据模型层(Model)、响应视图层(View)和控制层(Controller)，可以让开发者设计出结构规整的Web层。
+概念SpringMVC中的核心DispatcherServlet继承了HttpServlet，并且重写了Java中HttpServlet的方法，用于处理get/post请求，其中重写了init方法用来解析web.xml的配置，解析Sp...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/20</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/13</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/19/java回顾8/">
-            
-                <span>总结Java中的JDBC</span>
-        </a>
-        <div class="abstract-content">
-            什么是JDBCJDBC全称Java DataBase Connection，中文意思是Java数据库连接。那么JDBC的作用是什么呢，通过使用JDBC，开发者能够非常方便地将SQL语句传送给各种数据库，对数据库进行操作。
-实际操作PreparedStatement123456789101112131415161718192021222324252627282930313233343536373839404142434445464748public class Demo3 &#123;    public static void main(String[] args) &#123;    ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/19</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/14/计划1/">
-            
-                <span>撇除杂念</span>
-        </a>
-        <div class="abstract-content">
-            很久没更博了，这也是第一次写给自己打气的博客，进入到本命年以来，很多事没有想象中的那么顺利，现在我想清楚了，如果想做成一件事不能靠什么不靠谱的命运，还是得靠自己，为了能成功在魔都站稳脚跟，接下来的半年时间，我一定要撇除杂念，静下心来去学习，我已经不再是那个还能天天混的年纪了，回想在部队经历的种种，眼前的灯红酒绿不过是过眼云烟，只有自己对理想的不懈奋斗才能充实每天的生活，加油，魔都见！
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/14</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="励志">励志</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/03/分享1/">
-            
-                <span>分享</span>
-        </a>
-        <div class="abstract-content">
-            
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="分享">分享</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/03/java回顾7/">
-            
-                <span>Java多线程</span>
-        </a>
-        <div class="abstract-content">
-            要理解Java多线程，首先要区分进程和线程的概念。
-进程每个进程是一个应用程序，都有独立的内存空间。在同一个操作系统中，可以同时启动多个进程。
-线程线程是一个进程中的执行场景，一个进程可以启动多个线程。那么多线程有什么作用呢？多线程不是为了提高执行速度，而是提高应用程序的使用率，给人的感觉是多个线程在同时并发执行。
-创建线程创建线程一共有三种方式，在这里我们总结一下常用的两种：
-继承 Thread类创建一个类，通过继承Thread类来开辟一个线程，然后在main()方法中h创建子类对象，调用start()方法启动线程，当前类中我们关注创建的子类对象启动的线程和main线程。
-123456...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/30/java回顾6/">
-            
-                <span>Java IO总结</span>
-        </a>
-        <div class="abstract-content">
-            IO部分学习了一段时间了，现在来做个初步的总结。我的侧重点主要在IO流部分，主要分为两块：节点流和处理流。节点流就是离数据最近的流，处理流则是用于提高性能增强功能，我们首先来看节点流。
-节点流节点流根据处理的数据类型又可分为两部分，字节流和字符流。字节流可以处理一切文件如纯文本、音频、视频等，而字符流只能处理纯文本文件。
-字节流不论是字节流还是字符流，根据数据流向不同，都可划分成输入流和输出流，输入字节流InputStream，输出字节流OutputStream。InputStream是所有的输入字节流的父类，OutputStream是所有的输出字节流的父类，我们通过字节流读取文件的例子...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/30</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/27/java回顾5/">
-            
-                <span>手写字节流文件拷贝类</span>
-        </a>
-        <div class="abstract-content">
-            今天手写了利用字节流拷贝文件的方法类，调用该方法可传入源文件、目的文件绝对路径，也可传入源文件、目的文件对象；后更新了文件夹拷贝方法，有一些不同，如果源对象是文件就直接调用文件拷贝方法，注意不能创建与文件夹同名的文件。
-CopyFileUtil类123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081public class CopyFile...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/27</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/26/java回顾4/">
-            
-                <span>Java中的异常处理</span>
-        </a>
-        <div class="abstract-content">
-            今天总结一下Java中的异常和处理机制，首先我们知道Error类和Exception类都是Throwable的子类，Error类以及它子类的实例，代表了JVM本身的错误，程序员无法通过代码处理，因此我们需要去关注Exception类以及它的子类。异常通常可以分为两类，一类是unckecked exception，这类异常在编译时不会提示，通常是代码本身的问题，如除0异常ArithmeticException，数组下标越界ArrayIndexOutOfBoundsException，空指针NullPointerException等。
-unckecked exception123456pub...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/26</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/22/java回顾3/">
-            
-                <span>Java中的多态</span>
-        </a>
-        <div class="abstract-content">
-            前面已经总结过了封装，今天来总结一下多态。
-多态存在的条件1、类的继承提到多态就必须要讲一下继承的概念，当一个类继承于另一个类时，该类则是前一个类的子类，而被继承的类就称为这个子类的父类。子类继承父类可以得到父类的全部属性和方法（构造方法除外），即子类对象可以调用父类的未被重写的所有方法。而当没有写出该类继承于哪一个类时，默认继承Object类，即Object类是所有类的父类。
-2、方法的重写指的是子类重写父类的方法，当父类方法不能满足子类的实现时，需要重写父类的方法。
-3、父类引用指向子类对象下面我们通过实际代码进行理解，我们首先定义一个Animal类，再定义一个Dog类和Cat类继承...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/22</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/17/java回顾2/">
-            
-                <span>Java中数组插入和删除指定元素</span>
-        </a>
-        <div class="abstract-content">
-            今天在练习的时候，用到了数组的插入以及删除元素，就想到来总结一下不同情况下对数组元素的操作。
-数组元素插入数组元素插入按照位置分三种情况，数组首部，尾部和中间指定位置。首部以及尾部比较容易，总体思路是先新建一个临时数组，比原数组长度大1，然后遍历将原数组的所有元素拷贝到进临时数组，再将要添加的元素赋值到临时数组的首尾部，最后遍历输出数组。
-123456789101112String productName = scanner.next();//创建新数组，比原来的数组长度大1String[] tempWareHouse = new String[wareHouse.length+1];f...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="SpringMVC">SpringMVC</a>
     
 </div>
             
@@ -665,118 +372,8 @@ unckecked exception123456pub...
     
     <!-- paginator  -->
     
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/">&#60; PREV</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">NEXT &#62;</a>
-    </nav>
-    
 </main>
             <!-- profile -->
-            
-            <div class="profile">
-    <img class="profile-avatar" alt="avatar" src="/avatar/tx.png">
-    <div class="profile-name">金奇</div>
-    
-    <div class="profile-signature">
-        Pay attention to me
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
-            
-                <a href="mailto:576163960@qq.com" class="iconfont-archer email" title="email"></a>
-            
-        
-    
-        
-            
-                <a href="//github.com/jqdelove" class="iconfont-archer github" target="_blank" title="github"></a>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-            
-                <a href="//weibo.com/5328235155/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" class="iconfont-archer weibo" target="_blank" title="weibo"></a>
-            
-        
-    
-        
-    
-        
-    
-        
-            
-                <a href="//www.facebook.com/jqdelove" class="iconfont-archer facebook" target="_blank" title="facebook"></a>
-            
-        
-    
-        
-    
-        
-            
-                <a href="//www.instagram.com/jqdelove/" class="iconfont-archer instagram" target="_blank" title="instagram"></a>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-    </div>
-    
-    
-        <div class="friends">
-            <div>FRIENDS</div>
-            
-                
-                    <span>
-                        <a href="//www.baidu.com" target="_black">baidu</a>
-                    </span>
-                
-            
-                
-                    <span>
-                        <a href="//www.google.com" target="_black">Google</a>
-                    </span>
-                
-            
-                
-                    <span>
-                        <a href="//zh.wikipedia.org/wiki/Wikipedia:%E9%A6%96%E9%A1%B5" target="_black">Wikipedia</a>
-                    </span>
-                
-            
-        </div>
-    
-    
-        <div class="about-me">
-            <a href="/about">ABOUT ME</a>
-        </div>
-    
-</div>
             
         </div>
         <footer class="footer footer-unloaded">
