@@ -346,122 +346,23 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/24/SpringBoot自定义配置属性/">
+        <a class="abstract-title" href="/2019/10/05/MyBatis-generator的使用/">
             
-                <span>Spring Boot自定义配置属性</span>
+                <span>MyBatis-generator的使用</span>
         </a>
         <div class="abstract-content">
-            自定义配置属性Spring Boot提供了许多的配置，但通常情况我们需要自定义的配置应用自己的系统中，例如你需要配置一个默认的用户名密码做为系统的登录用。首先创建一个实体类，作为配置注入用，并使用@ConfigurationProperties注解进行批量注入，也可以使用Spring底层注解@Value的方式一个一个注入达到同样的效果。
-@ConfigurationProperties注解123456789@Component@ConfigurationProperties(prefix = "person")public class Person &#123;    private S...
+            MyBatis生成器（MBG）是MyBatis和iBATIS的代码生成器。它为MyBatis的所有版本以及iBATIS生成代码。它将一个数据库表（或多个表），生成可用于访问表的组件。这减轻了设置对象和配置文件与数据库表进行交互的麻烦。MBG试图对简单CRUD（创建，检索，更新，删除）的大部分数据库操作进行简化。但开发者仍将需要手工编写SQL语句和对象代码以进行联接查询或存储过程。MyBatis-generator是由MyBatis官方提供的技术，现在网上有很多利用Maven导入的MyBatis-generator插件使用的教程，在此我想对操作进行一些简化，直接利用mybatis-gene...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/24</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/05</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/24/SpringBoot自动配置原理/">
-            
-                <span>Spring Boot自动配置原理</span>
-        </a>
-        <div class="abstract-content">
-            Spring Boot项目快速搭建的核心就在于自动配置的原理，在自动配置的基础上，我们在创建项目的时候就可以选择包含哪些依赖，极大地提高了构建项目的效率。而要熟练掌握Spring Boot的使用，就必须要理解自动配置的原理，我们还从Spring Boot启动的时候加载的主配置类说起。
-原理Spring Boot应用启动时加载主配置类123456@SpringBootApplicationpublic class SpringBootHelloQuickApplication &#123;    public static void main(String[] args) &#123;  ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/21/SpringBoot配置文件的优先级/">
-            
-                <span>Spring Boot配置文件的优先级</span>
-        </a>
-        <div class="abstract-content">
-            Spring Boot支持两种配置文件的形式，一种是application.properties，另一种是application.yml。最近在配置过程中遇到了配置文件优先级的问题，现在来总结一下。
-Spring Boot配置文件properties和yml的优先级首先来讲一下yml文件与properties文件语法上的不同，以设置应用端口为例：properties文件示例(application.properties)：
-1server.port=80
-YAML文件示例(application.yml)：
-12server:    port: 80
-在这里就不过多对yml的语法进行研究...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/19/SpringBoot项目的快速搭建并启动/">
-            
-                <span>Spring Boot项目的快速搭建并启动</span>
-        </a>
-        <div class="abstract-content">
-            通常我们创建Spring的项目都需要先创建Maven工程，然后再引入各种Spring的依赖，这样的步骤我们早已经习惯了，不过在使用过Spring Boot之后，我们发现以前创建项目的步骤实在是太过繁琐了。现在我们来向大家介绍Spring Boot提供的目前最便捷迅速的构建Spring项目的方式。
-使用Spring Initializer快速创建Spring Boot项目如何创建首先File–&gt;New Project，选择Spring Initializer，点击Next。
-
-然后输入Group和Artifact，点击Next。
-
-在这个页面选择项目需要的依赖，例如Web、SQL等。...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/19</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="MyBatis">MyBatis</a>
     
 </div>
             
