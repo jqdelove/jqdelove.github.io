@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Mac使用技巧分享 · King&#39;s Studio</title>
+    <title>King&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,23 +203,12 @@
 </head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/">King&#39;s Studio</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">Mac使用技巧分享</a>
-            </div>
-    </div>
     
     <a class="home-link" href="/">King's Studio</a>
 </header>
@@ -231,74 +220,24 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/xg7.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-            
-            Mac使用技巧分享
-            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                    <div class="post-intro-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="分享">分享</a>
-    
-</div>
-                
-                
-                    <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">483</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/02/23</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
         
     </div>
 </div>
@@ -399,53 +338,40 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <h2 id="服务器连接"><a href="#服务器连接" class="headerlink" title="服务器连接"></a>服务器连接</h2><p>最近在修改利用vultr搭建的服务器配置时，在网上百度了使用Mac进行SSH服务器连接的操作，发现了终端的神秘功能，利用终端的“新建远程连接”，输入服务器地址加用户名，然后在终端输入密码就可以在终端对服务器进行操作，使用终端的这个功能省去了去下载其他软件的时间，也避免了很多麻烦。<br><img src="/2019/02/23/Mac使用技巧分享/网络连接.png" alt="网络连接"></p>
-<h2 id="终端操作连接服务器"><a href="#终端操作连接服务器" class="headerlink" title="终端操作连接服务器"></a>终端操作连接服务器</h2><p>学习使用好Mac就要有一定的Linux基础，我一直在练习LIinux的许多命令，也在尝试了解Linux生层次的一些内容，在这里就向大家另外介绍一种用终端命令连接服务器的操作，终端命令是：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh 用户名@服务器地址</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/02/23/Mac使用技巧分享/终端.png" alt="终端"></p>
-<h2 id="swp文件处理方式"><a href="#swp文件处理方式" class="headerlink" title=".swp文件处理方式"></a>.swp文件处理方式</h2><p>在搭建Hexo博客的过程中，遇到过很多问题，其实很多都是关于Linux的知识，其中有一个困惑我很久问题，关于.swp文件的处理方式。在使用vi命令创建文件时，如果强行关闭vi，比如电源突然断掉，vi命令自动生成一个.swp文件，下次再编辑时就会出现一些提示，提示你使用.swp文件恢复你之前正在编辑的文件，而当你很久不处理.swp文件，文件占用的磁盘空间会越来越大，也直接影响了Hexo博客的生成和发布的速度。</p>
-<h3 id="正常退出"><a href="#正常退出" class="headerlink" title="正常退出"></a>正常退出</h3><p> 如果你正常退出，那么这个这个.swp文件将会自动删除。</p>
-<h3 id="选择删除-swp文件"><a href="#选择删除-swp文件" class="headerlink" title="选择删除.swp文件"></a>选择删除.swp文件</h3> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf xxx.swp</span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p> 总结一下，怎样能使用好Mac，基础就是学好LIinux相关的知识，熟练运用Linux的相关命令，有兴趣的可以选择下载VirtualBox，选择一个Linux虚拟机进行练习。</p>
-
+            <main class="main index-page">
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/12/23/使用Docker部署HBase并使用Java-API连接/">
+            
+                <span>使用Docker部署HBase并使用Java API连接</span>
+        </a>
+        <div class="abstract-content">
+            HBase的原型是Google的BigTable论文，受到了该论文思想的启发，目前作为Hadoop的子项目来开发维护，用于支持结构化的数据存储。HBase是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBase技术可在廉价PC Server上搭建起大规模结构化存储集群。HBase是Google Bigtable的开源实现，但是也有很多不同之处。HBase利用Hadoop HDFS作为其文件存储系统，它利用Hadoop MapReduce来处理HBase中的海量数据，使用Zookeeper作为协同服务。
+首先学习HBase需要搭建对应的环境，这里为了不在环境上浪费过多的时间，...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/12/23</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="大数据之HBase">大数据之HBase</a>
+    
+</div>
+            
+        </div>
     </article>
-    <!-- license  -->
     
     <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/02/28/java回顾10/" title="手写简单Object Relationship Mapping框架">
-                    <div class="nextTitle">手写简单Object Relationship Mapping框架</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/02/20/java回顾9/" title="Java网络编程">
-                    <div class="prevTitle">Java网络编程</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
     
-    
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
-
-
-    
-    
-
-    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -535,24 +461,6 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器连接"><span class="toc-number">1.</span> <span class="toc-text">服务器连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#终端操作连接服务器"><span class="toc-number">2.</span> <span class="toc-text">终端操作连接服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#swp文件处理方式"><span class="toc-number">3.</span> <span class="toc-text">.swp文件处理方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#正常退出"><span class="toc-number">3.1.</span> <span class="toc-text">正常退出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择删除-swp文件"><span class="toc-number">3.2.</span> <span class="toc-text">选择删除.swp文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
-    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1122,8 +1030,6 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
