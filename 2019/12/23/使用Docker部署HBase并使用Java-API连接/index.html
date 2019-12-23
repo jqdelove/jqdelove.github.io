@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">768</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.6k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -422,7 +422,36 @@ height:50vh;
 <p>或者可以直接访问本地的16010端口查看web页面：</p>
 <p><img src="/2019/12/23/使用Docker部署HBase并使用Java-API连接/web页面.png" alt="web页面"></p>
 <p>至此，本地的Docker搭建HBase的环境就结束了，后面我们就能使用API对HBase进行一系列的数据库操作。</p>
-<h1 id="HBase的概述"><a href="#HBase的概述" class="headerlink" title="HBase的概述"></a>HBase的概述</h1><h1 id="使用API访问HBase"><a href="#使用API访问HBase" class="headerlink" title="使用API访问HBase"></a>使用API访问HBase</h1>
+<h1 id="HBase的概述"><a href="#HBase的概述" class="headerlink" title="HBase的概述"></a>HBase的概述</h1><p>##HBase的架构</p>
+<p>首先我们先看一下HBase的架构图：</p>
+<p><img src="/2019/12/23/使用Docker部署HBase并使用Java-API连接/HBase架构.png" alt="HBase架构"></p>
+<p>从图中可以看出Hbase是由Client、Zookeeper、Master、HRegionServer、HDFS等几个组件组成，下面来介绍一下几个组件的相关功能：</p>
+<p>1.Client</p>
+<p>​        Client包含了访问HBase的接口，另外Client还维护了对应的cache来加速HBase的访问，比如cache的META元数据的信息。</p>
+<p>2.Zookeeper</p>
+<p>​        HBase通过Zookeeper来做master的高可用、RegionServer的监控、元数据的入口以及集群配置的维护等工作。具体工作如下：</p>
+<p>​        通过Zoopkeeper来保证集群中只有1个master在运行，如果master异常，会通过竞争机制产生新的master提供服务；通过Zoopkeeper来监控RegionServer的状态，当RegionSevrer有异常的时候，通过回调的形式通知Master RegionServer上下线的信息；通过Zoopkeeper存储元数据的统一入口地址。</p>
+<p>3.HMaster(NameNode)</p>
+<p>​        master节点的主要职责如下：为RegionServer分配Region；维护整个集群的负载均衡；维护集群的元数据信息；发现失效的Region，并将失效的Region分配到正常的RegionServer上；当RegionSever失效的时候，协调对应Hlog的拆分。</p>
+<p>4.HRegionServer(DataNode)</p>
+<p>​        HRegionServer直接对接用户的读写请求，是真正”干活”的节点。它的功能概括如下：管理master为其分配的Region；处理来自客户端的读写请求；负责和底层HDFS的交互，存储数据到HDFS；负责Region变大以后的拆分；负责Storefile的合并工作。</p>
+<p>5.HDFS</p>
+<p>​        HDFS为Hbase提供最终的底层数据存储服务，同时为HBase提供高可用（Hlog存储在HDFS）的支持，具体功能概括如下：提供元数据和表数据的底层分布式存储服务；数据多副本，保证的高可靠和高可用性。</p>
+<h2 id="HBase中的角色"><a href="#HBase中的角色" class="headerlink" title="HBase中的角色"></a>HBase中的角色</h2><p>1.HMaster</p>
+<p>​        监控RegionServer；处理RegionServer故障转移；处理元数据的变更；处理region的分配或转移；在空闲时间进行数据的负载均衡；通过Zookeeper发布自己的位置给客户端。</p>
+<p>2.RegionServer</p>
+<p>​        负责存储HBase的实际数据；处理分配给它的Region；刷新缓存到HDFS；维护Hlog；执行压缩；负责处理Region分区。</p>
+<h2 id="HBase中的其他组件"><a href="#HBase中的其他组件" class="headerlink" title="HBase中的其他组件"></a>HBase中的其他组件</h2><p>1.Write-Ahead logs</p>
+<p>​        HBase的修改记录，当对HBase读写数据的时候，数据不是直接写进磁盘，它会在内存中保留一段时间（时间以及数据量阈值可以设定）。但把数据保存在内存中可能有更高的概率引起数据丢失，为了解决这个问题，数据会先写在一个叫做Write-Ahead logfile的文件中，然后再写入内存中。所以在系统出现故障的时候，数据可以通过这个日志文件重建。</p>
+<p>2.Region</p>
+<p>​        HBase表的分区，HBase表会根据RowKey值被切分成不同的region存储在RegionServer中，在一个RegionServer中可以有多个不同的region。</p>
+<p>3.Store</p>
+<p>​        HFile存储在Store中，一个Store对应HBase表中的一个列族(列簇，Column Family)。</p>
+<p>4.MemStore</p>
+<p>​        顾名思义，就是内存存储，位于内存中，用来保存当前的数据操作，所以当数据保存在WAL中之后，RegsionServer会在内存中存储键值对。</p>
+<p>5.HFile</p>
+<p>​        这是在磁盘上保存原始数据的实际的物理文件，是实际的存储文件。StoreFile是以Hfile的形式存储在HDFS的。</p>
+<h1 id="使用API访问HBase"><a href="#使用API访问HBase" class="headerlink" title="使用API访问HBase"></a>使用API访问HBase</h1>
     </article>
     <!-- license  -->
     
@@ -559,7 +588,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#使用Docker搭建HBase的环境"><span class="toc-number">1.</span> <span class="toc-text">使用Docker搭建HBase的环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase的概述"><span class="toc-number">2.</span> <span class="toc-text">HBase的概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用API访问HBase"><span class="toc-number">3.</span> <span class="toc-text">使用API访问HBase</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#使用Docker搭建HBase的环境"><span class="toc-number">1.</span> <span class="toc-text">使用Docker搭建HBase的环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase的概述"><span class="toc-number">2.</span> <span class="toc-text">HBase的概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase中的角色"><span class="toc-number">2.1.</span> <span class="toc-text">HBase中的角色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase中的其他组件"><span class="toc-number">2.2.</span> <span class="toc-text">HBase中的其他组件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用API访问HBase"><span class="toc-number">3.</span> <span class="toc-text">使用API访问HBase</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -572,6 +601,24 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -947,12 +994,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
         </li>
     
     
@@ -1045,23 +1092,23 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
-    
         <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
     
         <span class="sidebar-tag-name" data-tags="Spring Boot"><span class="iconfont-archer">&#xe606;</span>Spring Boot</span>
+    
+        <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="大数据之HBase"><span class="iconfont-archer">&#xe606;</span>大数据之HBase</span>
     
-        <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
-    
         <span class="sidebar-tag-name" data-tags="大数据之MapReduce"><span class="iconfont-archer">&#xe606;</span>大数据之MapReduce</span>
     
-        <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
+        <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
     
         <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
+    
+        <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
     
         <span class="sidebar-tag-name" data-tags="SSM"><span class="iconfont-archer">&#xe606;</span>SSM</span>
     
