@@ -78,6 +78,8 @@
     <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
     
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -201,10 +203,8 @@
 </head>
 
     
-        <body class="home-body">
     
-    
-<header class="header index-header">
+<header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
@@ -220,34 +220,21 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 文章页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/xg8.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            King's Studio
-            <!-- 文章页  -->
-            
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
-            
-            
-                Coding to change the world!
-            
-            <!-- 文章页  -->
             
         </p>
         <!-- 文章页meta -->
@@ -359,311 +346,25 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/21/SpringBoot配置文件的优先级/">
+        <a class="abstract-title" href="/2019/12/29/2019年度总结/">
             
-                <span>Spring Boot配置文件的优先级</span>
+                <span>2019年度总结</span>
         </a>
         <div class="abstract-content">
-            Spring Boot支持两种配置文件的形式，一种是application.properties，另一种是application.yml。最近在配置过程中遇到了配置文件优先级的问题，现在来总结一下。
-Spring Boot配置文件properties和yml的优先级首先来讲一下yml文件与properties文件语法上的不同，以设置应用端口为例：properties文件示例(application.properties)：
-1server.port=80
-YAML文件示例(application.yml)：
-12server:    port: 80
-在这里就不过多对yml的语法进行研究...
+            #No.1❤
+终于有时间来总结一下这一年的经历了，其实博客从去年年底就已经搭好了，只不过当时被一些其他的事牵绊住，一直没有写。今年其实是我的本命年，总的来说还是挺顺利的，也因为我付出了比别人更多的努力，这一点我问心无愧，我总算相信有多少付出就会有多少回报。今年9月1日还是我退伍两周年的日子，我发现部队带给我的东西都快被生活打磨没了，还是很怀念那个有着坚定意志的自己。
+No.2❤在年初的时候就定下目标，一定要到上海闯一闯，反正我是孑然一身，无牵无挂，有什么困难是自己不能克服的呢。现在也总算基本完成了这个目标，有很多促成我立下这个目标的因素，我想把它们藏在心里，不断激励自己前行。上半年还在学...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/21</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/12/29</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/19/SpringBoot项目的快速搭建并启动/">
-            
-                <span>Spring Boot项目的快速搭建并启动</span>
-        </a>
-        <div class="abstract-content">
-            通常我们创建Spring的项目都需要先创建Maven工程，然后再引入各种Spring的依赖，这样的步骤我们早已经习惯了，不过在使用过Spring Boot之后，我们发现以前创建项目的步骤实在是太过繁琐了。现在我们来向大家介绍Spring Boot提供的目前最便捷迅速的构建Spring项目的方式。
-使用Spring Initializer快速创建Spring Boot项目如何创建首先File–&gt;New Project，选择Spring Initializer，点击Next。
-
-然后输入Group和Artifact，点击Next。
-
-在这个页面选择项目需要的依赖，例如Web、SQL等。...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/19</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/17/SSM框架总结1/">
-            
-                <span>基于Maven的SSM框架的搭建</span>
-        </a>
-        <div class="abstract-content">
-            在简单的面向对象关系映射框架的基础上，我对集成化程度更高的SpringMVC+Spring+MyBatis框架（以下简称SSM框架）进行了学习和总结，在这里我们主要总结如何在Maven的基础上搭建SSM框架并使用。
-基本概念MavenMaven是一个项目管理工具，它包含了一个项目对象模型，一组标准集合，一个项目生命周期，一个依赖管理系统，和用来运行定义在生命周期阶段中插件目标的逻辑。当你使用Maven的时候，你用一个明确定义的项目对象模型来描述你的项目，然后Maven可以应用横切的逻辑，这些逻辑来自一组共享的（或者自定义的）插件。此外，Maven能够很方便的帮你管理项目报告，生成站点，管...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="SSM">SSM</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/28/java回顾10/">
-            
-                <span>手写简单Object Relationship Mapping框架</span>
-        </a>
-        <div class="abstract-content">
-            前言为了将最近学习的JDBC、反射、设计模式综合起来，就学习手写了ORM框架，ORM全称Object Relationship Mapping，意思是对象关系映射，主要思想有三点：1、数据库中的表结构和类结构对应；2、表中字段和类属性对应；3、表中记录和类的对象对应。这就是实现对象关系映射的基本要求，对应到框架中就会有很多接口和实现类。
-具体实现核心架构框架src目录下一共有四个package，分别是：bean包，负责封装数据库表中的信息以及生成与表结构对应的类；core包，负责与数据库的连接操作以及数据类型的转换；pool包，连接池功能，加入连接池，使查询的效率大幅提高；utils包，...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/28</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/23/Mac使用技巧分享/">
-            
-                <span>Mac使用技巧分享</span>
-        </a>
-        <div class="abstract-content">
-            服务器连接最近在修改利用vultr搭建的服务器配置时，在网上百度了使用Mac进行SSH服务器连接的操作，发现了终端的神秘功能，利用终端的“新建远程连接”，输入服务器地址加用户名，然后在终端输入密码就可以在终端对服务器进行操作，使用终端的这个功能省去了去下载其他软件的时间，也避免了很多麻烦。
-终端操作连接服务器学习使用好Mac就要有一定的Linux基础，我一直在练习LIinux的许多命令，也在尝试了解Linux生层次的一些内容，在这里就向大家另外介绍一种用终端命令连接服务器的操作，终端命令是：
-1ssh 用户名@服务器地址
-
-.swp文件处理方式在搭建Hexo博客的过程中，遇到过很多问题，...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/23</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="分享">分享</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/20/java回顾9/">
-            
-                <span>Java网络编程</span>
-        </a>
-        <div class="abstract-content">
-            学习了很久的Java网络编程，因为没有实际操作过，所以很久没有总结，但网络编程毕竟是Java系统学习中很重要的一部分，所以今天还是要来总结一下。
-Java网络编程是什么网络编程是指编写运行在多个设备（计算机）的程序，这些设备都通过网络连接起来。java.net包中J2SE的API包含有类和接口，它们提供低层次的通信细节。java.net包中提供了两种常见的网络协议的支持：
-TCPTCP是传输控制协议的缩写，它保障了两个应用程序之间的可靠通信。通常用于互联网协议，被称TCP/IP。
-Server12345678910111213141516171819public class Server...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/20</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/19/java回顾8/">
-            
-                <span>总结Java中的JDBC</span>
-        </a>
-        <div class="abstract-content">
-            什么是JDBCJDBC全称Java DataBase Connection，中文意思是Java数据库连接。那么JDBC的作用是什么呢，通过使用JDBC，开发者能够非常方便地将SQL语句传送给各种数据库，对数据库进行操作。
-实际操作PreparedStatement123456789101112131415161718192021222324252627282930313233343536373839404142434445464748public class Demo3 &#123;    public static void main(String[] args) &#123;    ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/19</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/14/计划1/">
-            
-                <span>撇除杂念</span>
-        </a>
-        <div class="abstract-content">
-            很久没更博了，这也是第一次写给自己打气的博客，进入到本命年以来，很多事没有想象中的那么顺利，现在我想清楚了，如果想做成一件事不能靠什么不靠谱的命运，还是得靠自己，为了能成功在魔都站稳脚跟，接下来的半年时间，我一定要撇除杂念，静下心来去学习，我已经不再是那个还能天天混的年纪了，回想在部队经历的种种，眼前的灯红酒绿不过是过眼云烟，只有自己对理想的不懈奋斗才能充实每天的生活，加油，魔都见！
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/14</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="励志">励志</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/03/分享1/">
-            
-                <span>分享</span>
-        </a>
-        <div class="abstract-content">
-            
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="分享">分享</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/03/java回顾7/">
-            
-                <span>Java多线程</span>
-        </a>
-        <div class="abstract-content">
-            要理解Java多线程，首先要区分进程和线程的概念。
-进程每个进程是一个应用程序，都有独立的内存空间。在同一个操作系统中，可以同时启动多个进程。
-线程线程是一个进程中的执行场景，一个进程可以启动多个线程。那么多线程有什么作用呢？多线程不是为了提高执行速度，而是提高应用程序的使用率，给人的感觉是多个线程在同时并发执行。
-创建线程创建线程一共有三种方式，在这里我们总结一下常用的两种：
-继承 Thread类创建一个类，通过继承Thread类来开辟一个线程，然后在main()方法中h创建子类对象，调用start()方法启动线程，当前类中我们关注创建的子类对象启动的线程和main线程。
-123456...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="年度总结">年度总结</a>
     
 </div>
             
@@ -672,118 +373,8 @@ Server12345678910111213141516171819public class Server...
     
     <!-- paginator  -->
     
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/">&#60; PREV</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">NEXT &#62;</a>
-    </nav>
-    
 </main>
             <!-- profile -->
-            
-            <div class="profile">
-    <img class="profile-avatar" alt="avatar" src="/avatar/tx.png">
-    <div class="profile-name">金奇</div>
-    
-    <div class="profile-signature">
-        Pay attention to me
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
-            
-                <a href="mailto:576163960@qq.com" class="iconfont-archer email" title="email"></a>
-            
-        
-    
-        
-            
-                <a href="//github.com/jqdelove" class="iconfont-archer github" target="_blank" title="github"></a>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-            
-                <a href="//weibo.com/5328235155/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" class="iconfont-archer weibo" target="_blank" title="weibo"></a>
-            
-        
-    
-        
-    
-        
-    
-        
-            
-                <a href="//www.facebook.com/jqdelove" class="iconfont-archer facebook" target="_blank" title="facebook"></a>
-            
-        
-    
-        
-    
-        
-            
-                <a href="//www.instagram.com/jqdelove/" class="iconfont-archer instagram" target="_blank" title="instagram"></a>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-    </div>
-    
-    
-        <div class="friends">
-            <div>FRIENDS</div>
-            
-                
-                    <span>
-                        <a href="//www.baidu.com" target="_black">baidu</a>
-                    </span>
-                
-            
-                
-                    <span>
-                        <a href="//www.google.com" target="_black">Google</a>
-                    </span>
-                
-            
-                
-                    <span>
-                        <a href="//zh.wikipedia.org/wiki/Wikipedia:%E9%A6%96%E9%A1%B5" target="_black">Wikipedia</a>
-                    </span>
-                
-            
-        </div>
-    
-    
-        <div class="about-me">
-            <a href="/about">ABOUT ME</a>
-        </div>
-    
-</div>
             
         </div>
         <footer class="footer footer-unloaded">
