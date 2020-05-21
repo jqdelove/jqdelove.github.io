@@ -346,209 +346,24 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/01/30/java回顾6/">
+        <a class="abstract-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">
             
-                <span>Java IO总结</span>
+                <span>SpringBoot整合Redis中间件进行缓存</span>
         </a>
         <div class="abstract-content">
-            IO部分学习了一段时间了，现在来做个初步的总结。我的侧重点主要在IO流部分，主要分为两块：节点流和处理流。节点流就是离数据最近的流，处理流则是用于提高性能增强功能，我们首先来看节点流。
-节点流节点流根据处理的数据类型又可分为两部分，字节流和字符流。字节流可以处理一切文件如纯文本、音频、视频等，而字符流只能处理纯文本文件。
-字节流不论是字节流还是字符流，根据数据流向不同，都可划分成输入流和输出流，输入字节流InputStream，输出字节流OutputStream。InputStream是所有的输入字节流的父类，OutputStream是所有的输出字节流的父类，我们通过字节流读取文件的例子...
+            首先理解缓存的概念，缓存通常用于什么场景呢，比如说你正在刷微博，这时候突然出现一个热点事件，比如某”多人运动事件”，由于是焦点话题，一传十，十传百，查看该话题的人会越来越多，如果将该条热点消息放在数据中，每次查看该消息都需要和数据库进行一次交互，而使用微博的人群庞大，数据库承担的压力就会非常大，这也就是微博经常在出现热点消息时就崩的原因。因此当出现热点新闻的时候，及时将该消息放入缓存中存储，后面的人再访问该消息就无须再查询数据库，极大地减轻了数据库的压力。
+使用Redis中间件进行缓存Redis的特点Redis是目前追求高并发系统必用的中间件之一，它不仅可以用来做缓存，还能用作数据库以及...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/30</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/05/21</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/27/java回顾5/">
-            
-                <span>手写字节流文件拷贝类</span>
-        </a>
-        <div class="abstract-content">
-            今天手写了利用字节流拷贝文件的方法类，调用该方法可传入源文件、目的文件绝对路径，也可传入源文件、目的文件对象；后更新了文件夹拷贝方法，有一些不同，如果源对象是文件就直接调用文件拷贝方法，注意不能创建与文件夹同名的文件。
-CopyFileUtil类123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081public class CopyFile...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/27</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/26/java回顾4/">
-            
-                <span>Java中的异常处理</span>
-        </a>
-        <div class="abstract-content">
-            今天总结一下Java中的异常和处理机制，首先我们知道Error类和Exception类都是Throwable的子类，Error类以及它子类的实例，代表了JVM本身的错误，程序员无法通过代码处理，因此我们需要去关注Exception类以及它的子类。异常通常可以分为两类，一类是unckecked exception，这类异常在编译时不会提示，通常是代码本身的问题，如除0异常ArithmeticException，数组下标越界ArrayIndexOutOfBoundsException，空指针NullPointerException等。
-unckecked exception123456pub...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/26</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/22/java回顾3/">
-            
-                <span>Java中的多态</span>
-        </a>
-        <div class="abstract-content">
-            前面已经总结过了封装，今天来总结一下多态。
-多态存在的条件1、类的继承提到多态就必须要讲一下继承的概念，当一个类继承于另一个类时，该类则是前一个类的子类，而被继承的类就称为这个子类的父类。子类继承父类可以得到父类的全部属性和方法（构造方法除外），即子类对象可以调用父类的未被重写的所有方法。而当没有写出该类继承于哪一个类时，默认继承Object类，即Object类是所有类的父类。
-2、方法的重写指的是子类重写父类的方法，当父类方法不能满足子类的实现时，需要重写父类的方法。
-3、父类引用指向子类对象下面我们通过实际代码进行理解，我们首先定义一个Animal类，再定义一个Dog类和Cat类继承...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/22</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/17/java回顾2/">
-            
-                <span>Java中数组插入和删除指定元素</span>
-        </a>
-        <div class="abstract-content">
-            今天在练习的时候，用到了数组的插入以及删除元素，就想到来总结一下不同情况下对数组元素的操作。
-数组元素插入数组元素插入按照位置分三种情况，数组首部，尾部和中间指定位置。首部以及尾部比较容易，总体思路是先新建一个临时数组，比原数组长度大1，然后遍历将原数组的所有元素拷贝到进临时数组，再将要添加的元素赋值到临时数组的首尾部，最后遍历输出数组。
-123456789101112String productName = scanner.next();//创建新数组，比原来的数组长度大1String[] tempWareHouse = new String[wareHouse.length+1];f...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/13/java回顾1/">
-            
-                <span>Java中变量的作用范围</span>
-        </a>
-        <div class="abstract-content">
-            继续Java语法的复习，最近在学习的过程中，发现很多地方会定义重名的变量，一旦重名变量多了之后，就会分不清各个变量是做什么用的，所以现在想到来总结一下变量的作用范围以及定义的时候应该注意的问题。
-Java中变量的作用范围类的变量的作用域是整个类，即类中的方法都可以进行访问和操作；而方法中声明的变量的作用域在方法内部；像for/while/try…catch/if语句中声明的变量作用域在对应的语句块内。总结下来，大部分情况下，变量的作用域就是包含它的一对大括号。
-特殊情况当类中声明一个变量，类中的方法也声明了一个同名的变量，这种情况不会冲突，默认会优先使用方法中的变量，而要给类中的成员变量...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/13</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/09/hello-world/">
-            
-                <span>Java中的无参和有参构造方法以及封装的概念</span>
-        </a>
-        <div class="abstract-content">
-            无参和有参构造方法的概念最近在复习Java，发现回头重新看语法，不光加深了印象，还有了和以前不同的理解。就拿Java中的无参和有参构造方法来说，每new()一次就会调用一次构造方法，当没有显示的实现无参构造方法时，系统会默认提供一个无参构造方法，当开发人员手动实现构造方法，系统不会再提供无参构造方法，我们以新建一个User类为例。
-12345678910//无参构造方法public User()&#123;&#125;//有参构造方法，实现该有参构造方法，系统将不再提供无参构造方法public User(String uId,String uName) &#123;    this.us...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/09</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot开发">Spring Boot开发</a>
     
 </div>
             
@@ -556,10 +371,6 @@ Java中变量的作用范围类的变量的作用域是整个类，即类中的�
     </article>
     
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/2019/page/2/">&#60; PREV</a><a class="page-number" href="/archives/2019/">1</a><a class="page-number" href="/archives/2019/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
     
 </main>
             <!-- profile -->
