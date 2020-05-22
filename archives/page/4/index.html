@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Spring Boot项目的快速搭建并启动 · King&#39;s Studio</title>
+    <title>King&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,23 +203,12 @@
 </head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/">King&#39;s Studio</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">Spring Boot项目的快速搭建并启动</a>
-            </div>
-    </div>
     
     <a class="home-link" href="/">King's Studio</a>
 </header>
@@ -231,74 +220,24 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/xg7.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-            
-            Spring Boot项目的快速搭建并启动
-            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                    <div class="post-intro-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
-    
-</div>
-                
-                
-                    <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">802</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/03/19</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
         
     </div>
 </div>
@@ -399,70 +338,44 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <p>通常我们创建Spring的项目都需要先创建Maven工程，然后再引入各种Spring的依赖，这样的步骤我们早已经习惯了，不过在使用过Spring Boot之后，我们发现以前创建项目的步骤实在是太过繁琐了。现在我们来向大家介绍Spring Boot提供的目前最便捷迅速的构建Spring项目的方式。</p>
-<h1 id="使用Spring-Initializer快速创建Spring-Boot项目"><a href="#使用Spring-Initializer快速创建Spring-Boot项目" class="headerlink" title="使用Spring Initializer快速创建Spring Boot项目"></a>使用Spring Initializer快速创建Spring Boot项目</h1><h2 id="如何创建"><a href="#如何创建" class="headerlink" title="如何创建"></a>如何创建</h2><p>首先File–&gt;New Project，选择Spring Initializer，点击Next。</p>
-<p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/SpringInitializer启动.png" alt="SpringInitializer启动"></p>
-<p>然后输入Group和Artifact，点击Next。</p>
-<p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/Group.png" alt="Group"></p>
-<p>在这个页面选择项目需要的依赖，例如Web、SQL等。</p>
-<p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/依赖.png" alt="依赖"></p>
-<p>紧接着，输入工程名，点击Finish就完成了创建。</p>
-<p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/Finish.png" alt="Finish"></p>
-<h2 id="启动Spring-Boot-Application"><a href="#启动Spring-Boot-Application" class="headerlink" title="启动Spring Boot Application"></a>启动Spring Boot Application</h2><p>在创建好工程后，我们发现，Spring Boot已经为我们创建好了与工程同名的一个Java类。Spring Boot的启动方式非常简单，不需要手动配置tomcat，只需要运行带有@SpringBootApplication注解的这个Java类即可。</p>
-<p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/启动类.png" alt="启动类"></p>
-<p>而剩下的工作，我们只需要负责编写业务逻辑相关的controller层、service层即可。在这里我们编写一个Hello World进行测试。</p>
-<p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/HelloWorld.png" alt="HelloWorld"></p>
-<p>我们运行SpringBootHelloQuickApplication类进行测试，可以看到控制台会显示端口等信息。</p>
-<p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/运行测试.png" alt="运行测试"></p>
-<p>我们在浏览器中输入localhost:8082/hello进行测试，由于我在application.properties配置文件中将端口改为了8082，所以我给出这样的地址进行访问。可以看到请求已经成功，这就是Spring Boot给我们提供的快速高效的创建项目的体验。</p>
-<p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/helloworld1.png" alt="helloworld1"></p>
-<h2 id="将Spring-Boot项目打包成jar包，使用java-jar命令启动项目"><a href="#将Spring-Boot项目打包成jar包，使用java-jar命令启动项目" class="headerlink" title="将Spring Boot项目打包成jar包，使用java -jar命令启动项目"></a>将Spring Boot项目打包成jar包，使用java -jar命令启动项目</h2><p>Spring Boot项目采用的是将项目打包成jar包的形式，然后执行java -jar命令运行项目，因此我们就不需要再去手动配置tomcat的环境，这样的执行方式为我们提供了极大的便利。</p>
-<h1 id="简单讨论Spring-Boot快速搭建的主要原因"><a href="#简单讨论Spring-Boot快速搭建的主要原因" class="headerlink" title="简单讨论Spring Boot快速搭建的主要原因"></a>简单讨论Spring Boot快速搭建的主要原因</h1><p>体验过Spring Boot创建项目的便捷迅速之后，我们来简单研究一下为什么Spring Boot能够做到这一点，让它成为现在企业使用的主流框架呢？</p>
-<h2 id="pom-xml文件"><a href="#pom-xml文件" class="headerlink" title="pom.xml文件"></a>pom.xml文件</h2><p>表面上来看，我们在创建项目时进行了依赖的勾选，让项目创建完成时就已经自动完成了依赖的引入，这是表层我们所看到的。</p>
-<h2 id="主程序类"><a href="#主程序类" class="headerlink" title="主程序类"></a>主程序类</h2><h3 id="SpringBootApplication注解"><a href="#SpringBootApplication注解" class="headerlink" title="@SpringBootApplication注解"></a>@SpringBootApplication注解</h3><p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/启动类.png" alt="启动类"></p>
-<p>深层次来讲，我们进入到主程序类上所添加的@SpringBootApplication注解来看，@SpringBootApplication注解标注在某一个类上，说明该类是Spring Boot的主配置类，Spring Boot通过运行这个类的main方法来启动应用。</p>
-<h3 id="EnableAutoConfiguation注解"><a href="#EnableAutoConfiguation注解" class="headerlink" title="@EnableAutoConfiguation注解"></a>@EnableAutoConfiguation注解</h3><p><img src="/2019/03/19/SpringBoot项目的快速搭建并启动/EnableAutoConfiguation.png" alt="EnableAutoConfiguation"></p>
-<p>在开启自动配置功能的注解中，我们能够看到@AutoConfigurationPackage的注解，这个注解表明的意思是自动配置包功能，它能够将主配置类（@SpringBootApplication注解标注的类）所在包及子包中的所有组件扫描到Spring容器中。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>J2EE的整个整合解决方案和自动配置都放在了spring-boot-autoconfigure-x.x.xRELEASE.jar中，当我们需要修改配置时，我们可以进入到该jar包中进行查看。</p>
-
+            <main class="main index-page">
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/01/09/hello-world/">
+            
+                <span>Java中的无参和有参构造方法以及封装的概念</span>
+        </a>
+        <div class="abstract-content">
+            无参和有参构造方法的概念最近在复习Java，发现回头重新看语法，不光加深了印象，还有了和以前不同的理解。就拿Java中的无参和有参构造方法来说，每new()一次就会调用一次构造方法，当没有显示的实现无参构造方法时，系统会默认提供一个无参构造方法，当开发人员手动实现构造方法，系统不会再提供无参构造方法，我们以新建一个User类为例。
+12345678910//无参构造方法public User()&#123;&#125;//有参构造方法，实现该有参构造方法，系统将不再提供无参构造方法public User(String uId,String uName) &#123;    this.us...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/09</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
+    
+</div>
+            
+        </div>
     </article>
-    <!-- license  -->
     
     <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/03/21/SpringBoot配置文件的优先级/" title="Spring Boot配置文件的优先级">
-                    <div class="nextTitle">Spring Boot配置文件的优先级</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/03/17/SSM框架总结1/" title="基于Maven的SSM框架的搭建">
-                    <div class="prevTitle">基于Maven的SSM框架的搭建</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
     
+    <nav class="page-nav">
+        <a class="extend prev" rel="prev" href="/archives/page/3/">&#60; PREV</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="page-number current">4</span>
+    </nav>
     
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
-
-
-    
-    
-
-    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -552,24 +465,6 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#使用Spring-Initializer快速创建Spring-Boot项目"><span class="toc-number">1.</span> <span class="toc-text">使用Spring Initializer快速创建Spring Boot项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何创建"><span class="toc-number">1.1.</span> <span class="toc-text">如何创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动Spring-Boot-Application"><span class="toc-number">1.2.</span> <span class="toc-text">启动Spring Boot Application</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将Spring-Boot项目打包成jar包，使用java-jar命令启动项目"><span class="toc-number">1.3.</span> <span class="toc-text">将Spring Boot项目打包成jar包，使用java -jar命令启动项目</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#简单讨论Spring-Boot快速搭建的主要原因"><span class="toc-number">2.</span> <span class="toc-text">简单讨论Spring Boot快速搭建的主要原因</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pom-xml文件"><span class="toc-number">2.1.</span> <span class="toc-text">pom.xml文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主程序类"><span class="toc-number">2.2.</span> <span class="toc-text">主程序类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringBootApplication注解"><span class="toc-number">2.2.1.</span> <span class="toc-text">@SpringBootApplication注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EnableAutoConfiguation注解"><span class="toc-number">2.2.2.</span> <span class="toc-text">@EnableAutoConfiguation注解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">2.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
-    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1256,8 +1151,6 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
