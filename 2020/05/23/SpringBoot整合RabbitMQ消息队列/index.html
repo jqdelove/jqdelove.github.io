@@ -425,7 +425,7 @@ height:50vh;
 <h2 id="广播消息"><a href="#广播消息" class="headerlink" title="广播消息"></a>广播消息</h2><p>通过指定交换器为fanout类型的，进行发送广播消息，即所有的队列均可以接收到发送的消息。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 广播消息</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">broadcast</span><span class="params">()</span></span>&#123;</span><br><span class="line">  Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line">  map.put(<span class="string">"msg"</span>,<span class="string">"这是广播的消息"</span>);</span><br><span class="line">  rabbitTemplate.convertAndSend(<span class="string">"exchange.fanout"</span>,<span class="string">""</span>,map);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="操作创建队列、交换器、绑定规则"><a href="#操作创建队列、交换器、绑定规则" class="headerlink" title="操作创建队列、交换器、绑定规则"></a>操作创建队列、交换器、绑定规则</h2><p>创建队列、交换器、绑定规则的前提需要引入AmqpAdmin，RabbitMQ的系统功能管理组件。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> AmqpAdmin amqpAdmin;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建交换器</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createExchange</span><span class="params">()</span></span>&#123;</span><br><span class="line">	amqpAdmin.declareExchange(<span class="keyword">new</span> DirectExchange(<span class="string">"amqpAdmin.exchange"</span>));</span><br><span class="line"></span><br><span class="line">  amqpAdmin.declareQueue(<span class="keyword">new</span> Queue(<span class="string">"amqpAdmin.queue"</span>));</span><br><span class="line">  logger.warn(<span class="string">"---------------------创建完成--------------------"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//创建绑定规则</span></span><br><span class="line">  amqpAdmin.declareBinding(<span class="keyword">new</span> Binding(<span class="string">"amqpAdmin.queue"</span>,Binding.DestinationType.QUEUE,<span class="string">"amqpAdmin.exchange"</span>,<span class="string">"amqp.binding"</span>,<span class="keyword">null</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> AmqpAdmin amqpAdmin;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建交换器</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createExchange</span><span class="params">()</span></span>&#123;</span><br><span class="line">  amqpAdmin.declareExchange(<span class="keyword">new</span> DirectExchange(<span class="string">"amqpAdmin.exchange"</span>));</span><br><span class="line"></span><br><span class="line">  amqpAdmin.declareQueue(<span class="keyword">new</span> Queue(<span class="string">"amqpAdmin.queue"</span>));</span><br><span class="line">  logger.warn(<span class="string">"---------------------创建完成--------------------"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//创建绑定规则</span></span><br><span class="line">  amqpAdmin.declareBinding(<span class="keyword">new</span> Binding(<span class="string">"amqpAdmin.queue"</span>,Binding.DestinationType.QUEUE,<span class="string">"amqpAdmin.exchange"</span>,<span class="string">"amqp.binding"</span>,<span class="keyword">null</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上就是SpringBoot简单整合RabbitMQ的流程，在这边总结的目的也就是为了提高开发的效率，不需要再一步一步去找文档怎样进行配置，而着重关注业务逻辑。</p>
 
     </article>
@@ -577,6 +577,14 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1183,9 +1191,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
     
-        <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
-    
         <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
+    
+        <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
     
         <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
     
