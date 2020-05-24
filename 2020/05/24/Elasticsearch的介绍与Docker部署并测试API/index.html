@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Spring Boot自定义配置属性 · King&#39;s Studio</title>
+    <title>Elasticsearch的介绍与Docker部署并测试API · King&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">King&#39;s Studio</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Spring Boot自定义配置属性</a>
+                <a href="#" class="post-name">Elasticsearch的介绍与Docker部署并测试API</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Spring Boot自定义配置属性
+            Elasticsearch的介绍与Docker部署并测试API
             <!-- 404 -->
             
         </h1>
@@ -266,18 +266,18 @@ height:50vh;
                 
                     <div class="post-intro-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="Elasticsearch">Elasticsearch</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">595</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.1k</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/03/24</span>
+                    <span class="post-intro-time">2020/05/24</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -401,65 +401,40 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="自定义配置属性"><a href="#自定义配置属性" class="headerlink" title="自定义配置属性"></a>自定义配置属性</h1><p>Spring Boot提供了许多的配置，但通常情况我们需要自定义的配置应用自己的系统中，例如你需要配置一个默认的用户名密码做为系统的登录用。首先创建一个实体类，作为配置注入用，并使用@ConfigurationProperties注解进行批量注入，也可以使用Spring底层注解@Value的方式一个一个注入达到同样的效果。</p>
-<h2 id="ConfigurationProperties注解"><a href="#ConfigurationProperties注解" class="headerlink" title="@ConfigurationProperties注解"></a>@ConfigurationProperties注解</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"person"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String lastName;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> Boolean boss;</span><br><span class="line">    <span class="keyword">private</span> Date birth;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Value注解"><a href="#Value注解" class="headerlink" title="@Value注解"></a>@Value注解</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;person.lastName&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String lastName;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"#&#123;11*2&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"true"</span>)</span><br><span class="line">    <span class="keyword">private</span> Boolean boss;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>测试类代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootHelloQuickApplicationTests</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    Person person;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(person);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>测试结果</p>
-<p><img src="/2019/03/24/SpringBoot自定义配置属性/result.png" alt="result"></p>
-<h2 id="ConfigurationProperties与-Value两种注解对比"><a href="#ConfigurationProperties与-Value两种注解对比" class="headerlink" title="@ConfigurationProperties与@Value两种注解对比"></a>@ConfigurationProperties与@Value两种注解对比</h2><table>
-<thead>
-<tr>
-<th style="text-align:left">名称</th>
-<th style="text-align:center">@ConfigurationProperties</th>
-<th style="text-align:center">@Value </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">功能</td>
-<td style="text-align:center">批量注入配置文件属性</td>
-<td style="text-align:center">一个个指定 </td>
-</tr>
-<tr>
-<td style="text-align:left">松散绑定</td>
-<td style="text-align:center">支持</td>
-<td style="text-align:center">不支持 </td>
-</tr>
-<tr>
-<td style="text-align:left">SpEL</td>
-<td style="text-align:center">不支持</td>
-<td style="text-align:center">支持 </td>
-</tr>
-<tr>
-<td style="text-align:left">JSR303数据校验</td>
-<td style="text-align:center">支持</td>
-<td style="text-align:center">不支持 </td>
-</tr>
-<tr>
-<td style="text-align:left">复杂类型封装</td>
-<td style="text-align:center">支持</td>
-<td style="text-align:center">不支持</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p><strong>如果我们只在某个业务逻辑中需要获取配置文件的某项值，使用@Value注解。</strong></p>
-</li>
-<li><p><strong>如果我们专门编写一个JavaBean类来和配置文件进行映射，就直接使用@ConfigurationProperties注解。</strong></p>
-</li>
-</ul>
-<h1 id="指定配置文件的配置"><a href="#指定配置文件的配置" class="headerlink" title="指定配置文件的配置"></a>指定配置文件的配置</h1><p>通常情况下我们将配置放在application开头的主配置文件中，这样随着项目的增大配置项的增多会使文件变得非常臃肿，其实Spring Boot早已考虑到了该问题，Spring Boot提供了@PropertySource和@ImportResource两个注解用于加载外部配置文件使用。</p>
-<ul>
-<li><p><strong>@PropertySource注解通常用于属性加载配置文件，注意：@PropertySource注解不支持加载yaml文件，仅支持properties文件。</strong></p>
-</li>
-<li><p><strong>@ImportResource注解通常用于加载Spring的xml配置文件。</strong></p>
-</li>
-</ul>
-<h2 id="PropertySource注解"><a href="#PropertySource注解" class="headerlink" title="@PropertySource注解"></a>@PropertySource注解</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PropertySource</span>(value = &#123;<span class="string">"classpath:person.properties"</span>&#125;)</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String lastName;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> Boolean boss;</span><br><span class="line">    <span class="keyword">private</span> Date birth;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="ImportResource注解"><a href="#ImportResource注解" class="headerlink" title="@ImportResource注解"></a>@ImportResource注解</h2><p>Spring Boot提出零xml的配置，因此Spring Boot默认情况下时不会识别项目中Spring的xml配置文件。为了能够加载xml的配置文件，Spring Boot提供了@ImportResource注解该注解可以加载Spring的xml配置文件，通常加于启动类上。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ImportResource</span>(locations = &#123;<span class="string">"classpath:beans.xml"</span>&#125;)</span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootHelloQuickApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(SpringBootHelloQuickApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>在接触Elasticsearch之前，我对分布式搜索这块也是一脸懵，不过在快速上手之后就掌握了目前全文搜索引擎No.1的基本使用。现在来总结一下它的一些基本概念以及使用docker快速部署并测试步骤。</p>
+<h1 id="Elasticsearch的概念"><a href="#Elasticsearch的概念" class="headerlink" title="Elasticsearch的概念"></a>Elasticsearch的概念</h1><p>Elasticsearch是一个分布式搜索服务，提供RESTful API，很多语言都可以通过RESTful API以及9200端口和Elasticsearch进行通信、操作，你可以通过HTTP方法GET、POST、PUT、DELETE进行数据的操作。Elasticsearch是面向文档的，即用户存入的是整个对象以及文档，在Elasticsearch中，用户对文档进行索引、检索，和普通的行列数据库不同，因此这是一种完全不同的思考数据的方式，也是Elasticsearch能够支持复杂全文搜索的原因。</p>
+<p>我们来通过下图和普通行列数据库进行对比，对比之前先讲几个名词的概念，以存储员工信息为例，一个<strong>文档</strong>代表一个员工数据，数据存储到Elasticsearch的行为叫做<strong>索引</strong>，每个索引可以包含多个<strong>类型</strong>。</p>
+<p><img src="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/index.png" alt="概念图"></p>
+<p>Elasticsearch中的索引就相当于普通行列数据库的各个数据库，而类型就类似于普通数据库的每张表，文档就相当于表中的每一条记录，属性就相当于每一个字段，这样就方便我们理解Elasticsearch的存储结构。</p>
+<p>Elasticsearch使用JSON作为文档的序列化格式，JSON序列化被绝大多数编程语言支持，并且已经成为NoSQL领域的标准格式。下面的JSON文档代表存入Elasticsearch的一个User对象。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"email"</span>:      <span class="string">"john@smith.com"</span>,</span><br><span class="line">    <span class="attr">"first_name"</span>: <span class="string">"John"</span>,</span><br><span class="line">    <span class="attr">"last_name"</span>:  <span class="string">"Smith"</span>,</span><br><span class="line">    <span class="attr">"info"</span>: &#123;</span><br><span class="line">        <span class="attr">"bio"</span>:         <span class="string">"Eco-warrior and defender of the weak"</span>,</span><br><span class="line">        <span class="attr">"age"</span>:         <span class="number">25</span>,</span><br><span class="line">        <span class="attr">"interests"</span>: [ <span class="string">"dolphins"</span>, <span class="string">"whales"</span> ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"join_date"</span>: <span class="string">"2014/05/01"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Docker部署Elasticsearch进行测试"><a href="#Docker部署Elasticsearch进行测试" class="headerlink" title="Docker部署Elasticsearch进行测试"></a>Docker部署Elasticsearch进行测试</h1><p>和之前一样，为了方便我们进行快速上手，这里仍然使用docker部署的方式进行。首先使用搜索命令在docker hub中查找镜像。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search elasticsearch</span><br></pre></td></tr></table></figure>
+<p>由于下载elasticsearch镜像需要指定版本，我们这里采用elasticsearch6.0版本进行测试。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull elasticsearch:<span class="number">6.8</span>.<span class="number">9</span></span><br></pre></td></tr></table></figure>
+<p>由于默认启动elasticsearch会占用2G的内存，通常在Linux虚拟机上不会配置这么高的内存，因此直接启动会报错，我们手动设置它的启动占用内存参数。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -e ES_JAVA_OPTS="-Xms256m -Xmx256m" -p 9200:9200 -p 9300:9300 elasticsearch:6.8.9 ES</span><br></pre></td></tr></table></figure>
+<p>在这里肯定会有小伙伴发现这个容器启动一会过后便会崩掉，不要慌，这时候我们来查看一下容器的日志，查找原因。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f 容器id</span><br></pre></td></tr></table></figure>
+<p>发现错误信息如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ERROR: [1] bootstrap checks failed</span><br><span class="line">    [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least</span><br></pre></td></tr></table></figure>
+<p>显示虚拟机的max_map_count参数的值默认给的太小了，我们手动将它设置为262144，首先查看默认的max_map_count的值为多少。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/sys/vm/max_map_count</span><br><span class="line">65530</span><br></pre></td></tr></table></figure>
+<p>我们用下面的命令将它设置为262144。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w vm.max_map_count=262144</span><br><span class="line">vm.max_map_count=262144</span><br></pre></td></tr></table></figure>
+<p>然后重新启动容器就能正常运行了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart 容器id</span><br></pre></td></tr></table></figure>
+<p>在浏览器中输入服务器地址或者虚拟机地址，端口为9200，看到如下图的信息，说明Elasticsearch已经正常启动。</p>
+<p><img src="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/browser.png" alt="效果"></p>
+<h1 id="使用Postman调用API接口进行简单搜索测试"><a href="#使用Postman调用API接口进行简单搜索测试" class="headerlink" title="使用Postman调用API接口进行简单搜索测试"></a>使用Postman调用API接口进行简单搜索测试</h1><h2 id="添加员工信息"><a href="#添加员工信息" class="headerlink" title="添加员工信息"></a>添加员工信息</h2><p>我们使用PUT请求，将员工信息保存到Elasticsearch中，每个员工都是employee类型，每个类型都放入索引megacorp中。因此，请求地址的写法如下图所示，请求的请求体使用JSON数据格式封装。</p>
+<p><img src="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/put.png" alt="添加"></p>
+<h2 id="检索员工"><a href="#检索员工" class="headerlink" title="检索员工"></a>检索员工</h2><p>检索单个员工只需要用GET请求，并且指定员工的id即可。</p>
+<p><img src="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/get.png" alt="单个员工"></p>
+<p>检索所有员工的信息将员工id替换为_search。</p>
+<p><img src="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/getall.png" alt="检索所有员工"></p>
+<p>有条件的检索我们使用POST请求，并且将条件写到请求体中，用json格式填写筛选条件，下图是一个示例，查出所有last_name是Smith的员工。</p>
+<p><img src="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/title.png" alt="条件查询"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在这里我们进行了Elasticsearch检索功能的入门，更多的功能例如复杂的全文检索小伙伴们可以参照官方文档进行学习。</p>
 
     </article>
     <!-- license  -->
@@ -468,17 +443,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/03/24/SpringBoot自动配置原理/" title="Spring Boot自动配置原理">
-                    <div class="nextTitle">Spring Boot自动配置原理</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/03/21/SpringBoot配置文件的优先级/" title="Spring Boot配置文件的优先级">
-                    <div class="prevTitle">Spring Boot配置文件的优先级</div>
+                <a href="/2020/05/23/SpringBoot整合RabbitMQ消息队列/" title="SpringBoot整合RabbitMQ消息队列">
+                    <div class="prevTitle">SpringBoot整合RabbitMQ消息队列</div>
                 </a>
             
         </li>
@@ -602,7 +572,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#自定义配置属性"><span class="toc-number">1.</span> <span class="toc-text">自定义配置属性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ConfigurationProperties注解"><span class="toc-number">1.1.</span> <span class="toc-text">@ConfigurationProperties注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Value注解"><span class="toc-number">1.2.</span> <span class="toc-text">@Value注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ConfigurationProperties与-Value两种注解对比"><span class="toc-number">1.3.</span> <span class="toc-text">@ConfigurationProperties与@Value两种注解对比</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#指定配置文件的配置"><span class="toc-number">2.</span> <span class="toc-text">指定配置文件的配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PropertySource注解"><span class="toc-number">2.1.</span> <span class="toc-text">@PropertySource注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ImportResource注解"><span class="toc-number">2.2.</span> <span class="toc-text">@ImportResource注解</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Elasticsearch的概念"><span class="toc-number">1.</span> <span class="toc-text">Elasticsearch的概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker部署Elasticsearch进行测试"><span class="toc-number">2.</span> <span class="toc-text">Docker部署Elasticsearch进行测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用Postman调用API接口进行简单搜索测试"><span class="toc-number">3.</span> <span class="toc-text">使用Postman调用API接口进行简单搜索测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#添加员工信息"><span class="toc-number">3.1.</span> <span class="toc-text">添加员工信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#检索员工"><span class="toc-number">3.2.</span> <span class="toc-text">检索员工</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
