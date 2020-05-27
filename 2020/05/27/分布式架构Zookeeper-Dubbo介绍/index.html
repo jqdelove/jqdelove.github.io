@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Spring Boot嵌入式Servlet容器启动原理 · King&#39;s Studio</title>
+    <title>分布式架构ZooKeeper+Dubbo介绍 · King&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">King&#39;s Studio</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Spring Boot嵌入式Servlet容器启动原理</a>
+                <a href="#" class="post-name">分布式架构ZooKeeper+Dubbo介绍</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Spring Boot嵌入式Servlet容器启动原理
+            分布式架构ZooKeeper+Dubbo介绍
             <!-- 404 -->
             
         </h1>
@@ -266,18 +266,18 @@ height:50vh;
                 
                     <div class="post-intro-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot开发">Spring Boot开发</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="分布式架构">分布式架构</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">672</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">774</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/04/21</span>
+                    <span class="post-intro-time">2020/05/27</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -401,25 +401,13 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="嵌入式Servlet容器启动原理"><a href="#嵌入式Servlet容器启动原理" class="headerlink" title="嵌入式Servlet容器启动原理"></a>嵌入式Servlet容器启动原理</h1><p>前面我们总结了Spring Boot中嵌入式Servlet容器自动配置原理，也提到了Spring Boot2.0版本中使用ServletWebServerFactoryConfiguration替换了EmbeddedServletContainerAutoConfiguration，那么什么时候创建嵌入式的Servlet容器工厂以及什么时候获取嵌入式的Servlet容器并启动Tomcat呢？我们进入到ServletWebServerFactoryConfiguration中查看。</p>
-<h2 id="获取嵌入式的Servlet容器从Spring-Boot应用启动运行run-方法开始"><a href="#获取嵌入式的Servlet容器从Spring-Boot应用启动运行run-方法开始" class="headerlink" title="获取嵌入式的Servlet容器从Spring Boot应用启动运行run()方法开始"></a>获取嵌入式的Servlet容器从Spring Boot应用启动运行run()方法开始</h2><p>以Tomcat为例，在new TomcatServletWebServerFactory()处打断点，以Debug方式运行。</p>
-<p><img src="/2019/04/21/SpringBoot嵌入式Servlet容器启动原理/Tomcat.png" alt="Tomcat"></p>
-<p>我们发现第一步是从执行SpringBootRestfulcrudApplication的run()方法开始的。</p>
-<p><img src="/2019/04/21/SpringBoot嵌入式Servlet容器启动原理/SpringBootApplication.png" alt="SpringBootApplication"></p>
-<h2 id="Spring-Boot刷新IOC容器"><a href="#Spring-Boot刷新IOC容器" class="headerlink" title="Spring Boot刷新IOC容器"></a>Spring Boot刷新IOC容器</h2><p>Spring Boot刷新IOC容器，创建IOC容器对象，并且初始化容器，创建容器中每一个组件。</p>
-<p><img src="/2019/04/21/SpringBoot嵌入式Servlet容器启动原理/刷新.png" alt="刷新"></p>
-<p>并进行判断，如果是web应用就创建AnnotationConfigServletWebServerApplicationContext，否则就创建默认的AnnotationConfigApplicationContext。此处Spring Boot2.0中也进行了更新，将原来的AnnotationConfigEmbeddedWebApplicationContext替换为AnnotationConfigServletWebServerApplicationContext。</p>
-<p><img src="/2019/04/21/SpringBoot嵌入式Servlet容器启动原理/判断.png" alt="判断"></p>
-<h2 id="刷新刚创建好的IOC容器"><a href="#刷新刚创建好的IOC容器" class="headerlink" title="刷新刚创建好的IOC容器"></a>刷新刚创建好的IOC容器</h2><p>调用refresh()方法刷新刚刚创建好的IOC容器。</p>
-<p><img src="/2019/04/21/SpringBoot嵌入式Servlet容器启动原理/refresh.png" alt="refresh"></p>
-<h2 id="web的IOC容器重写onRefresh-方法"><a href="#web的IOC容器重写onRefresh-方法" class="headerlink" title="web的IOC容器重写onRefresh()方法"></a>web的IOC容器重写onRefresh()方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">()</span> <span class="keyword">throws</span> BeansException, IllegalStateException </span>&#123;</span><br><span class="line">	<span class="keyword">synchronized</span> (<span class="keyword">this</span>.startupShutdownMonitor) &#123;</span><br><span class="line">		<span class="comment">// Prepare this context for refreshing.</span></span><br><span class="line">		prepareRefresh();</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Tell the subclass to refresh the internal bean factory.</span></span><br><span class="line">		ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Prepare the bean factory for use in this context.</span></span><br><span class="line">		prepareBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">// Allows post-processing of the bean factory in context subclasses.</span></span><br><span class="line">			postProcessBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Invoke factory processors registered as beans in the context.</span></span><br><span class="line">			invokeBeanFactoryPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Register bean processors that intercept bean creation.</span></span><br><span class="line">			registerBeanPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Initialize message source for this context.</span></span><br><span class="line">			initMessageSource();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Initialize event multicaster for this context.</span></span><br><span class="line">			initApplicationEventMulticaster();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Initialize other special beans in specific context subclasses.</span></span><br><span class="line">       <span class="comment">//重写此处的onRefresh()方法</span></span><br><span class="line">			onRefresh();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Check for listener beans and register them.</span></span><br><span class="line">			registerListeners();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Instantiate all remaining (non-lazy-init) singletons.</span></span><br><span class="line">			finishBeanFactoryInitialization(beanFactory);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Last step: publish corresponding event.</span></span><br><span class="line">			finishRefresh();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">			<span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">				logger.warn(<span class="string">"Exception encountered during context initialization - "</span> +</span><br><span class="line">						<span class="string">"cancelling refresh attempt: "</span> + ex);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Destroy already created singletons to avoid dangling resources.</span></span><br><span class="line">			destroyBeans();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Reset 'active' flag.</span></span><br><span class="line">			cancelRefresh(ex);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Propagate exception to caller.</span></span><br><span class="line">			<span class="keyword">throw</span> ex;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="comment">// Reset common introspection caches in Spring's core, since we</span></span><br><span class="line">			<span class="comment">// might not ever need metadata for singleton beans anymore...</span></span><br><span class="line">			resetCommonCaches();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="web的IOC容器会创建嵌入式的Servlet容器"><a href="#web的IOC容器会创建嵌入式的Servlet容器" class="headerlink" title="web的IOC容器会创建嵌入式的Servlet容器"></a>web的IOC容器会创建嵌入式的Servlet容器</h2><p>上一步会调用此处的createWebServer()方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">createWebServer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		WebServer webServer = <span class="keyword">this</span>.webServer;</span><br><span class="line">		ServletContext servletContext = getServletContext();</span><br><span class="line">		<span class="keyword">if</span> (webServer == <span class="keyword">null</span> &amp;&amp; servletContext == <span class="keyword">null</span>) &#123;</span><br><span class="line">			ServletWebServerFactory factory = getWebServerFactory();</span><br><span class="line">			<span class="keyword">this</span>.webServer = factory.getWebServer(getSelfInitializer());</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (servletContext != <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				getSelfInitializer().onStartup(servletContext);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">catch</span> (ServletException ex) &#123;</span><br><span class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> ApplicationContextException(<span class="string">"Cannot initialize servlet context"</span>,</span><br><span class="line">						ex);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		initPropertySources();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="获取嵌入式的Servlet容器工厂"><a href="#获取嵌入式的Servlet容器工厂" class="headerlink" title="获取嵌入式的Servlet容器工厂"></a><strong>获取嵌入式的Servlet容器工厂</strong></h2><p>从IOC容器中获取ServletWebServerFactory组件，然后TomcatServletWebServerFactory创建对象，触发上一篇我们讲到的后置处理器，获取所有的定制器来定制Servlet容器的相关配置。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ServletWebServerFactory factory = getWebServerFactory();</span><br></pre></td></tr></table></figure>
-<h2 id="使用容器工厂获取嵌入式的Servlet容器"><a href="#使用容器工厂获取嵌入式的Servlet容器" class="headerlink" title="使用容器工厂获取嵌入式的Servlet容器"></a><strong>使用容器工厂获取嵌入式的Servlet容器</strong></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.webServer = factory.getWebServer(getSelfInitializer());</span><br></pre></td></tr></table></figure>
-<h2 id="嵌入式的Servlet容器创建对象并启动Servlet容器如Tomcat"><a href="#嵌入式的Servlet容器创建对象并启动Servlet容器如Tomcat" class="headerlink" title="嵌入式的Servlet容器创建对象并启动Servlet容器如Tomcat"></a>嵌入式的Servlet容器创建对象并启动Servlet容器如Tomcat</h2><p>先启动嵌入式的Servlet容器，再将IOC容器中剩下的没有创建的对象获取得到，IOC容器启动创建嵌入式的Servlet容器。</p>
-<p><img src="/2019/04/21/SpringBoot嵌入式Servlet容器启动原理/Tomcat启动.png" alt="Tomcat启动"></p>
+        <p>随着互联网技术的发展，网站的规模在不断地扩大，单一应用架构已经不再能满足需求，由于架构的原因，系统中某一处如果要进行修改，整个应用就需要重新部署，代价非常大。而在分布式架构中就能很好地解决上述问题，每一个模块就拆分为一个单独的服务，当模块的访问量变大时，就可以将同一个服务部署到不同的机器中同时运行。</p>
+<h1 id="RPC框架"><a href="#RPC框架" class="headerlink" title="RPC框架"></a>RPC框架</h1><p>当不同的模块之间出现调用关系时就会用到RPC(Remote Procedure Call)，当前最主流的两个框架一个是Dubbo，一个是SpringCloud。这里我们主要介绍Dubbo，Dubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分层的方式来架构，使用这种方式可以使各层之间解耦(或者最大限度地松耦合)。从服务模型的角度看，Dubbo采用的是一种非常简单的模型，要么是提供方提供服务，要么是消费方消费服务，所以基于这一点可以抽象出服务提供方(Provider)和服务消费方(Consumer)两个角色。</p>
+<p><img src="/2020/05/27/分布式架构Zookeeper-Dubbo介绍/dubbo1.png" alt="RPC框架"></p>
+<h1 id="注册中心"><a href="#注册中心" class="headerlink" title="注册中心"></a>注册中心</h1><p>当需要被调用的模块在不同的多态机器上进行部署时，就会出现调用方不知道该调用哪台机器上的服务，这时候就需要注册中心来帮助我们。注册中心会保存每个模块所在服务器的位置，当调用方需要调用时，首先去注册中心查看被调用模块的位置，然后根据注册中心返回的位置信息，去对应的服务器上进行调用。ZooKeeper就是一个应用非常广泛的注册中心应用，它是一个分布式的应用程序协调服务，它为分布式应用提供一致性服务，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
+<h1 id="ZooKeeper-Dubbo组合"><a href="#ZooKeeper-Dubbo组合" class="headerlink" title="ZooKeeper+Dubbo组合"></a>ZooKeeper+Dubbo组合</h1><p>Dubbo的服务容器(Container)在启动时会加载和运行服务提供者(Provider)，服务提供者在启动后会将能提供的自身的服务信息注册到注册中心(Registry)，服务消费方(Consumer)在启动后会订阅注册中心中所需要的相关的服务的信息，注册中心会将消费方所需的服务的地址列表提供给消费方，如果服务信息产生变更，注册中心会基于长连接的方式推送给消费方。消费方当需要调用时，根据注册中心提供的地址列表基于配置好的负载均衡机制找到服务提供方的位置进行调用，如果调用失败，会再去找下一个服务提供者进行调用，直到调用成功为止。</p>
+<p><img src="/2020/05/27/分布式架构Zookeeper-Dubbo介绍/dubbo2.png" alt="分布式组合"></p>
+<p>Dubbo还提供了监控机制，消费方和服务提供方会定时向监控中心发送调用信息。</p>
 
     </article>
     <!-- license  -->
@@ -428,17 +416,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/07/13/手写SpringMVC/" title="手写SpringMVC">
-                    <div class="nextTitle">手写SpringMVC</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/04/20/SpringBoot嵌入式Servlet容器自动配置原理/" title="Spring Boot嵌入式Servlet容器自动配置原理">
-                    <div class="prevTitle">Spring Boot嵌入式Servlet容器自动配置原理</div>
+                <a href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/" title="SpringBoot整合Elasticsearch全文搜索引擎">
+                    <div class="prevTitle">SpringBoot整合Elasticsearch全文搜索引擎</div>
                 </a>
             
         </li>
@@ -562,7 +545,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#嵌入式Servlet容器启动原理"><span class="toc-number">1.</span> <span class="toc-text">嵌入式Servlet容器启动原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#获取嵌入式的Servlet容器从Spring-Boot应用启动运行run-方法开始"><span class="toc-number">1.1.</span> <span class="toc-text">获取嵌入式的Servlet容器从Spring Boot应用启动运行run()方法开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Boot刷新IOC容器"><span class="toc-number">1.2.</span> <span class="toc-text">Spring Boot刷新IOC容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#刷新刚创建好的IOC容器"><span class="toc-number">1.3.</span> <span class="toc-text">刷新刚创建好的IOC容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web的IOC容器重写onRefresh-方法"><span class="toc-number">1.4.</span> <span class="toc-text">web的IOC容器重写onRefresh()方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web的IOC容器会创建嵌入式的Servlet容器"><span class="toc-number">1.5.</span> <span class="toc-text">web的IOC容器会创建嵌入式的Servlet容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取嵌入式的Servlet容器工厂"><span class="toc-number">1.6.</span> <span class="toc-text">获取嵌入式的Servlet容器工厂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用容器工厂获取嵌入式的Servlet容器"><span class="toc-number">1.7.</span> <span class="toc-text">使用容器工厂获取嵌入式的Servlet容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#嵌入式的Servlet容器创建对象并启动Servlet容器如Tomcat"><span class="toc-number">1.8.</span> <span class="toc-text">嵌入式的Servlet容器创建对象并启动Servlet容器如Tomcat</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RPC框架"><span class="toc-number">1.</span> <span class="toc-text">RPC框架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#注册中心"><span class="toc-number">2.</span> <span class="toc-text">注册中心</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZooKeeper-Dubbo组合"><span class="toc-number">3.</span> <span class="toc-text">ZooKeeper+Dubbo组合</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>

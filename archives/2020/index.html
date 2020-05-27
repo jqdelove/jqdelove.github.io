@@ -346,6 +346,36 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2020/05/27/分布式架构Zookeeper-Dubbo介绍/">
+            
+                <span>分布式架构ZooKeeper+Dubbo介绍</span>
+        </a>
+        <div class="abstract-content">
+            随着互联网技术的发展，网站的规模在不断地扩大，单一应用架构已经不再能满足需求，由于架构的原因，系统中某一处如果要进行修改，整个应用就需要重新部署，代价非常大。而在分布式架构中就能很好地解决上述问题，每一个模块就拆分为一个单独的服务，当模块的访问量变大时，就可以将同一个服务部署到不同的机器中同时运行。
+RPC框架当不同的模块之间出现调用关系时就会用到RPC(Remote Procedure Call)，当前最主流的两个框架一个是Dubbo，一个是SpringCloud。这里我们主要介绍Dubbo，Dubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分层的方式来架构，使用这种方...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/05/27</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="分布式架构">分布式架构</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">
             
                 <span>SpringBoot整合Elasticsearch全文搜索引擎</span>
@@ -500,6 +530,36 @@ AMQP中的消息路由AMQP中的消息的路由过程和JMS有一些差别，AMQ
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">
+            
+                <span>SpringBoot整合Redis中间件进行缓存</span>
+        </a>
+        <div class="abstract-content">
+            首先理解缓存的概念，缓存通常用于什么场景呢，比如说你正在刷微博，这时候突然出现一个热点事件，比如某”多人运动事件”，由于是焦点话题，一传十，十传百，查看该话题的人会越来越多，如果将该条热点消息放在数据中，每次查看该消息都需要和数据库进行一次交互，而使用微博的人群庞大，数据库承担的压力就会非常大，这也就是微博经常在出现热点消息时就崩的原因。因此当出现热点新闻的时候，及时将该消息放入缓存中存储，后面的人再访问该消息就无须再查询数据库，极大地减轻了数据库的压力。
+使用Redis中间件进行缓存Redis的特点Redis是目前追求高并发系统必用的中间件之一，它不仅可以用来做缓存，还能用作数据库以及...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/05/21</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot开发">Spring Boot开发</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2020/05/21/消息中间件的概念以及应用场景/">
             
                 <span>消息中间件的概念以及应用场景</span>
@@ -524,36 +584,6 @@ AMQP中的消息路由AMQP中的消息的路由过程和JMS有一些差别，AMQ
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="消息中间件">消息中间件</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">
-            
-                <span>SpringBoot整合Redis中间件进行缓存</span>
-        </a>
-        <div class="abstract-content">
-            首先理解缓存的概念，缓存通常用于什么场景呢，比如说你正在刷微博，这时候突然出现一个热点事件，比如某”多人运动事件”，由于是焦点话题，一传十，十传百，查看该话题的人会越来越多，如果将该条热点消息放在数据中，每次查看该消息都需要和数据库进行一次交互，而使用微博的人群庞大，数据库承担的压力就会非常大，这也就是微博经常在出现热点消息时就崩的原因。因此当出现热点新闻的时候，及时将该消息放入缓存中存储，后面的人再访问该消息就无须再查询数据库，极大地减轻了数据库的压力。
-使用Redis中间件进行缓存Redis的特点Redis是目前追求高并发系统必用的中间件之一，它不仅可以用来做缓存，还能用作数据库以及...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/05/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot开发">Spring Boot开发</a>
     
 </div>
             
@@ -1156,9 +1186,26 @@ AMQP中的消息路由AMQP中的消息的路由过程和JMS有一些差别，AMQ
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 34
+        Total : 35
         </div>
         <!-- search  -->
         
@@ -1171,6 +1218,11 @@ AMQP中的消息路由AMQP中的消息的路由过程和JMS有一些差别，AMQ
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span><a class="archive-post-title" href="/2020/05/27/分布式架构Zookeeper-Dubbo介绍/">分布式架构ZooKeeper+Dubbo介绍</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1194,12 +1246,12 @@ AMQP中的消息路由AMQP中的消息的路由过程和JMS有一些差别，AMQ
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">SpringBoot整合Redis中间件进行缓存</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/消息中间件的概念以及应用场景/">消息中间件的概念以及应用场景</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/消息中间件的概念以及应用场景/">消息中间件的概念以及应用场景</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">SpringBoot整合Redis中间件进行缓存</a>
         </li>
     
     
@@ -1358,9 +1410,9 @@ AMQP中的消息路由AMQP中的消息的路由过程和JMS有一些差别，AMQ
     
         <span class="sidebar-tag-name" data-tags="年度总结"><span class="iconfont-archer">&#xe606;</span>年度总结</span>
     
-        <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
-    
         <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
+    
+        <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
     
         <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
     
@@ -1372,13 +1424,15 @@ AMQP中的消息路由AMQP中的消息的路由过程和JMS有一些差别，AMQ
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
+        <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
+    
         <span class="sidebar-tag-name" data-tags="大数据之MapReduce"><span class="iconfont-archer">&#xe606;</span>大数据之MapReduce</span>
     
         <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
     
-        <span class="sidebar-tag-name" data-tags="大数据之HBase"><span class="iconfont-archer">&#xe606;</span>大数据之HBase</span>
-    
         <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据之HBase"><span class="iconfont-archer">&#xe606;</span>大数据之HBase</span>
     
         <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
     
