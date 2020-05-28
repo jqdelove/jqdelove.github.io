@@ -359,6 +359,36 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2020/05/28/SpringBoot-Dubbo-ZooKeeper整合总结/">
+            
+                <span>SpringBoot+Dubbo+ZooKeeper整合总结</span>
+        </a>
+        <div class="abstract-content">
+            上一篇我们总结了分布式架构Dubbo+ZooKeeper的工作机制，今天我们来总结一些干货，其中我踩了很多坑都会在这篇里总结出来，以下SpringBoot+Dubbo+ZooKeeper的整合亲测可用，我会将这个Demo放到Github上，欢迎大家来提issue。
+构建ZooKeeper环境前面提到ZooKeeper是服务的注册中心，调用者需要在注册中心订阅服务提供者的信息，并在调用时根据注册中心提供的地址列表根据负载均衡机制进行，因此首先我们需要将ZooKeeper的环境部署出来，这边我们依然使用Docker的形式部署，值得一提的是，我在此总结的是非集群环境下的，如果有集群测试需求的同...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/05/28</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="分布式架构">分布式架构</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2020/05/27/分布式架构Zookeeper-Dubbo介绍/">
             
                 <span>分布式架构ZooKeeper+Dubbo介绍</span>
@@ -657,36 +687,6 @@ No.2❤在年初的时候就定下目标，一定要到上海闯一闯，反正�
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="年度总结">年度总结</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/12/23/使用Docker部署HBase并使用Java-API连接/">
-            
-                <span>使用Docker部署HBase并使用Java API连接</span>
-        </a>
-        <div class="abstract-content">
-            HBase的原型是Google的BigTable论文，受到了该论文思想的启发，目前作为Hadoop的子项目来开发维护，用于支持结构化的数据存储。HBase是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBase技术可在廉价PC Server上搭建起大规模结构化存储集群。HBase是Google Bigtable的开源实现，但是也有很多不同之处。HBase利用Hadoop HDFS作为其文件存储系统，它利用Hadoop MapReduce来处理HBase中的海量数据，使用Zookeeper作为协同服务。
-首先学习HBase需要搭建对应的环境，这里为了不在环境上浪费过多的时间，...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/12/23</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="大数据之HBase">大数据之HBase</a>
     
 </div>
             
@@ -1379,16 +1379,9 @@ No.2❤在年初的时候就定下目标，一定要到上海闯一闯，反正�
     
     
     
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 35
+        Total : 36
         </div>
         <!-- search  -->
         
@@ -1401,6 +1394,11 @@ No.2❤在年初的时候就定下目标，一定要到上海闯一闯，反正�
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/28</span><a class="archive-post-title" href="/2020/05/28/SpringBoot-Dubbo-ZooKeeper整合总结/">SpringBoot+Dubbo+ZooKeeper整合总结</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1493,12 +1491,12 @@ No.2❤在年初的时候就定下目标，一定要到上海闯一闯，反正�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
         </li>
     
     
@@ -1543,12 +1541,12 @@ No.2❤在年初的时候就定下目标，一定要到上海闯一闯，反正�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/java回顾7/">Java多线程</a>
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/分享1/">分享</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/分享1/">分享</a>
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/java回顾7/">Java多线程</a>
         </li>
     
     
@@ -1593,13 +1591,15 @@ No.2❤在年初的时候就定下目标，一定要到上海闯一闯，反正�
     
         <span class="sidebar-tag-name" data-tags="年度总结"><span class="iconfont-archer">&#xe606;</span>年度总结</span>
     
-        <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
-    
         <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
+    
+        <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
+    
+        <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
     
         <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
     
-        <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
+        <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
     
         <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
     
@@ -1607,15 +1607,13 @@ No.2❤在年初的时候就定下目标，一定要到上海闯一闯，反正�
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
-        <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
-    
         <span class="sidebar-tag-name" data-tags="大数据之MapReduce"><span class="iconfont-archer">&#xe606;</span>大数据之MapReduce</span>
     
         <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
     
-        <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
-    
         <span class="sidebar-tag-name" data-tags="大数据之HBase"><span class="iconfont-archer">&#xe606;</span>大数据之HBase</span>
+    
+        <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
     
         <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
     
