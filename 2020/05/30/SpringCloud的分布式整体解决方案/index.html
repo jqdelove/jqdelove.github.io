@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>King&#39;s Studio</title>
+    <title>Spring Cloud的分布式整体解决方案 · King&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -77,6 +77,8 @@
 
     <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -201,14 +203,23 @@
 </head>
 
     
-        <body class="home-body">
+        <body class="post-body">
     
     
-<header class="header index-header">
+<header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">King&#39;s Studio</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Spring Cloud的分布式整体解决方案</a>
+            </div>
+    </div>
     
     <a class="home-link" href="/">King's Studio</a>
 </header>
@@ -227,17 +238,17 @@ height:50vh;
     <!-- 主页  -->
     
     
-    <!-- 文章页  -->
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/xg8.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/xg7.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            King's Studio
-            <!-- 文章页  -->
+            Spring Cloud的分布式整体解决方案
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
@@ -245,12 +256,49 @@ height:50vh;
             <!-- 主页副标题  -->
             
             
-                Coding to change the world!
-            
-            <!-- 文章页  -->
+            <!-- 404 -->
             
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="分布式架构">分布式架构</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">413</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/05/30</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -351,337 +399,101 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/30/java回顾6/">
-            
-                <span>Java IO总结</span>
-        </a>
-        <div class="abstract-content">
-            IO部分学习了一段时间了，现在来做个初步的总结。我的侧重点主要在IO流部分，主要分为两块：节点流和处理流。节点流就是离数据最近的流，处理流则是用于提高性能增强功能，我们首先来看节点流。
-节点流节点流根据处理的数据类型又可分为两部分，字节流和字符流。字节流可以处理一切文件如纯文本、音频、视频等，而字符流只能处理纯文本文件。
-字节流不论是字节流还是字符流，根据数据流向不同，都可划分成输入流和输出流，输入字节流InputStream，输出字节流OutputStream。InputStream是所有的输入字节流的父类，OutputStream是所有的输出字节流的父类，我们通过字节流读取文件的例子...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/30</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>前面我们介绍了Dubbo+ZooKeeper的分布式架构方案，但与Spring Cloud相比，Dubbo+ZooKeeper还是缺少了很多关键的组件，它只实现了服务的注册与调用，而Spring Cloud为开发者提供了在分布式系统(<strong>配置管理，服务发现，熔断，路由，微代理，控制总线，一次性token，全局锁，leader选举，分布式session，集群状态</strong>)中快速构建的工具，使用SpringCloud的开发者可以快速的启动服务或构建应用、同时能够快速和云平台资源进行对接。</p>
+<h2 id="Spring-Cloud与Dubbo核心要素的比较"><a href="#Spring-Cloud与Dubbo核心要素的比较" class="headerlink" title="Spring Cloud与Dubbo核心要素的比较"></a>Spring Cloud与Dubbo核心要素的比较</h2><table>
+<thead>
+<tr>
+<th>核心要素</th>
+<th>Dubbo</th>
+<th>Spring Cloud</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>服务注册中心</td>
+<td>ZooKeeper</td>
+<td>Spring Cloud Netflix Eureka</td>
+</tr>
+<tr>
+<td>服务调用方式</td>
+<td>RPC</td>
+<td>REST API</td>
+</tr>
+<tr>
+<td>服务网关</td>
+<td>无</td>
+<td>Spring Cloud Netflix Zuul</td>
+</tr>
+<tr>
+<td>断路器</td>
+<td>不完善</td>
+<td>Spring Cloud Netflix Hystrix</td>
+</tr>
+<tr>
+<td>分布式配置</td>
+<td>无</td>
+<td>Spring Cloud Config</td>
+</tr>
+<tr>
+<td>分布式追踪系统</td>
+<td>无</td>
+<td>Spring Cloud Sleuth</td>
+</tr>
+<tr>
+<td>消息总线</td>
+<td>无</td>
+<td>Spring Cloud Bus</td>
+</tr>
+<tr>
+<td>数据流</td>
+<td>无</td>
+<td>Spring Cloud Stream基于Redis、Kafka实现的消息微服务</td>
+</tr>
+<tr>
+<td>批量任务</td>
+<td>无</td>
+<td>Spring Cloud Task</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Spring-Cloud架构"><a href="#Spring-Cloud架构" class="headerlink" title="Spring Cloud架构"></a>Spring Cloud架构</h2><p>Spring Cloud使用Eureka作为注册中心，将如图的Service服务都注册进去，Service1想要调用Service2就要遵守Ribbon的负载均衡设置，根据负载均衡的规则，来决定调用哪台服务器上的Service2；由于Service1调用Service2，Service2调用Service3，Service3调用Service4是一个完整的过程，当Service3或者Service4出现问题，由于使用了Hystrix，可以是用户无需等待就能快速响应到失败状态；用户想要实现调用必须经过Zuul服务网关的过滤请求，这就是一个完整的Spring Cloud的功能实现过程。</p>
+<p><img src="/2020/05/30/SpringCloud的分布式整体解决方案/title.png" alt="Spring Cloud"></p>
+
     </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/27/java回顾5/">
-            
-                <span>手写字节流文件拷贝类</span>
-        </a>
-        <div class="abstract-content">
-            今天手写了利用字节流拷贝文件的方法类，调用该方法可传入源文件、目的文件绝对路径，也可传入源文件、目的文件对象；后更新了文件夹拷贝方法，有一些不同，如果源对象是文件就直接调用文件拷贝方法，注意不能创建与文件夹同名的文件。
-CopyFileUtil类123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081public class CopyFile...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/27</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/26/java回顾4/">
-            
-                <span>Java中的异常处理</span>
-        </a>
-        <div class="abstract-content">
-            今天总结一下Java中的异常和处理机制，首先我们知道Error类和Exception类都是Throwable的子类，Error类以及它子类的实例，代表了JVM本身的错误，程序员无法通过代码处理，因此我们需要去关注Exception类以及它的子类。异常通常可以分为两类，一类是unckecked exception，这类异常在编译时不会提示，通常是代码本身的问题，如除0异常ArithmeticException，数组下标越界ArrayIndexOutOfBoundsException，空指针NullPointerException等。
-unckecked exception123456pub...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/26</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/22/java回顾3/">
-            
-                <span>Java中的多态</span>
-        </a>
-        <div class="abstract-content">
-            前面已经总结过了封装，今天来总结一下多态。
-多态存在的条件1、类的继承提到多态就必须要讲一下继承的概念，当一个类继承于另一个类时，该类则是前一个类的子类，而被继承的类就称为这个子类的父类。子类继承父类可以得到父类的全部属性和方法（构造方法除外），即子类对象可以调用父类的未被重写的所有方法。而当没有写出该类继承于哪一个类时，默认继承Object类，即Object类是所有类的父类。
-2、方法的重写指的是子类重写父类的方法，当父类方法不能满足子类的实现时，需要重写父类的方法。
-3、父类引用指向子类对象下面我们通过实际代码进行理解，我们首先定义一个Animal类，再定义一个Dog类和Cat类继承...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/22</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/17/java回顾2/">
-            
-                <span>Java中数组插入和删除指定元素</span>
-        </a>
-        <div class="abstract-content">
-            今天在练习的时候，用到了数组的插入以及删除元素，就想到来总结一下不同情况下对数组元素的操作。
-数组元素插入数组元素插入按照位置分三种情况，数组首部，尾部和中间指定位置。首部以及尾部比较容易，总体思路是先新建一个临时数组，比原数组长度大1，然后遍历将原数组的所有元素拷贝到进临时数组，再将要添加的元素赋值到临时数组的首尾部，最后遍历输出数组。
-123456789101112String productName = scanner.next();//创建新数组，比原来的数组长度大1String[] tempWareHouse = new String[wareHouse.length+1];f...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/13/java回顾1/">
-            
-                <span>Java中变量的作用范围</span>
-        </a>
-        <div class="abstract-content">
-            继续Java语法的复习，最近在学习的过程中，发现很多地方会定义重名的变量，一旦重名变量多了之后，就会分不清各个变量是做什么用的，所以现在想到来总结一下变量的作用范围以及定义的时候应该注意的问题。
-Java中变量的作用范围类的变量的作用域是整个类，即类中的方法都可以进行访问和操作；而方法中声明的变量的作用域在方法内部；像for/while/try…catch/if语句中声明的变量作用域在对应的语句块内。总结下来，大部分情况下，变量的作用域就是包含它的一对大括号。
-特殊情况当类中声明一个变量，类中的方法也声明了一个同名的变量，这种情况不会冲突，默认会优先使用方法中的变量，而要给类中的成员变量...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/13</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/09/hello-world/">
-            
-                <span>Java中的无参和有参构造方法以及封装的概念</span>
-        </a>
-        <div class="abstract-content">
-            无参和有参构造方法的概念最近在复习Java，发现回头重新看语法，不光加深了印象，还有了和以前不同的理解。就拿Java中的无参和有参构造方法来说，每new()一次就会调用一次构造方法，当没有显示的实现无参构造方法时，系统会默认提供一个无参构造方法，当开发人员手动实现构造方法，系统不会再提供无参构造方法，我们以新建一个User类为例。
-12345678910//无参构造方法public User()&#123;&#125;//有参构造方法，实现该有参构造方法，系统将不再提供无参构造方法public User(String uId,String uName) &#123;    this.us...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/09</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
+    <!-- license  -->
     
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/page/3/">&#60; PREV</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
-    </nav>
-    
-</main>
-            <!-- profile -->
+    <ul class="post-paginator">
+        <li class="next">
             
-            <div class="profile">
-    <img class="profile-avatar" alt="avatar" src="/avatar/tx.png">
-    <div class="profile-name">金奇</div>
-    
-    <div class="profile-signature">
-        Pay attention to me
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
+        </li>
+        <li class="previous">
             
-                <a href="mailto:576163960@qq.com" class="iconfont-archer email" title="email"></a>
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2020/05/28/SpringBoot-Dubbo-ZooKeeper整合总结/" title="SpringBoot+Dubbo+ZooKeeper整合总结">
+                    <div class="prevTitle">SpringBoot+Dubbo+ZooKeeper整合总结</div>
+                </a>
             
-        
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
-        
-            
-                <a href="//github.com/jqdelove" class="iconfont-archer github" target="_blank" title="github"></a>
-            
-        
     
-        
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
     
-        
-    
-        
-    
-        
-            
-                <a href="//weibo.com/5328235155/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" class="iconfont-archer weibo" target="_blank" title="weibo"></a>
-            
-        
-    
-        
-    
-        
-    
-        
-            
-                <a href="//www.facebook.com/jqdelove" class="iconfont-archer facebook" target="_blank" title="facebook"></a>
-            
-        
-    
-        
-    
-        
-            
-                <a href="//www.instagram.com/jqdelove/" class="iconfont-archer instagram" target="_blank" title="instagram"></a>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
     
 
-    </div>
-    
-    
-        <div class="friends">
-            <div>FRIENDS</div>
-            
-                
-                    <span>
-                        <a href="//www.baidu.com" target="_black">baidu</a>
-                    </span>
-                
-            
-                
-                    <span>
-                        <a href="//www.google.com" target="_black">Google</a>
-                    </span>
-                
-            
-                
-                    <span>
-                        <a href="//zh.wikipedia.org/wiki/Wikipedia:%E9%A6%96%E9%A1%B5" target="_black">Wikipedia</a>
-                    </span>
-                
-            
-        </div>
-    
-    
-        <div class="about-me">
-            <a href="/about">ABOUT ME</a>
-        </div>
-    
-</div>
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
             
         </div>
         <footer class="footer footer-unloaded">
@@ -769,6 +581,24 @@ Java中变量的作用范围类的变量的作用域是整个类，即类中的�
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Cloud与Dubbo核心要素的比较"><span class="toc-number">1.</span> <span class="toc-text">Spring Cloud与Dubbo核心要素的比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Cloud架构"><span class="toc-number">2.</span> <span class="toc-text">Spring Cloud架构</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1575,6 +1405,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>

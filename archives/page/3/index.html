@@ -346,6 +346,40 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/03/21/SpringBoot配置文件的优先级/">
+            
+                <span>Spring Boot配置文件的优先级</span>
+        </a>
+        <div class="abstract-content">
+            Spring Boot支持两种配置文件的形式，一种是application.properties，另一种是application.yml。最近在配置过程中遇到了配置文件优先级的问题，现在来总结一下。
+Spring Boot配置文件properties和yml的优先级首先来讲一下yml文件与properties文件语法上的不同，以设置应用端口为例：properties文件示例(application.properties)：
+1server.port=80
+YAML文件示例(application.yml)：
+12server:    port: 80
+在这里就不过多对yml的语法进行研究...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/21</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/03/19/SpringBoot项目的快速搭建并启动/">
             
                 <span>Spring Boot项目的快速搭建并启动</span>
@@ -565,40 +599,6 @@ Server12345678910111213141516171819public class Server...
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/02/03/java回顾7/">
-            
-                <span>Java多线程</span>
-        </a>
-        <div class="abstract-content">
-            要理解Java多线程，首先要区分进程和线程的概念。
-进程每个进程是一个应用程序，都有独立的内存空间。在同一个操作系统中，可以同时启动多个进程。
-线程线程是一个进程中的执行场景，一个进程可以启动多个线程。那么多线程有什么作用呢？多线程不是为了提高执行速度，而是提高应用程序的使用率，给人的感觉是多个线程在同时并发执行。
-创建线程创建线程一共有三种方式，在这里我们总结一下常用的两种：
-继承 Thread类创建一个类，通过继承Thread类来开辟一个线程，然后在main()方法中h创建子类对象，调用start()方法启动线程，当前类中我们关注创建的子类对象启动的线程和main线程。
-123456...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href="/2019/02/03/分享1/">
             
                 <span>分享</span>
@@ -629,19 +629,22 @@ Server12345678910111213141516171819public class Server...
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/01/30/java回顾6/">
+        <a class="abstract-title" href="/2019/02/03/java回顾7/">
             
-                <span>Java IO总结</span>
+                <span>Java多线程</span>
         </a>
         <div class="abstract-content">
-            IO部分学习了一段时间了，现在来做个初步的总结。我的侧重点主要在IO流部分，主要分为两块：节点流和处理流。节点流就是离数据最近的流，处理流则是用于提高性能增强功能，我们首先来看节点流。
-节点流节点流根据处理的数据类型又可分为两部分，字节流和字符流。字节流可以处理一切文件如纯文本、音频、视频等，而字符流只能处理纯文本文件。
-字节流不论是字节流还是字符流，根据数据流向不同，都可划分成输入流和输出流，输入字节流InputStream，输出字节流OutputStream。InputStream是所有的输入字节流的父类，OutputStream是所有的输出字节流的父类，我们通过字节流读取文件的例子...
+            要理解Java多线程，首先要区分进程和线程的概念。
+进程每个进程是一个应用程序，都有独立的内存空间。在同一个操作系统中，可以同时启动多个进程。
+线程线程是一个进程中的执行场景，一个进程可以启动多个线程。那么多线程有什么作用呢？多线程不是为了提高执行速度，而是提高应用程序的使用率，给人的感觉是多个线程在同时并发执行。
+创建线程创建线程一共有三种方式，在这里我们总结一下常用的两种：
+继承 Thread类创建一个类，通过继承Thread类来开辟一个线程，然后在main()方法中h创建子类对象，调用start()方法启动线程，当前类中我们关注创建的子类对象启动的线程和main线程。
+123456...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/30</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/03</span>
             </div>
             <!-- tags  -->
             
@@ -1245,22 +1248,9 @@ Server12345678910111213141516171819public class Server...
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 36
+        Total : 37
         </div>
         <!-- search  -->
         
@@ -1273,6 +1263,11 @@ Server12345678910111213141516171819public class Server...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href="/2020/05/30/SpringCloud的分布式整体解决方案/">Spring Cloud的分布式整体解决方案</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1474,9 +1469,9 @@ Server12345678910111213141516171819public class Server...
     
         <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
     
-        <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
-    
         <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
+    
+        <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
     
         <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
     
