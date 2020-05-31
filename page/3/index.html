@@ -359,6 +359,36 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/03/24/SpringBoot自定义配置属性/">
+            
+                <span>Spring Boot自定义配置属性</span>
+        </a>
+        <div class="abstract-content">
+            自定义配置属性Spring Boot提供了许多的配置，但通常情况我们需要自定义的配置应用自己的系统中，例如你需要配置一个默认的用户名密码做为系统的登录用。首先创建一个实体类，作为配置注入用，并使用@ConfigurationProperties注解进行批量注入，也可以使用Spring底层注解@Value的方式一个一个注入达到同样的效果。
+@ConfigurationProperties注解123456789@Component@ConfigurationProperties(prefix = "person")public class Person &#123;    private S...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/24</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/03/21/SpringBoot配置文件的优先级/">
             
                 <span>Spring Boot配置文件的优先级</span>
@@ -600,36 +630,6 @@ Server12345678910111213141516171819public class Server...
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="励志">励志</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/03/分享1/">
-            
-                <span>分享</span>
-        </a>
-        <div class="abstract-content">
-            
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="分享">分享</a>
     
 </div>
             
@@ -1364,12 +1364,9 @@ Server12345678910111213141516171819public class Server...
     
     
     
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 37
+        Total : 38
         </div>
         <!-- search  -->
         
@@ -1382,6 +1379,11 @@ Server12345678910111213141516171819public class Server...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/31</span><a class="archive-post-title" href="/2020/05/31/Spring-Cloud分布式服务实现/">Spring Cloud分布式服务实现</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1420,12 +1422,12 @@ Server12345678910111213141516171819public class Server...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">SpringBoot整合Redis中间件进行缓存</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/消息中间件的概念以及应用场景/">消息中间件的概念以及应用场景</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/消息中间件的概念以及应用场景/">消息中间件的概念以及应用场景</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">SpringBoot整合Redis中间件进行缓存</a>
         </li>
     
     
@@ -1584,13 +1586,11 @@ Server12345678910111213141516171819public class Server...
     
         <span class="sidebar-tag-name" data-tags="年度总结"><span class="iconfont-archer">&#xe606;</span>年度总结</span>
     
-        <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
-    
         <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
     
-        <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
-    
         <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
+    
+        <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
     
         <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
     
@@ -1604,9 +1604,11 @@ Server12345678910111213141516171819public class Server...
     
         <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
     
-        <span class="sidebar-tag-name" data-tags="大数据之HBase"><span class="iconfont-archer">&#xe606;</span>大数据之HBase</span>
+        <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
     
         <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据之HBase"><span class="iconfont-archer">&#xe606;</span>大数据之HBase</span>
     
         <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
     
