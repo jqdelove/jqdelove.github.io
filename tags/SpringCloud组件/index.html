@@ -346,152 +346,25 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/24/SpringBoot自定义配置属性/">
+        <a class="abstract-title" href="/2020/12/28/文件上传结合SpringCloud的Feign进行服务调用/">
             
-                <span>Spring Boot自定义配置属性</span>
+                <span>文件上传结合SpringCloud的Feign进行服务调用</span>
         </a>
         <div class="abstract-content">
-            自定义配置属性Spring Boot提供了许多的配置，但通常情况我们需要自定义的配置应用自己的系统中，例如你需要配置一个默认的用户名密码做为系统的登录用。首先创建一个实体类，作为配置注入用，并使用@ConfigurationProperties注解进行批量注入，也可以使用Spring底层注解@Value的方式一个一个注入达到同样的效果。
-@ConfigurationProperties注解123456789@Component@ConfigurationProperties(prefix = "person")public class Person &#123;    private S...
+            工作中一直使用的是SpringCloud，其中的多个组件的使用也已经有一段时间了，包括对组件的配置文件的编写，今天要讲的是SpringCloud中的一个远程服务调用的组件，使用Feign之后，我们调用Eureka注册的其他服务，在代码中就像各个service之间相互调用那么简单。那至于为什么要调用其他服务的接口，就是微服务架构的内容了，今天我讲的是我们项目中独立出来的文件上传模块，我们在项目中将其做成一个通用的接口，使得其他服务中有相同需求时，可以直接调用该服务的接口进行文件上传以及文件管理。
+##Feign简介
+Feign是Netflix开发的声明式，模板化的HTTP客户端，其灵感来自...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/24</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/12/28</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/24/SpringBoot自动配置原理/">
-            
-                <span>Spring Boot自动配置原理</span>
-        </a>
-        <div class="abstract-content">
-            Spring Boot项目快速搭建的核心就在于自动配置的原理，在自动配置的基础上，我们在创建项目的时候就可以选择包含哪些依赖，极大地提高了构建项目的效率。而要熟练掌握Spring Boot的使用，就必须要理解自动配置的原理，我们还从Spring Boot启动的时候加载的主配置类说起。
-原理Spring Boot应用启动时加载主配置类123456@SpringBootApplicationpublic class SpringBootHelloQuickApplication &#123;    public static void main(String[] args) &#123;  ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/21/SpringBoot配置文件的优先级/">
-            
-                <span>Spring Boot配置文件的优先级</span>
-        </a>
-        <div class="abstract-content">
-            Spring Boot支持两种配置文件的形式，一种是application.properties，另一种是application.yml。最近在配置过程中遇到了配置文件优先级的问题，现在来总结一下。
-Spring Boot配置文件properties和yml的优先级首先来讲一下yml文件与properties文件语法上的不同，以设置应用端口为例：properties文件示例(application.properties)：
-1server.port=80
-YAML文件示例(application.yml)：
-12server:    port: 80
-在这里就不过多对yml的语法进行研究...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/19/SpringBoot项目的快速搭建并启动/">
-            
-                <span>Spring Boot项目的快速搭建并启动</span>
-        </a>
-        <div class="abstract-content">
-            通常我们创建Spring的项目都需要先创建Maven工程，然后再引入各种Spring的依赖，这样的步骤我们早已经习惯了，不过在使用过Spring Boot之后，我们发现以前创建项目的步骤实在是太过繁琐了。现在我们来向大家介绍Spring Boot提供的目前最便捷迅速的构建Spring项目的方式。
-使用Spring Initializer快速创建Spring Boot项目如何创建首先File–&gt;New Project，选择Spring Initializer，点击Next。
-
-然后输入Group和Artifact，点击Next。
-
-在这个页面选择项目需要的依赖，例如Web、SQL等。...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/19</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/03/17/SSM框架总结1/">
-            
-                <span>基于Maven的SSM框架的搭建</span>
-        </a>
-        <div class="abstract-content">
-            在简单的面向对象关系映射框架的基础上，我对集成化程度更高的SpringMVC+Spring+MyBatis框架（以下简称SSM框架）进行了学习和总结，在这里我们主要总结如何在Maven的基础上搭建SSM框架并使用。
-基本概念MavenMaven是一个项目管理工具，它包含了一个项目对象模型，一组标准集合，一个项目生命周期，一个依赖管理系统，和用来运行定义在生命周期阶段中插件目标的逻辑。当你使用Maven的时候，你用一个明确定义的项目对象模型来描述你的项目，然后Maven可以应用横切的逻辑，这些逻辑来自一组共享的（或者自定义的）插件。此外，Maven能够很方便的帮你管理项目报告，生成站点，管...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="SSM">SSM</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="SpringCloud组件">SpringCloud组件</a>
     
 </div>
             
