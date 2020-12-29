@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>撇除杂念 · King&#39;s Studio</title>
+    <title>Jenkins实现前后端自动化部署 · King&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">King&#39;s Studio</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">撇除杂念</a>
+                <a href="#" class="post-name">Jenkins实现前后端自动化部署</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            撇除杂念
+            Jenkins实现前后端自动化部署
             <!-- 404 -->
             
         </h1>
@@ -266,18 +266,18 @@ height:50vh;
                 
                     <div class="post-intro-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="励志">励志</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="Jenkins自动化部署">Jenkins自动化部署</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">176</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">486</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/02/14</span>
+                    <span class="post-intro-time">2020/12/29</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -401,7 +401,20 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>很久没更博了，这也是第一次写给自己打气的博客，进入到本命年以来，很多事没有想象中的那么顺利，现在我想清楚了，如果想做成一件事不能靠什么不靠谱的命运，还是得靠自己，为了能成功在魔都站稳脚跟，接下来的半年时间，我一定要撇除杂念，静下心来去学习，我已经不再是那个还能天天混的年纪了，回想在部队经历的种种，眼前的灯红酒绿不过是过眼云烟，只有自己对理想的不懈奋斗才能充实每天的生活，加油，魔都见！</p>
+        <p>在工作中第一次接触Jenkins，开始的时候只知道在提交代码到Git服务器后，需要在Jenkins管理页面点击对应的项目进行构建，后来在项目迁移服务器的时候学习了如何配置前后端自动化构建的流程，也对Jenkins有了更多的了解，这篇就对Jenkins的启动以及配置项目做一个总结。</p>
+<p>#Jenkins启动以及配置</p>
+<p>首先可以到Jenkins官网去查看Jenkins的jar包下载方式，地址放在这里：<a href="https://www.jenkins.io/download/" target="_blank" rel="noopener">https://www.jenkins.io/download/</a></p>
+<p>##Jenkins安装</p>
+<p>我采用的是CentOS的Linux系统，因此选择对应的jar包类型下载到服务器即可，接下来我们编写一个脚本来做后台启动，这样可以避免每次需要手动输入一大段命令，提高了启动的效率，同时我们附带编写一个停止脚本。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup java -Xms128m -Xmx128m -Dorg.jenkinsci.plugins.gitclient.Git.timeOut=6000 -jar jenkins.war --ajp13Port=-1 --httpPort=9999 &gt; jenkins.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<p>启动脚本的含义就不进行解释了，如果怕麻烦可以直接用这个脚本进行套用。停止脚本在下方：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 `ps -ef | grep java | grep jenkins | grep -v grep | awk '&#123;print $2&#125;'`</span><br></pre></td></tr></table></figure>
+<p>我们将Jenkins的日志输出到同目录下的jenkins.log文件中，这样Jenkins的启动就已经完成。</p>
+<p>##Jenkins配置</p>
+<p>启动完成后，Jenkins会让我们设置账户，进入系统管理，我们首先需要将项目中常用的插件进行安装，例如SSH工具、Git、SVN、NodeJS等，这些在后面配置项目的过程中都会使用到。</p>
+<p>#Jenkins自动化部署项目</p>
+<p>由于在项目中已经进行了文档的形式总结，这边就不再进行赘述，有兴趣的同学可以点击进入这个网盘链接进行部署文档的下载：链接: <a href="https://pan.baidu.com/s/19_v2tExRcbhkCT359NVSTg" target="_blank" rel="noopener">https://pan.baidu.com/s/19_v2tExRcbhkCT359NVSTg</a></p>
+<p>提取码: 69bh </p>
 
     </article>
     <!-- license  -->
@@ -410,17 +423,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/02/19/java回顾8/" title="总结Java中的JDBC">
-                    <div class="nextTitle">总结Java中的JDBC</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/02/03/分享1/" title="分享">
-                    <div class="prevTitle">分享</div>
+                <a href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/" title="Oracle数据库整体迁移并采用定时任务备份">
+                    <div class="prevTitle">Oracle数据库整体迁移并采用定时任务备份</div>
                 </a>
             
         </li>
