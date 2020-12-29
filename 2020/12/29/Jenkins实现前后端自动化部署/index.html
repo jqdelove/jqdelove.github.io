@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">486</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">484</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -402,18 +402,14 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <p>在工作中第一次接触Jenkins，开始的时候只知道在提交代码到Git服务器后，需要在Jenkins管理页面点击对应的项目进行构建，后来在项目迁移服务器的时候学习了如何配置前后端自动化构建的流程，也对Jenkins有了更多的了解，这篇就对Jenkins的启动以及配置项目做一个总结。</p>
-<p>#Jenkins启动以及配置</p>
-<p>首先可以到Jenkins官网去查看Jenkins的jar包下载方式，地址放在这里：<a href="https://www.jenkins.io/download/" target="_blank" rel="noopener">https://www.jenkins.io/download/</a></p>
-<p>##Jenkins安装</p>
-<p>我采用的是CentOS的Linux系统，因此选择对应的jar包类型下载到服务器即可，接下来我们编写一个脚本来做后台启动，这样可以避免每次需要手动输入一大段命令，提高了启动的效率，同时我们附带编写一个停止脚本。</p>
+<h1 id="Jenkins启动以及配置"><a href="#Jenkins启动以及配置" class="headerlink" title="Jenkins启动以及配置"></a>Jenkins启动以及配置</h1><p>首先可以到Jenkins官网去查看Jenkins的jar包下载方式，地址放在这里：<a href="https://www.jenkins.io/download/" target="_blank" rel="noopener">https://www.jenkins.io/download/</a></p>
+<h2 id="Jenkins安装"><a href="#Jenkins安装" class="headerlink" title="Jenkins安装"></a>Jenkins安装</h2><p>我采用的是CentOS的Linux系统，因此选择对应的jar包类型下载到服务器即可，接下来我们编写一个脚本来做后台启动，这样可以避免每次需要手动输入一大段命令，提高了启动的效率，同时我们附带编写一个停止脚本。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup java -Xms128m -Xmx128m -Dorg.jenkinsci.plugins.gitclient.Git.timeOut=6000 -jar jenkins.war --ajp13Port=-1 --httpPort=9999 &gt; jenkins.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 <p>启动脚本的含义就不进行解释了，如果怕麻烦可以直接用这个脚本进行套用。停止脚本在下方：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 `ps -ef | grep java | grep jenkins | grep -v grep | awk '&#123;print $2&#125;'`</span><br></pre></td></tr></table></figure>
 <p>我们将Jenkins的日志输出到同目录下的jenkins.log文件中，这样Jenkins的启动就已经完成。</p>
-<p>##Jenkins配置</p>
-<p>启动完成后，Jenkins会让我们设置账户，进入系统管理，我们首先需要将项目中常用的插件进行安装，例如SSH工具、Git、SVN、NodeJS等，这些在后面配置项目的过程中都会使用到。</p>
-<p>#Jenkins自动化部署项目</p>
-<p>由于在项目中已经进行了文档的形式总结，这边就不再进行赘述，有兴趣的同学可以点击进入这个网盘链接进行部署文档的下载：链接: <a href="https://pan.baidu.com/s/19_v2tExRcbhkCT359NVSTg" target="_blank" rel="noopener">https://pan.baidu.com/s/19_v2tExRcbhkCT359NVSTg</a></p>
+<h2 id="Jenkins配置"><a href="#Jenkins配置" class="headerlink" title="Jenkins配置"></a>Jenkins配置</h2><p>启动完成后，Jenkins会让我们设置账户，进入系统管理，我们首先需要将项目中常用的插件进行安装，例如SSH工具、Git、SVN、NodeJS等，这些在后面配置项目的过程中都会使用到。</p>
+<h1 id="Jenkins自动化部署项目"><a href="#Jenkins自动化部署项目" class="headerlink" title="Jenkins自动化部署项目"></a>Jenkins自动化部署项目</h1><p>由于在项目中已经进行了文档的形式总结，这边就不再进行赘述，有兴趣的同学可以点击进入这个网盘链接进行部署文档的下载：链接: <a href="https://pan.baidu.com/s/19_v2tExRcbhkCT359NVSTg" target="_blank" rel="noopener">https://pan.baidu.com/s/19_v2tExRcbhkCT359NVSTg</a></p>
 <p>提取码: 69bh </p>
 
     </article>
@@ -427,8 +423,8 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/" title="Oracle数据库整体迁移并采用定时任务备份">
-                    <div class="prevTitle">Oracle数据库整体迁移并采用定时任务备份</div>
+                <a href="/2020/12/28/2020年我的回顾/" title="2020年我的回顾">
+                    <div class="prevTitle">2020年我的回顾</div>
                 </a>
             
         </li>
@@ -552,7 +548,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Jenkins启动以及配置"><span class="toc-number">1.</span> <span class="toc-text">Jenkins启动以及配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins安装"><span class="toc-number">1.1.</span> <span class="toc-text">Jenkins安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins配置"><span class="toc-number">1.2.</span> <span class="toc-text">Jenkins配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Jenkins自动化部署项目"><span class="toc-number">2.</span> <span class="toc-text">Jenkins自动化部署项目</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -565,6 +561,66 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1283,12 +1339,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/">Elasticsearch的介绍与Docker部署并测试API</a>
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">SpringBoot整合Elasticsearch全文搜索引擎</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">SpringBoot整合Elasticsearch全文搜索引擎</a>
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/">Elasticsearch的介绍与Docker部署并测试API</a>
         </li>
     
     
@@ -1367,12 +1423,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
         </li>
     
     
@@ -1469,21 +1525,21 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
     
-        <span class="sidebar-tag-name" data-tags="Jenkins自动化部署"><span class="iconfont-archer">&#xe606;</span>Jenkins自动化部署</span>
-    
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
     
-        <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
+        <span class="sidebar-tag-name" data-tags="Jenkins自动化部署"><span class="iconfont-archer">&#xe606;</span>Jenkins自动化部署</span>
     
         <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
     
+        <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
+    
         <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
     
-        <span class="sidebar-tag-name" data-tags="SSM"><span class="iconfont-archer">&#xe606;</span>SSM</span>
-    
         <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
+    
+        <span class="sidebar-tag-name" data-tags="SSM"><span class="iconfont-archer">&#xe606;</span>SSM</span>
     
         <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
     
@@ -1491,15 +1547,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
     
+        <span class="sidebar-tag-name" data-tags="大数据之HBase"><span class="iconfont-archer">&#xe606;</span>大数据之HBase</span>
+    
         <span class="sidebar-tag-name" data-tags="大数据之MapReduce"><span class="iconfont-archer">&#xe606;</span>大数据之MapReduce</span>
     
         <span class="sidebar-tag-name" data-tags="大数据技术生态体系"><span class="iconfont-archer">&#xe606;</span>大数据技术生态体系</span>
     
-        <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
-    
         <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
     
-        <span class="sidebar-tag-name" data-tags="大数据之HBase"><span class="iconfont-archer">&#xe606;</span>大数据之HBase</span>
+        <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
     
         <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
     
