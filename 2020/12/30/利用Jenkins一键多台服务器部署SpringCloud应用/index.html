@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">237</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">512</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -402,10 +402,26 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <p>上一篇我们总结了安装启动Jenkins，并使用Jenkins部署前后端项目，工作中还遇到了某一个SpringCloud服务负载压力过大，需要多台机器部署的情况，由于我在项目中负责了整个搭建的过程，因此在这边来做一个总结。</p>
-<p>##配置原理及效果展示</p>
-<p>首先我们要知道我们利用的是SpringCloud中的Eureka注册中心实现的负载均衡，具体操作是在两台不同的服务器中部署相同的一个服务，并且两个服务都注册到同一个Eureka上，Eureka会将注册的服务全部暴露出去，供外部访问，效果如下图：</p>
+<h2 id="配置原理及效果展示"><a href="#配置原理及效果展示" class="headerlink" title="配置原理及效果展示"></a>配置原理及效果展示</h2><p>首先我们要知道我们利用的是SpringCloud中的Eureka注册中心实现的负载均衡，具体操作是在两台不同的服务器中部署相同的一个服务，并且两个服务都注册到同一个Eureka上，Eureka会将注册的服务全部暴露出去，供外部访问，效果如下图：</p>
 <p><img src="/2020/12/30/利用Jenkins一键多台服务器部署SpringCloud应用/eureka.png" alt="Eureka"></p>
 <p>在图中我们看到，主机名不同的两台服务器，两个相同端口相同服务名称的服务实现了负载均衡的配置，那么如何使用Jenkins做到这一点呢？</p>
+<h2 id="Jenkins环境配置"><a href="#Jenkins环境配置" class="headerlink" title="Jenkins环境配置"></a>Jenkins环境配置</h2><p>首先我们需要在Jenkins上安装SSH工具，使其能够在当前服务器上访问到另一台服务器，如下图：</p>
+<p><img src="/2020/12/30/利用Jenkins一键多台服务器部署SpringCloud应用/jenkins.png" alt="jenkins"></p>
+<p>安装完成之后，在系统配置中配置新服务器的信息，确保我们后面能够执行该服务器上的脚本：</p>
+<p><img src="/2020/12/30/利用Jenkins一键多台服务器部署SpringCloud应用/jenkins2.png" alt="jenkins配置2"></p>
+<h2 id="启动脚本编写以及执行"><a href="#启动脚本编写以及执行" class="headerlink" title="启动脚本编写以及执行"></a>启动脚本编写以及执行</h2><p>点击进入需要负载均衡部署的服务，修改发布的脚本，我们的执行逻辑是这样的：</p>
+<ul>
+<li><p>首先在本台服务器上对项目进行编译打包</p>
+</li>
+<li><p>将打包好的jar包通过scp命令发送到另一台负载均衡的机器</p>
+</li>
+<li><p>通过SSH连接，远程执行另一台服务的启动脚本</p>
+</li>
+</ul>
+<p>完成上面的步骤之后，新的服务会被注册到Eureka中，我们到Eureka中就能看到被注册的服务，构建的设置如下图：</p>
+<p><img src="/2020/12/30/利用Jenkins一键多台服务器部署SpringCloud应用/build.png" alt="build"></p>
+<p>构建完成之后如何验证是否成功呢，如果你的项目也配置了ELK日志收集，就能够看到和我一样的效果，结果展示为下图：</p>
+<p><img src="/2020/12/30/利用Jenkins一键多台服务器部署SpringCloud应用/success.png" alt="效果"></p>
 
     </article>
     <!-- license  -->
@@ -543,7 +559,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置原理及效果展示"><span class="toc-number">1.</span> <span class="toc-text">配置原理及效果展示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins环境配置"><span class="toc-number">2.</span> <span class="toc-text">Jenkins环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动脚本编写以及执行"><span class="toc-number">3.</span> <span class="toc-text">启动脚本编写以及执行</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -556,6 +572,20 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1252,12 +1282,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/2020年我的回顾/">2020年我的回顾</a>
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/2020年我的回顾/">2020年我的回顾</a>
         </li>
     
     
@@ -1302,12 +1332,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/">Elasticsearch的介绍与Docker部署并测试API</a>
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">SpringBoot整合Elasticsearch全文搜索引擎</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">SpringBoot整合Elasticsearch全文搜索引擎</a>
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/">Elasticsearch的介绍与Docker部署并测试API</a>
         </li>
     
     
@@ -1490,17 +1520,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Jenkins自动化部署"><span class="iconfont-archer">&#xe606;</span>Jenkins自动化部署</span>
     
-        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
-    
         <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
-    
-        <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
     
         <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
     
-        <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
     
         <span class="sidebar-tag-name" data-tags="SSM"><span class="iconfont-archer">&#xe606;</span>SSM</span>
+    
+        <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
     
         <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
     
@@ -1510,15 +1540,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
     
-        <span class="sidebar-tag-name" data-tags="大数据之HBase"><span class="iconfont-archer">&#xe606;</span>大数据之HBase</span>
-    
         <span class="sidebar-tag-name" data-tags="大数据之MapReduce"><span class="iconfont-archer">&#xe606;</span>大数据之MapReduce</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据之HBase"><span class="iconfont-archer">&#xe606;</span>大数据之HBase</span>
     
         <span class="sidebar-tag-name" data-tags="大数据技术生态体系"><span class="iconfont-archer">&#xe606;</span>大数据技术生态体系</span>
     
-        <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
-    
         <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
+    
+        <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
     
         <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
     
