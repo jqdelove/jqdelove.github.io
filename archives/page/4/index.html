@@ -346,6 +346,40 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/03/21/SpringBoot配置文件的优先级/">
+            
+                <span>Spring Boot配置文件的优先级</span>
+        </a>
+        <div class="abstract-content">
+            Spring Boot支持两种配置文件的形式，一种是application.properties，另一种是application.yml。最近在配置过程中遇到了配置文件优先级的问题，现在来总结一下。
+Spring Boot配置文件properties和yml的优先级首先来讲一下yml文件与properties文件语法上的不同，以设置应用端口为例：properties文件示例(application.properties)：
+1server.port=80
+YAML文件示例(application.yml)：
+12server:    port: 80
+在这里就不过多对yml的语法进行研究...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/21</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/03/19/SpringBoot项目的快速搭建并启动/">
             
                 <span>Spring Boot项目的快速搭建并启动</span>
@@ -611,37 +645,6 @@ Server12345678910111213141516171819public class Server...
             <!-- date  -->
             <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/30/java回顾6/">
-            
-                <span>Java IO总结</span>
-        </a>
-        <div class="abstract-content">
-            IO部分学习了一段时间了，现在来做个初步的总结。我的侧重点主要在IO流部分，主要分为两块：节点流和处理流。节点流就是离数据最近的流，处理流则是用于提高性能增强功能，我们首先来看节点流。
-节点流节点流根据处理的数据类型又可分为两部分，字节流和字符流。字节流可以处理一切文件如纯文本、音频、视频等，而字符流只能处理纯文本文件。
-字节流不论是字节流还是字符流，根据数据流向不同，都可划分成输入流和输出流，输入字节流InputStream，输出字节流OutputStream。InputStream是所有的输入字节流的父类，OutputStream是所有的输出字节流的父类，我们通过字节流读取文件的例子...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/30</span>
             </div>
             <!-- tags  -->
             
@@ -1423,46 +1426,9 @@ Server12345678910111213141516171819public class Server...
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 46
+        Total : 47
         </div>
         <!-- search  -->
         
@@ -1478,12 +1444,12 @@ Server12345678910111213141516171819public class Server...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/29</span><a class="archive-post-title" href="/2020/12/29/Jenkins实现前后端自动化部署/">Jenkins实现前后端自动化部署</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2020/12/30/利用Jenkins一键多台服务器部署SpringCloud应用/">利用Jenkins一键多台服务器部署SpringCloud应用</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href="/2020/12/29/Jenkins实现前后端自动化部署/">Jenkins实现前后端自动化部署</a>
         </li>
     
     
@@ -1494,6 +1460,11 @@ Server12345678910111213141516171819public class Server...
     
         <li class="archive-post-item">
             <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/2020年我的回顾/">2020年我的回顾</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
         </li>
     
     
@@ -1538,12 +1509,12 @@ Server12345678910111213141516171819public class Server...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">SpringBoot整合Elasticsearch全文搜索引擎</a>
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/">Elasticsearch的介绍与Docker部署并测试API</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/">Elasticsearch的介绍与Docker部署并测试API</a>
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">SpringBoot整合Elasticsearch全文搜索引擎</a>
         </li>
     
     
@@ -1622,12 +1593,12 @@ Server12345678910111213141516171819public class Server...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
         </li>
     
     
@@ -1724,21 +1695,21 @@ Server12345678910111213141516171819public class Server...
     
         <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
     
+        <span class="sidebar-tag-name" data-tags="Jenkins自动化部署"><span class="iconfont-archer">&#xe606;</span>Jenkins自动化部署</span>
+    
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
     
-        <span class="sidebar-tag-name" data-tags="Jenkins自动化部署"><span class="iconfont-archer">&#xe606;</span>Jenkins自动化部署</span>
+        <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
     
         <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
     
-        <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
-    
         <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
     
-        <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
-    
         <span class="sidebar-tag-name" data-tags="SSM"><span class="iconfont-archer">&#xe606;</span>SSM</span>
+    
+        <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
     
         <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
     
@@ -1752,9 +1723,9 @@ Server12345678910111213141516171819public class Server...
     
         <span class="sidebar-tag-name" data-tags="大数据技术生态体系"><span class="iconfont-archer">&#xe606;</span>大数据技术生态体系</span>
     
-        <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
-    
         <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
+    
+        <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
     
         <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
     
