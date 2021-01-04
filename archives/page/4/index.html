@@ -361,6 +361,36 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/03/24/SpringBoot自定义配置属性/">
+            
+                <span>Spring Boot自定义配置属性</span>
+        </a>
+        <div class="abstract-content">
+            自定义配置属性Spring Boot提供了许多的配置，但通常情况我们需要自定义的配置应用自己的系统中，例如你需要配置一个默认的用户名密码做为系统的登录用。首先创建一个实体类，作为配置注入用，并使用@ConfigurationProperties注解进行批量注入，也可以使用Spring底层注解@Value的方式一个一个注入达到同样的效果。
+@ConfigurationProperties注解123456789@Component@ConfigurationProperties(prefix = "person")public class Person &#123;    private S...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/24</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot">Spring Boot</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/03/21/SpringBoot配置文件的优先级/">
             
                 <span>Spring Boot配置文件的优先级</span>
@@ -632,40 +662,6 @@ Server12345678910111213141516171819public class Server...
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="分享">分享</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/03/java回顾7/">
-            
-                <span>Java多线程</span>
-        </a>
-        <div class="abstract-content">
-            要理解Java多线程，首先要区分进程和线程的概念。
-进程每个进程是一个应用程序，都有独立的内存空间。在同一个操作系统中，可以同时启动多个进程。
-线程线程是一个进程中的执行场景，一个进程可以启动多个线程。那么多线程有什么作用呢？多线程不是为了提高执行速度，而是提高应用程序的使用率，给人的感觉是多个线程在同时并发执行。
-创建线程创建线程一共有三种方式，在这里我们总结一下常用的两种：
-继承 Thread类创建一个类，通过继承Thread类来开辟一个线程，然后在main()方法中h创建子类对象，调用start()方法启动线程，当前类中我们关注创建的子类对象启动的线程和main线程。
-123456...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
     
 </div>
             
@@ -1445,9 +1441,32 @@ Server12345678910111213141516171819public class Server...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 47
+        Total : 48
         </div>
         <!-- search  -->
         
@@ -1461,6 +1480,20 @@ Server12345678910111213141516171819public class Server...
     
     
     
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/04</span><a class="archive-post-title" href="/2021/01/04/构建ELK日志搜索运维平台/">构建ELK日志搜索运维平台</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
@@ -1477,12 +1510,12 @@ Server12345678910111213141516171819public class Server...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/2020年我的回顾/">2020年我的回顾</a>
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/2020年我的回顾/">2020年我的回顾</a>
         </li>
     
     
@@ -1730,9 +1763,9 @@ Server12345678910111213141516171819public class Server...
     
         <span class="sidebar-tag-name" data-tags="SSM"><span class="iconfont-archer">&#xe606;</span>SSM</span>
     
-        <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
-    
         <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
+    
+        <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
     
         <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
     
@@ -1749,6 +1782,8 @@ Server12345678910111213141516171819public class Server...
         <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
     
         <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
+    
+        <span class="sidebar-tag-name" data-tags="运维"><span class="iconfont-archer">&#xe606;</span>运维</span>
     
         <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
     
