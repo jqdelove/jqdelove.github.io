@@ -201,8 +201,8 @@
             var labels = JSON.parse('{"input_placeholder":"Search for Posts","hits_empty":"We did not find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}')
 
             var algolia = {
-                applicationID: '0JBWSQYL0Q',
-                apiKey: '5d29bd688b39ae4805e01a853a4cd612',
+                applicationID: 'TWBVS7BXP6',
+                apiKey: 'bbace713548d474c6c8dfff7659ff6e8',
                 indexName: 'rosswe',
                 hits: hits,
                 labels: labels
@@ -434,7 +434,7 @@ height:50vh;
 <p>步骤五：执行导入命令，同样是在oracle用户下执行，如果执行过程中出现中断的问题，需要进入数据库删除该用户重新执行命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">impdp 用户名/密码@orcl dumpfile=backup.dmp directory=dumpdir schemas=OPERQRY</span><br></pre></td></tr></table></figure>
 <h2 id="采用定时任务的方式对数据库进行备份"><a href="#采用定时任务的方式对数据库进行备份" class="headerlink" title="采用定时任务的方式对数据库进行备份"></a>采用定时任务的方式对数据库进行备份</h2><p>上面的导入和导出命令执行成功后，结合项目实际开发中遇到的数据误删的问题，我们决定编写一个自定义shell脚本对数据库进行每日备份，由于数据库的数据每日都在进行更新，因此我们采用每日备份的机制，且数据量会越来越大，我们还需要保留近期数据，将旧数据进行删除，下面我将备份脚本列出，以供参考：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">tm=`date +%Y%m%d`</span><br><span class="line">/u01/app/oracle/product/11.2.0/bin/expdp OPERQRY/OPERQRY@orcl dumpfile=backup$tm.dmp directory=dumpdir</span><br><span class="line"></span><br><span class="line">echo "**************************************"</span><br><span class="line">echo "删除三天前的数据库备份文件"</span><br><span class="line"></span><br><span class="line">tm2=`date +%Y%m%d --date '3 days ago'`</span><br><span class="line">rm -rf /home/oracle/backup$tm2.dmp</span><br><span class="line"></span><br><span class="line">echo "删除完成"</span><br><span class="line">echo "**************************************"</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">tm=`date +%Y%m%d`</span><br><span class="line">/u01/app/oracle/product/11.2.0/bin/expdp OPERQRY/OPERQRY@orcl dumpfile=backup$tm.dmp directory=dumpdir</span><br><span class="line"></span><br><span class="line">echo "**************************************"</span><br><span class="line">echo "删除三天前的数据库备份文件"</span><br><span class="line"></span><br><span class="line">tm2=`date +%Y%m%d --date '3 days ago'`</span><br><span class="line">rm -rf /home/oracle/backup$tm2.dmp</span><br><span class="line"></span><br><span class="line">echo "删除完成"</span><br><span class="line">echo "**************************************"</span><br></pre></td></tr></table></figure>
 <p>脚本编写完成后，我们使用Linux的定时任务进行执行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 1 * * * . ~/.bash_profile; /bin/sh /home/oracle/backup.sh</span><br></pre></td></tr></table></figure>
 <p>上面的. ~/.bash_profile;的配置需要说明一下，不加这段描述的时候我的定时任务始终执行失败，这是由于expdp和impdp是Oracle提供的，因此我们需要在.bash_profile中配置Oracle的信息，来执行这个命令，配置如下：</p>
@@ -1246,6 +1246,40 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 47
@@ -1353,12 +1387,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">SpringBoot整合Redis中间件进行缓存</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/消息中间件的概念以及应用场景/">消息中间件的概念以及应用场景</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/消息中间件的概念以及应用场景/">消息中间件的概念以及应用场景</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">SpringBoot整合Redis中间件进行缓存</a>
         </li>
     
     
@@ -1417,12 +1451,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
         </li>
     
     
@@ -1517,23 +1551,23 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="年度总结"><span class="iconfont-archer">&#xe606;</span>年度总结</span>
     
+        <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
+    
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="Jenkins自动化部署"><span class="iconfont-archer">&#xe606;</span>Jenkins自动化部署</span>
     
-        <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
+        <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
     
         <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
     
-        <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
-    
         <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
-    
-        <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
     
         <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
     
         <span class="sidebar-tag-name" data-tags="SSM"><span class="iconfont-archer">&#xe606;</span>SSM</span>
+    
+        <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
     
         <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
     
@@ -1545,13 +1579,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="大数据之MapReduce"><span class="iconfont-archer">&#xe606;</span>大数据之MapReduce</span>
     
+        <span class="sidebar-tag-name" data-tags="大数据技术生态体系"><span class="iconfont-archer">&#xe606;</span>大数据技术生态体系</span>
+    
         <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
     
         <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
     
         <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
-    
-        <span class="sidebar-tag-name" data-tags="大数据技术生态体系"><span class="iconfont-archer">&#xe606;</span>大数据技术生态体系</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
