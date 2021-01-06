@@ -287,7 +287,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">692</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.5k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -429,7 +429,30 @@ height:50vh;
 <p>然后通过浏览器访问：<a href="http://localhost:9200/" target="_blank" rel="noopener">http://localhost:9200/</a></p>
 <p><img src="/2021/01/04/构建ELK日志搜索运维平台/es.png" alt="es"></p>
 <p>看到如图效果，Elasticsearch安装完成。</p>
-<h1 id="Logstash的双节点配置"><a href="#Logstash的双节点配置" class="headerlink" title="Logstash的双节点配置"></a>Logstash的双节点配置</h1><p>由于我们的业务模块是使用两台机器进行负载均衡部署的，</p>
+<h1 id="Logstash的双节点配置"><a href="#Logstash的双节点配置" class="headerlink" title="Logstash的双节点配置"></a>Logstash的双节点配置</h1><p>由于我们的业务模块是使用两台机器进行负载均衡部署的，我们的逻辑是分别在两台机器上配置Logstash，然后将两个节点的日志都写入到Elasticsearch中，再由Kibana进行展示，首先我们进行Logstash的安装。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">下载</span></span><br><span class="line">curl -L -O https://artifacts.elastic.co/downloads/logstash/logstash-6.4.2.tar.gz</span><br><span class="line"><span class="meta">#</span><span class="bash">解压</span></span><br><span class="line">tar -xzvf logstash-6.4.2.tar.gz</span><br></pre></td></tr></table></figure>
+<p>需要说明的一点是，我们所使用的三个组件的版本都是一致的，这确保了最后整个日志收集平台搭建好之后是能够正常使用的，如果你也是第一次搭建，最稳妥的办法是尽量保持三个组件的版本相同。</p>
+<p>Logstash中最重要的部分是配置文件的编写，怎样编写配置文件能够达到想要的结果，Logstash的配置文件有很多种玩法，具体的就不过多描述，想要不同编写方式的同学可以自己进行查询，在这边我讲述一下我们项目中的方式。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># Sample Logstash configuration for creating a simple</span><br><span class="line"># Beats -&gt; Logstash -&gt; Elasticsearch pipeline.</span><br><span class="line"></span><br><span class="line">input &#123;</span><br><span class="line">  file &#123;</span><br><span class="line">    path =&gt; "/opt/mor-projects/business-mor-framework-0.0.1-SNAPSHOT.log"</span><br><span class="line">    start_position =&gt; "beginning"</span><br><span class="line">    stat_interval =&gt; "3"</span><br><span class="line">    type =&gt; "systemlog"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output &#123;</span><br><span class="line">  if [type] == "systemlog" &#123;</span><br><span class="line">    elasticsearch &#123;</span><br><span class="line">      hosts =&gt; ["172.19.119.192:9200"]</span><br><span class="line">      index =&gt; "business-framework-log-%&#123;+YYYY.MM.dd&#125;"</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们的输入是由SpringCloud服务产生的.log日志文件，输出则是单节点的Elasticsearch，其实整体的方案还是非常简单的，后续如果有只查看单节点的SpringCloud服务的日志，还有不同的方法，可以自行探索。然后我们编写Logstash的启动脚本，方便今后的维护以及查看日志。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup bin/logstash -f config/logstash.conf &gt; logs/logstash.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<p>启动之后我们去到logs文件夹中查看输出的日志信息：</p>
+<p><img src="/2021/01/04/构建ELK日志搜索运维平台/logstash.png" alt="logstash"></p>
+<p>当看到红色框中的信息时，表示Logstash启动成功，另一台机器的配置同理。</p>
+<h1 id="Kibana的启动及使用"><a href="#Kibana的启动及使用" class="headerlink" title="Kibana的启动及使用"></a>Kibana的启动及使用</h1><p><code>Kibana</code>是一款开源的，用于数据分析展示的平台。经常跟<code>ElasticSearch</code>配合使用。简单的说就是为<code>ElasticSearch</code>提供前端的数据搜索及分析的展示界面，功能强大，各种图表样式丰富。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">下载</span></span><br><span class="line">curl -L -O https://artifacts.elastic.co/downloads/kibana/kibana-6.4.2-linux-x86_64.tar.gz</span><br><span class="line"><span class="meta">#</span><span class="bash">解压</span></span><br><span class="line">tar xzvf kibana-6.4.2-linux-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>启动之前需要对Kibana进行一些配置，我们进入到Kibana的配置文件夹，修改kibana.yml文件，告诉Kibana它要连接的是哪个Elasticsearch。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">进入配置文件夹</span></span><br><span class="line">cd kibana-6.4.2-linux-x86_64/config/</span><br><span class="line">vi kibana.yml</span><br></pre></td></tr></table></figure>
+<p>修改红框的Elasticsearch地址：</p>
+<p><img src="/2021/01/04/构建ELK日志搜索运维平台/kibana.png" alt="kibana"></p>
+<p>第一个红色框表示的是Kibana的默认启动端口，我们执行下面的命令进行启动：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">启动</span></span><br><span class="line">./bin/kibana</span><br></pre></td></tr></table></figure>
+<p>在浏览器中输入地址：<a href="http://localhost:5601" target="_blank" rel="noopener">http://localhost:5601</a></p>
+<p>看到如图所示的效果：</p>
+<p><img src="/2021/01/04/构建ELK日志搜索运维平台/kibana2.png" alt="kibana2"></p>
+<p>要想达到上面的效果，首先要去系统管理中将之前写在Logstash配置文件中的文件索引添加，如图：</p>
+<p><img src="/2021/01/04/构建ELK日志搜索运维平台/kibana3.png" alt="kibana3"></p>
+<p>Kibana会自动将你输入的索引检索出来，然后点击下一步，就能够在发现标签页查看到日志的实时加载情况。</p>
 
     </article>
     <!-- license  -->
@@ -438,7 +461,7 @@ height:50vh;
             <p>原文作者：<a href="https://www.rossontheway.com">金奇</a>
             </p><p>原文链接：<a href="https://www.rossontheway.com/2021/01/04/构建ELK日志搜索运维平台/">https://www.rossontheway.com/2021/01/04/构建ELK日志搜索运维平台/</a>
             </p><p>发表日期：<a href="https://www.rossontheway.com/2021/01/04/构建ELK日志搜索运维平台/">January 4th 2021, 12:00:00 am</a>
-            </p><p>更新日期：<a href="https://www.rossontheway.com/2021/01/04/构建ELK日志搜索运维平台/">January 6th 2021, 11:02:32 am</a>
+            </p><p>更新日期：<a href="https://www.rossontheway.com/2021/01/04/构建ELK日志搜索运维平台/">January 6th 2021, 11:44:26 am</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可，除特别声明外，转载请注明出处！</p>
         </div>
     
@@ -590,7 +613,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ELK简介"><span class="toc-number">1.</span> <span class="toc-text">ELK简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Elasticsearch的单节点安装"><span class="toc-number">2.</span> <span class="toc-text">Elasticsearch的单节点安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Logstash的双节点配置"><span class="toc-number">3.</span> <span class="toc-text">Logstash的双节点配置</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ELK简介"><span class="toc-number">1.</span> <span class="toc-text">ELK简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Elasticsearch的单节点安装"><span class="toc-number">2.</span> <span class="toc-text">Elasticsearch的单节点安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Logstash的双节点配置"><span class="toc-number">3.</span> <span class="toc-text">Logstash的双节点配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kibana的启动及使用"><span class="toc-number">4.</span> <span class="toc-text">Kibana的启动及使用</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -603,16 +626,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -1369,12 +1382,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/文件上传结合SpringCloud的Feign进行服务调用/">文件上传结合SpringCloud的Feign进行服务调用</a>
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/文件上传结合SpringCloud的Feign进行服务调用/">文件上传结合SpringCloud的Feign进行服务调用</a>
         </li>
     
     
@@ -1424,12 +1437,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/">Elasticsearch的介绍与Docker部署并测试API</a>
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">SpringBoot整合Elasticsearch全文搜索引擎</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">SpringBoot整合Elasticsearch全文搜索引擎</a>
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/">Elasticsearch的介绍与Docker部署并测试API</a>
         </li>
     
     
@@ -1444,12 +1457,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">SpringBoot整合Redis中间件进行缓存</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/消息中间件的概念以及应用场景/">消息中间件的概念以及应用场景</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/消息中间件的概念以及应用场景/">消息中间件的概念以及应用场景</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">SpringBoot整合Redis中间件进行缓存</a>
         </li>
     
     
@@ -1508,12 +1521,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
         </li>
     
     
@@ -1558,12 +1571,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/java回顾7/">Java多线程</a>
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/分享1/">分享</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/分享1/">分享</a>
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/java回顾7/">Java多线程</a>
         </li>
     
     
@@ -1608,23 +1621,23 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="年度总结"><span class="iconfont-archer">&#xe606;</span>年度总结</span>
     
+        <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
+    
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="Jenkins自动化部署"><span class="iconfont-archer">&#xe606;</span>Jenkins自动化部署</span>
     
-        <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
-    
         <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
-    
-        <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
     
         <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
     
+        <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
+    
         <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
     
-        <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
-    
         <span class="sidebar-tag-name" data-tags="SSM"><span class="iconfont-archer">&#xe606;</span>SSM</span>
+    
+        <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
     
         <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
     
@@ -1632,19 +1645,19 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
     
-        <span class="sidebar-tag-name" data-tags="大数据之HBase"><span class="iconfont-archer">&#xe606;</span>大数据之HBase</span>
-    
         <span class="sidebar-tag-name" data-tags="大数据之MapReduce"><span class="iconfont-archer">&#xe606;</span>大数据之MapReduce</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据之HBase"><span class="iconfont-archer">&#xe606;</span>大数据之HBase</span>
     
         <span class="sidebar-tag-name" data-tags="大数据技术生态体系"><span class="iconfont-archer">&#xe606;</span>大数据技术生态体系</span>
     
-        <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
-    
         <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
     
-        <span class="sidebar-tag-name" data-tags="运维"><span class="iconfont-archer">&#xe606;</span>运维</span>
+        <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
     
         <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
+    
+        <span class="sidebar-tag-name" data-tags="运维"><span class="iconfont-archer">&#xe606;</span>运维</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
