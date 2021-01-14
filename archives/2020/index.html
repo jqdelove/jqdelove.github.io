@@ -424,13 +424,14 @@ Jenkins安装我采用的是CentOS的Linux系统，因此选择对应的jar包�
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2020/12/28/文件上传结合SpringCloud的Feign进行服务调用/">
+        <a class="abstract-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">
             
-                <span>文件上传结合SpringCloud的Feign进行服务调用</span>
+                <span>Oracle数据库整体迁移并采用定时任务备份</span>
         </a>
         <div class="abstract-content">
-            工作中一直使用的是SpringCloud，其中的多个组件的使用也已经有一段时间了，包括对组件的配置文件的编写，今天要讲的是SpringCloud中的一个远程服务调用的组件，使用Feign之后，我们调用Eureka注册的其他服务，在代码中就像各个service之间相互调用那么简单。那至于为什么要调用其他服务的接口，就是微服务架构的内容了，今天我讲的是我们项目中独立出来的文件上传模块，我们在项目中将其做成一个通用的接口，使得其他服务中有相同需求时，可以直接调用该服务的接口进行文件上传以及文件管理。
-Feign简介Feign是Netflix开发的声明式，模板化的HTTP客户端，其灵感来自Ret...
+            项目过程中遇到云服务器切换的问题，因为之前的服务器资源被其他服务占用过多，因此需要将项目中用到的相关组件全部迁移到另一台新的服务器中，这中间遇到了很多问题，首先数据库迁移就是第一个遇到的问题，不仅是新的Oracle数据库安装，还需要将老数据库中的所有数据包括存储过程、索引、包等全部转存到新数据库。
+Oracle数据库安装其实能够搜索出很多教程，但我这次推荐百度经验的一篇，我实际按流程操作过一遍的，当然其中也会遇到一定的问题，具体地址：https://jingyan.baidu.com/article/90895e0f29c92164ec6b0bd1.html
+按照完整的步骤安装，我只遇到...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -441,7 +442,7 @@ Feign简介Feign是Netflix开发的声明式，模板化的HTTP客户端，其�
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="SpringCloud组件">SpringCloud组件</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="Oracle数据库">Oracle数据库</a>
     
 </div>
             
@@ -484,14 +485,13 @@ Feign简介Feign是Netflix开发的声明式，模板化的HTTP客户端，其�
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">
+        <a class="abstract-title" href="/2020/12/28/文件上传结合SpringCloud的Feign进行服务调用/">
             
-                <span>Oracle数据库整体迁移并采用定时任务备份</span>
+                <span>文件上传结合SpringCloud的Feign进行服务调用</span>
         </a>
         <div class="abstract-content">
-            项目过程中遇到云服务器切换的问题，因为之前的服务器资源被其他服务占用过多，因此需要将项目中用到的相关组件全部迁移到另一台新的服务器中，这中间遇到了很多问题，首先数据库迁移就是第一个遇到的问题，不仅是新的Oracle数据库安装，还需要将老数据库中的所有数据包括存储过程、索引、包等全部转存到新数据库。
-Oracle数据库安装其实能够搜索出很多教程，但我这次推荐百度经验的一篇，我实际按流程操作过一遍的，当然其中也会遇到一定的问题，具体地址：https://jingyan.baidu.com/article/90895e0f29c92164ec6b0bd1.html
-按照完整的步骤安装，我只遇到...
+            工作中一直使用的是SpringCloud，其中的多个组件的使用也已经有一段时间了，包括对组件的配置文件的编写，今天要讲的是SpringCloud中的一个远程服务调用的组件，使用Feign之后，我们调用Eureka注册的其他服务，在代码中就像各个service之间相互调用那么简单。那至于为什么要调用其他服务的接口，就是微服务架构的内容了，今天我讲的是我们项目中独立出来的文件上传模块，我们在项目中将其做成一个通用的接口，使得其他服务中有相同需求时，可以直接调用该服务的接口进行文件上传以及文件管理。
+Feign简介Feign是Netflix开发的声明式，模板化的HTTP客户端，其灵感来自Ret...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -502,7 +502,7 @@ Oracle数据库安装其实能够搜索出很多教程，但我这次推荐百�
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Oracle数据库">Oracle数据库</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="SpringCloud组件">SpringCloud组件</a>
     
 </div>
             
@@ -1462,6 +1462,12 @@ Eureka的启动使用Eureka作为注册中心，和ZooKeeper类似，需要单�
     
     
     
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 48
@@ -1508,7 +1514,7 @@ Eureka的启动使用Eureka作为注册中心，和ZooKeeper类似，需要单�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/文件上传结合SpringCloud的Feign进行服务调用/">文件上传结合SpringCloud的Feign进行服务调用</a>
         </li>
     
     
@@ -1518,7 +1524,7 @@ Eureka的启动使用Eureka作为注册中心，和ZooKeeper类似，需要单�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/文件上传结合SpringCloud的Feign进行服务调用/">文件上传结合SpringCloud的Feign进行服务调用</a>
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
         </li>
     
     
@@ -1563,12 +1569,12 @@ Eureka的启动使用Eureka作为注册中心，和ZooKeeper类似，需要单�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">SpringBoot整合Elasticsearch全文搜索引擎</a>
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/">Elasticsearch的介绍与Docker部署并测试API</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/">Elasticsearch的介绍与Docker部署并测试API</a>
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">SpringBoot整合Elasticsearch全文搜索引擎</a>
         </li>
     
     
@@ -1583,12 +1589,12 @@ Eureka的启动使用Eureka作为注册中心，和ZooKeeper类似，需要单�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/消息中间件的概念以及应用场景/">消息中间件的概念以及应用场景</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">SpringBoot整合Redis中间件进行缓存</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">SpringBoot整合Redis中间件进行缓存</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/消息中间件的概念以及应用场景/">消息中间件的概念以及应用场景</a>
         </li>
     
     
@@ -1647,12 +1653,12 @@ Eureka的启动使用Eureka作为注册中心，和ZooKeeper类似，需要单�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
         </li>
     
     
@@ -1747,23 +1753,23 @@ Eureka的启动使用Eureka作为注册中心，和ZooKeeper类似，需要单�
     
         <span class="sidebar-tag-name" data-tags="年度总结"><span class="iconfont-archer">&#xe606;</span>年度总结</span>
     
+        <span class="sidebar-tag-name" data-tags="Jenkins自动化部署"><span class="iconfont-archer">&#xe606;</span>Jenkins自动化部署</span>
+    
         <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
-        <span class="sidebar-tag-name" data-tags="Jenkins自动化部署"><span class="iconfont-archer">&#xe606;</span>Jenkins自动化部署</span>
-    
         <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
+    
+        <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
     
         <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
     
-        <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
+        <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
     
         <span class="sidebar-tag-name" data-tags="SSM"><span class="iconfont-archer">&#xe606;</span>SSM</span>
     
         <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
-    
-        <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
     
         <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
     
@@ -1775,13 +1781,13 @@ Eureka的启动使用Eureka作为注册中心，和ZooKeeper类似，需要单�
     
         <span class="sidebar-tag-name" data-tags="大数据之MapReduce"><span class="iconfont-archer">&#xe606;</span>大数据之MapReduce</span>
     
-        <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
-    
         <span class="sidebar-tag-name" data-tags="大数据技术生态体系"><span class="iconfont-archer">&#xe606;</span>大数据技术生态体系</span>
     
-        <span class="sidebar-tag-name" data-tags="运维"><span class="iconfont-archer">&#xe606;</span>运维</span>
-    
         <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
+    
+        <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
+    
+        <span class="sidebar-tag-name" data-tags="运维"><span class="iconfont-archer">&#xe606;</span>运维</span>
     
         <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
     
