@@ -419,8 +419,7 @@ height:50vh;
         <p>最近工作中需要使用Elasticsearch作为搜索引擎实现海量数据的搜索功能，以前也对Elasticsearch做过介绍了，包括使用Docker快速部署Elasticsearch进行学习，这是第一次在工作中使用到，需要会的东西也相应的更全面一些，包括复杂的条件查询，分页查询等，这部分Elasticsearch的操作会放到后面的博客中进行专门介绍，包括使用kibana开发者工具快速操作Elasticsearch。在学会Elasticsearch的API之后，不禁就会思考Elasticsearch的数据源从哪里来呢，以前学习时并没有思考过这个问题，后来在架构师的提示下，思考了将MySQL数据同步到Elasticsearch的方式，之后所有的查询均面对Elasticsearch进行操作，那么今天的主题来了，就是使用github上拥有star数达到18.3k的canal进行数据同步。</p>
 <p>在github上搜索canal就能看到它的详细介绍，canal支持多目标，包括MySQL、kafka、Elasticsearch、Hbase等，可以说是非常强大，在这里我就不再对canal进行详细的介绍了，github中它的主页全都有，我就放一张具有canal精神的图。</p>
 <p><img src="/2021/04/02/使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch/canal.png" alt="canal"></p>
-<p>##MySQL开启binlog写入功能</p>
-<p>其实canal的启动主要包括三部分，canal-deployer即server端，canal-adapter端，canal-client端，由于在工作中时间比较紧，client客户端没有进行部署，当然canal的核心也就是server和adapter，在部署服务之前我们首先需要确定自己的环境的三个中间件的版本。</p>
+<h2 id="MySQL开启binlog写入功能"><a href="#MySQL开启binlog写入功能" class="headerlink" title="MySQL开启binlog写入功能"></a>MySQL开启binlog写入功能</h2><p>其实canal的启动主要包括三部分，canal-deployer即server端，canal-adapter端，canal-client端，由于在工作中时间比较紧，client客户端没有进行部署，当然canal的核心也就是server和adapter，在部署服务之前我们首先需要确定自己的环境的三个中间件的版本。</p>
 <table>
 <thead>
 <tr>
@@ -460,8 +459,7 @@ height:50vh;
 <p><img src="/2021/04/02/使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch/result2.jpeg" alt="mysql"></p>
 <p>接下来需要创建一个拥有从库权限的账号，用于订阅binlog：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> canal <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'canal'</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span>, <span class="keyword">REPLICATION</span> <span class="keyword">SLAVE</span>, <span class="keyword">REPLICATION</span> <span class="keyword">CLIENT</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'canal'</span>@<span class="string">'%'</span>;</span><br><span class="line"><span class="keyword">FLUSH</span> <span class="keyword">PRIVILEGES</span>;</span><br></pre></td></tr></table></figure>
-<p>##canal-deployer的启动</p>
-<p>将我们下载好的压缩包canal.deployer-1.1.4.tar.gz上传到Linux服务器，并进行解压：</p>
+<h2 id="canal-deployer的启动"><a href="#canal-deployer的启动" class="headerlink" title="canal-deployer的启动"></a>canal-deployer的启动</h2><p>将我们下载好的压缩包canal.deployer-1.1.4.tar.gz上传到Linux服务器，并进行解压：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf canal.deployer-1.1.4.tar.gz</span><br></pre></td></tr></table></figure>
 <p>修改配置文件conf/example/instance.properties，按如下配置即可，主要是修改数据库相关配置，这边server主要是与数据源进行连通:</p>
 <p><img src="/2021/04/02/使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch/server.png" alt="mysql"></p>
@@ -471,8 +469,7 @@ height:50vh;
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/canal/logs/example</span><br><span class="line">tail -200f example.log</span><br></pre></td></tr></table></figure>
 <p>日志如下，没有报错信息即为成功：</p>
 <p><img src="/2021/04/02/使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch/log1.png" alt="mysql"></p>
-<p>##canal-adapter的启动</p>
-<p>将我们下载好的压缩包canal.adapter-1.1.4.tar.gz上传到Linux服务器，进行解压：</p>
+<h2 id="canal-adapter的启动"><a href="#canal-adapter的启动" class="headerlink" title="canal-adapter的启动"></a>canal-adapter的启动</h2><p>将我们下载好的压缩包canal.adapter-1.1.4.tar.gz上传到Linux服务器，进行解压：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf canal.adapter-1.1.4.tar.gz</span><br></pre></td></tr></table></figure>
 <p>下面我们需要修改adapter的配置文件，这边主要是将数据源和目标进行连通，并且我们在这里需要指定Elasticsearch的索引和类型，以及确定将哪一张源表同步到Elasticsearch中：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi application.yml</span><br></pre></td></tr></table></figure>
@@ -486,8 +483,7 @@ height:50vh;
 <p>启动完成后我们可以查看启动日志的情况：</p>
 <p><img src="/2021/04/02/使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch/adapter-log.png" alt="mysql"></p>
 <p>看到如上的日志即表示启动成功。</p>
-<p>##创建对应的Elasticsearch索引</p>
-<p>在这里我推荐使用kibana的开发者工具，操作Elasticsearch非常方便，在这里我将我的创建索引的代码放出来，以供参考：</p>
+<h2 id="创建对应的Elasticsearch索引"><a href="#创建对应的Elasticsearch索引" class="headerlink" title="创建对应的Elasticsearch索引"></a>创建对应的Elasticsearch索引</h2><p>在这里我推荐使用kibana的开发者工具，操作Elasticsearch非常方便，在这里我将我的创建索引的代码放出来，以供参考：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">PUT daac0118_da_dir_content</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"mappings"</span>:&#123;</span><br><span class="line">    <span class="attr">"da_dir_content"</span>:&#123;</span><br><span class="line">      <span class="attr">"properties"</span>:&#123;</span><br><span class="line">        <span class="attr">"DADIRCODE"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DADIRPARENTCODE"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DADIRSUBCODE"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DADIRTYPE"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DADIRTPLP"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DADIRISSTOP"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DADIRNAME"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DADIRORDER"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAVERSION"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO1"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO2"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO3"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"CREATER"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"CREATETIME"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"date"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"UPDATER"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"UPDATETIME"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"date"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>创建完成后，我们向源表中插入数据，同时查看adapter的日志情况：</p>
 <p><img src="/2021/04/02/使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch/success.png" alt="mysql"></p>
@@ -502,7 +498,7 @@ height:50vh;
             <p>原文作者：<a href="https://www.rossontheway.com">金奇</a>
             </p><p>原文链接：<a href="https://www.rossontheway.com/2021/04/02/使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch/">https://www.rossontheway.com/2021/04/02/使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch/</a>
             </p><p>发表日期：<a href="https://www.rossontheway.com/2021/04/02/使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch/">April 2nd 2021, 12:00:00 am</a>
-            </p><p>更新日期：<a href="https://www.rossontheway.com/2021/04/02/使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch/">April 2nd 2021, 6:48:51 pm</a>
+            </p><p>更新日期：<a href="https://www.rossontheway.com/2021/04/02/使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch/">April 2nd 2021, 7:02:57 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可，除特别声明外，转载请注明出处！</p>
         </div>
     
@@ -654,7 +650,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL开启binlog写入功能"><span class="toc-number">1.</span> <span class="toc-text">MySQL开启binlog写入功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#canal-deployer的启动"><span class="toc-number">2.</span> <span class="toc-text">canal-deployer的启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#canal-adapter的启动"><span class="toc-number">3.</span> <span class="toc-text">canal-adapter的启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建对应的Elasticsearch索引"><span class="toc-number">4.</span> <span class="toc-text">创建对应的Elasticsearch索引</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -667,40 +663,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -1472,12 +1434,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/文件上传结合SpringCloud的Feign进行服务调用/">文件上传结合SpringCloud的Feign进行服务调用</a>
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/文件上传结合SpringCloud的Feign进行服务调用/">文件上传结合SpringCloud的Feign进行服务调用</a>
         </li>
     
     
@@ -1704,25 +1666,25 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
-    
         <span class="sidebar-tag-name" data-tags="年度总结"><span class="iconfont-archer">&#xe606;</span>年度总结</span>
     
-        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+        <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
     
         <span class="sidebar-tag-name" data-tags="Jenkins自动化部署"><span class="iconfont-archer">&#xe606;</span>Jenkins自动化部署</span>
     
-        <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
     
-        <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
+        <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
     
-        <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
+        <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
     
         <span class="sidebar-tag-name" data-tags="SSM"><span class="iconfont-archer">&#xe606;</span>SSM</span>
     
         <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
+    
+        <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
     
         <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
     
@@ -1734,13 +1696,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="大数据之MapReduce"><span class="iconfont-archer">&#xe606;</span>大数据之MapReduce</span>
     
-        <span class="sidebar-tag-name" data-tags="大数据技术生态体系"><span class="iconfont-archer">&#xe606;</span>大数据技术生态体系</span>
-    
         <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
     
-        <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
+        <span class="sidebar-tag-name" data-tags="大数据技术生态体系"><span class="iconfont-archer">&#xe606;</span>大数据技术生态体系</span>
     
         <span class="sidebar-tag-name" data-tags="运维"><span class="iconfont-archer">&#xe606;</span>运维</span>
+    
+        <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
     
         <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
     
