@@ -361,13 +361,47 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/24/SpringBoot自动配置原理/">
+        <a class="abstract-title" href="/2019/04/20/SpringBoot嵌入式Servlet容器自动配置原理/">
             
-                <span>Spring Boot自动配置原理</span>
+                <span>Spring Boot嵌入式Servlet容器自动配置原理</span>
         </a>
         <div class="abstract-content">
-            Spring Boot项目快速搭建的核心就在于自动配置的原理，在自动配置的基础上，我们在创建项目的时候就可以选择包含哪些依赖，极大地提高了构建项目的效率。而要熟练掌握Spring Boot的使用，就必须要理解自动配置的原理，我们还从Spring Boot启动的时候加载的主配置类说起。
-原理Spring Boot应用启动时加载主配置类123456@SpringBootApplicationpublic class SpringBootHelloQuickApplication &#123;    public static void main(String[] args) &#123;  ...
+            以前的web应用开发我们采取的方式是项目完成后打包成war包，然后配置tomcat启动运行项目，而Spring Boot默认使用的是嵌入式的tomcat，那我们需要如何配置嵌入式的Servlet容器呢？
+定制修改Servlet容器相关配置修改和server有关的配置我们可以到项目的配置文件中直接对server的属性进行修改。
+
+在ServerProperties中我们能够看到所有可以进行配置的属性。
+
+编写一个WebServerFactoryCustomizer：web服务器工厂定制器在Spring Boot2.0及以上版本的学习过程中，我发现了多处与之前版本不同的地方，应该算是Spri...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/20</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Spring Boot开发">Spring Boot开发</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/03/24/SpringBoot自定义配置属性/">
+            
+                <span>Spring Boot自定义配置属性</span>
+        </a>
+        <div class="abstract-content">
+            自定义配置属性Spring Boot提供了许多的配置，但通常情况我们需要自定义的配置应用自己的系统中，例如你需要配置一个默认的用户名密码做为系统的登录用。首先创建一个实体类，作为配置注入用，并使用@ConfigurationProperties注解进行批量注入，也可以使用Spring底层注解@Value的方式一个一个注入达到同样的效果。
+@ConfigurationProperties注解123456789@Component@ConfigurationProperties(prefix = "person")public class Person &#123;    private S...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -391,13 +425,13 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/03/24/SpringBoot自定义配置属性/">
+        <a class="abstract-title" href="/2019/03/24/SpringBoot自动配置原理/">
             
-                <span>Spring Boot自定义配置属性</span>
+                <span>Spring Boot自动配置原理</span>
         </a>
         <div class="abstract-content">
-            自定义配置属性Spring Boot提供了许多的配置，但通常情况我们需要自定义的配置应用自己的系统中，例如你需要配置一个默认的用户名密码做为系统的登录用。首先创建一个实体类，作为配置注入用，并使用@ConfigurationProperties注解进行批量注入，也可以使用Spring底层注解@Value的方式一个一个注入达到同样的效果。
-@ConfigurationProperties注解123456789@Component@ConfigurationProperties(prefix = "person")public class Person &#123;    private S...
+            Spring Boot项目快速搭建的核心就在于自动配置的原理，在自动配置的基础上，我们在创建项目的时候就可以选择包含哪些依赖，极大地提高了构建项目的效率。而要熟练掌握Spring Boot的使用，就必须要理解自动配置的原理，我们还从Spring Boot启动的时候加载的主配置类说起。
+原理Spring Boot应用启动时加载主配置类123456@SpringBootApplicationpublic class SpringBootHelloQuickApplication &#123;    public static void main(String[] args) &#123;  ...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -632,36 +666,6 @@ Server12345678910111213141516171819public class Server...
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/02/14/计划1/">
-            
-                <span>撇除杂念</span>
-        </a>
-        <div class="abstract-content">
-            很久没更博了，这也是第一次写给自己打气的博客，进入到本命年以来，很多事没有想象中的那么顺利，现在我想清楚了，如果想做成一件事不能靠什么不靠谱的命运，还是得靠自己，为了能成功在魔都站稳脚跟，接下来的半年时间，我一定要撇除杂念，静下心来去学习，我已经不再是那个还能天天混的年纪了，回想在部队经历的种种，眼前的灯红酒绿不过是过眼云烟，只有自己对理想的不懈奋斗才能充实每天的生活，加油，魔都见！
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/14</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="励志">励志</a>
     
 </div>
             
@@ -1489,9 +1493,182 @@ Server12345678910111213141516171819public class Server...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 49
+        Total : 50
         </div>
         <!-- search  -->
         
@@ -1508,6 +1685,11 @@ Server12345678910111213141516171819public class Server...
     
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href="/2021/04/16/使用Elasticsearch的Java-API实现复杂查询/">使用Elasticsearch的Java API实现复杂查询</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1540,17 +1722,17 @@ Server12345678910111213141516171819public class Server...
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/文件上传结合SpringCloud的Feign进行服务调用/">文件上传结合SpringCloud的Feign进行服务调用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/2020年我的回顾/">2020年我的回顾</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/文件上传结合SpringCloud的Feign进行服务调用/">文件上传结合SpringCloud的Feign进行服务调用</a>
         </li>
     
     
@@ -1595,12 +1777,12 @@ Server12345678910111213141516171819public class Server...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/">Elasticsearch的介绍与Docker部署并测试API</a>
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">SpringBoot整合Elasticsearch全文搜索引擎</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">SpringBoot整合Elasticsearch全文搜索引擎</a>
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/">Elasticsearch的介绍与Docker部署并测试API</a>
         </li>
     
     
@@ -1615,12 +1797,12 @@ Server12345678910111213141516171819public class Server...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/消息中间件的概念以及应用场景/">消息中间件的概念以及应用场景</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">SpringBoot整合Redis中间件进行缓存</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">SpringBoot整合Redis中间件进行缓存</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/消息中间件的概念以及应用场景/">消息中间件的概念以及应用场景</a>
         </li>
     
     
@@ -1679,12 +1861,12 @@ Server12345678910111213141516171819public class Server...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
         </li>
     
     
@@ -1783,19 +1965,19 @@ Server12345678910111213141516171819public class Server...
     
         <span class="sidebar-tag-name" data-tags="Jenkins自动化部署"><span class="iconfont-archer">&#xe606;</span>Jenkins自动化部署</span>
     
-        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+        <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
     
         <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
     
-        <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
-    
         <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
+    
+        <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="SSM"><span class="iconfont-archer">&#xe606;</span>SSM</span>
     
         <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
-    
-        <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
     
         <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
     
@@ -1807,15 +1989,15 @@ Server12345678910111213141516171819public class Server...
     
         <span class="sidebar-tag-name" data-tags="大数据之MapReduce"><span class="iconfont-archer">&#xe606;</span>大数据之MapReduce</span>
     
-        <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
-    
         <span class="sidebar-tag-name" data-tags="大数据技术生态体系"><span class="iconfont-archer">&#xe606;</span>大数据技术生态体系</span>
+    
+        <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
     
         <span class="sidebar-tag-name" data-tags="运维"><span class="iconfont-archer">&#xe606;</span>运维</span>
     
-        <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
-    
         <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
+    
+        <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

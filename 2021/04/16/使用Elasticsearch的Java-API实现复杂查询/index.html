@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="金奇">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="金奇">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>使用Elasticsearch的Java API实现复杂查询 · King&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/avatar/tx.png">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin="">
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin="">
+    
+        <!-- algolia -->
+        <script>
+            
+            var hits = JSON.parse('{"per_page":10}')
+            var labels = JSON.parse('{"input_placeholder":"搜索","hits_empty":"没有找到相关的结果: ${query}","hits_stats":"${hits} 结果用时 ${time} ms"}')
+
+            var algolia = {
+                applicationID: 'TWBVS7BXP6',
+                apiKey: 'bbace713548d474c6c8dfff7659ff6e8',
+                indexName: 'rosswe',
+                hits: hits,
+                labels: labels
+            }
+        </script>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">King&#39;s Studio</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">使用Elasticsearch的Java API实现复杂查询</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">King's Studio</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random/1600x500)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            使用Elasticsearch的Java API实现复杂查询
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Elasticsearch">Elasticsearch</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.9k</span>阅读时长: <span class="post-count reading-time">9 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2021/04/16</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>上一篇我们总结了如何将MySQL的数据实时同步到Elasticsearch中，这一篇我们来总结一下当数据同步到Elasticsearch中后，如何使用Java API对Elasticsearch进行复杂查询，但实际工作中还没有遇到过特别复杂的SQL如何转化到Elasticsearch中，当然遇到这种情况一种解决方式是将数据库的查询结果直接存到一张表中，然后在Elasticsearch建立对应的索引，再对该索引进行查询；当然更直接的就是编写复杂的Java代码实现查询，这种情况我也还没有遇到。</p>
+<p>前面我们已经讲过了如何将MySQL数据库的一张表映射到Elasticsearch的索引中，同时不建议多张表对应同一个索引，Elasticsearch本身现在也不支持一个index下存在多个type的情况，因此一张表对应一个index是目前主要的方式。但开发过程中还会经常遇到表对应的索引经常需要调整的问题，因为不同的查询过滤条件不同，每个字段的设置就会不同，因此会需要反复调整索引，下面我们讲一个我实际做过的SQL语句的转化。</p>
+<p>在工作中遇到过group by两个字段，并且进行分组求和的情况，SQL语句如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> t.DAINFOATTR15, <span class="keyword">sum</span>(t.DAINFOATTR19), t.DAINFOATTR17</span><br><span class="line"><span class="keyword">from</span> t_da_info t</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> t.DAINFOATTR15, t.DAINFOATTR17;</span><br></pre></td></tr></table></figure>
+<p>可以看到这是一个非常简单的SQL语句，但在Elasticsearch中进行查询时会发现许多问题，首先我们的表中出现了DAINFOATTR15这个字段存的全部都是中文，然后在使用Java API的时候，Elasticserach会将DAINFOATTR15字段的每一个中文都进行group by，也就是每个独立的中文字符都会被group by，一开始遇到这个问题的时候就会很懵，后来通过百度查找结局方案，需要将存放中文的字段设置为keyword，如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">"DAINFOATTR15": &#123;</span><br><span class="line">  "type": "text",</span><br><span class="line">  "fielddata": true,</span><br><span class="line">  "fields": &#123;</span><br><span class="line">    "keyword": &#123;</span><br><span class="line">      "type": "keyword"</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我将完整的建立索引的语句展示出来，可以看到凡是加了如上的keyword过滤的，都是后面查询中需要作为group by的字段：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br></pre></td><td class="code"><pre><span class="line">PUT daac0118_da_info</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"mappings"</span>: &#123;</span><br><span class="line">    <span class="attr">"da_info"</span>: &#123;</span><br><span class="line">      <span class="attr">"properties"</span>: &#123;</span><br><span class="line">        <span class="attr">"DAINFOCODE"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFONAME"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DADIRCODE"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOTYPE"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOFLAG"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DACOMPID"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAVERSION"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR1"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR2"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR3"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR4"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR5"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR6"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR7"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR8"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR9"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR10"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR11"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span>,</span><br><span class="line">          <span class="attr">"analyzer"</span>: <span class="string">"ik_max_word"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR12"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR13"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span>,</span><br><span class="line">          <span class="attr">"fielddata"</span>: <span class="literal">true</span>,</span><br><span class="line">          <span class="attr">"fields"</span>: &#123;</span><br><span class="line">            <span class="attr">"keyword"</span>: &#123;</span><br><span class="line">              <span class="attr">"type"</span>: <span class="string">"keyword"</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR14"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR15"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span>,</span><br><span class="line">          <span class="attr">"fielddata"</span>: <span class="literal">true</span>,</span><br><span class="line">          <span class="attr">"fields"</span>: &#123;</span><br><span class="line">            <span class="attr">"keyword"</span>: &#123;</span><br><span class="line">              <span class="attr">"type"</span>: <span class="string">"keyword"</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR16"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR17"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span>,</span><br><span class="line">          <span class="attr">"fielddata"</span>: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR18"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR19"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"integer"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR20"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span>,</span><br><span class="line">          <span class="attr">"fielddata"</span>: <span class="literal">true</span>,</span><br><span class="line">          <span class="attr">"fields"</span>: &#123;</span><br><span class="line">            <span class="attr">"keyword"</span>: &#123;</span><br><span class="line">              <span class="attr">"type"</span>: <span class="string">"keyword"</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR21"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span>,</span><br><span class="line">          <span class="attr">"fielddata"</span>: <span class="literal">true</span>,</span><br><span class="line">          <span class="attr">"fields"</span>: &#123;</span><br><span class="line">            <span class="attr">"keyword"</span>: &#123;</span><br><span class="line">              <span class="attr">"type"</span>: <span class="string">"keyword"</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR22"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR23"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR24"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR25"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR26"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR27"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR28"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR29"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR30"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR31"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAINFOATTR32"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO1"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO2"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO3"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO4"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO5"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO6"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO7"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO8"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO9"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO10"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO11"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO12"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO13"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO14"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO15"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO16"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO17"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO18"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO19"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO20"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO21"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO22"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO23"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO24"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"DAMEMO25"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"CREATETIME"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"date"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"UPDATETIME"</span>: &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"date"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个建立索引的语句在上一篇也出现过，可以对比一下看出有什么区别。</p>
+<p>下面我们进行Java代码的编写，值得一提的是，有一种方法可以快速地将所编写的Java代码在Elasticsearch中执行检验效果，这种方法在开发过程中非常值得推荐。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 分组求和，group by多个字段</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> index</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Map&lt;Object, Object&gt; <span class="title">searchByIndexAndGroupBy</span><span class="params">(String index)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">      List&lt;Map&lt;String,Object&gt;&gt; result = <span class="keyword">new</span> ArrayList&lt;Map&lt;String,Object&gt;&gt;();</span><br><span class="line">      List&lt;String&gt; nameList = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">      HashMap&lt;Object, Object&gt; resultMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">      SearchSourceBuilder searchSourceBuilder = <span class="keyword">new</span> SearchSourceBuilder();</span><br><span class="line"></span><br><span class="line">      <span class="comment">//group by两个字段</span></span><br><span class="line">      TermsAggregationBuilder builder = AggregationBuilders.terms(<span class="string">"dept_name"</span>).field(<span class="string">"DAINFOATTR15.keyword"</span>);</span><br><span class="line">      TermsAggregationBuilder builder2 = AggregationBuilders.terms(<span class="string">"dept_id"</span>).field(<span class="string">"DAINFOATTR17"</span>);</span><br><span class="line"></span><br><span class="line">      <span class="comment">//sum求和的字段</span></span><br><span class="line">      SumAggregationBuilder sumAggregationBuilder = AggregationBuilders.sum(<span class="string">"heat_num"</span>).field(<span class="string">"DAINFOATTR19"</span>);</span><br><span class="line">      <span class="comment">//拼接builder</span></span><br><span class="line">      searchSourceBuilder.aggregation(builder.subAggregation(builder2).subAggregation(sumAggregationBuilder)).size(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">      <span class="comment">//--------------------------------------</span></span><br><span class="line">      <span class="comment">//处理返回的结果</span></span><br><span class="line">      SearchRequest searchRequest = <span class="keyword">new</span> SearchRequest(index).source(searchSourceBuilder);</span><br><span class="line">      <span class="comment">// 获取返回值</span></span><br><span class="line">      SearchResponse response = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);</span><br><span class="line">      Map&lt;String, Aggregation&gt; aggMap = response.getAggregations().getAsMap();</span><br><span class="line"></span><br><span class="line">      <span class="comment">//获得名字为dept_name的Aggregation，强转为ParsedStringTerms</span></span><br><span class="line">      ParsedStringTerms deptName = (ParsedStringTerms) aggMap.get(<span class="string">"dept_name"</span>);</span><br><span class="line"></span><br><span class="line">      <span class="comment">//遍历每一个Bucket</span></span><br><span class="line">      <span class="keyword">for</span> (Terms.Bucket deptNameBucket : deptName.getBuckets()) &#123;</span><br><span class="line">          Map&lt;String,Object&gt; map = <span class="keyword">new</span> HashMap&lt;String,Object&gt;();</span><br><span class="line">          <span class="comment">//获取Bucket的key</span></span><br><span class="line">          String deptNames = (String) deptNameBucket.getKey();</span><br><span class="line"></span><br><span class="line">          map.put(<span class="string">"deptNames"</span>,deptNames);</span><br><span class="line"></span><br><span class="line">          nameList.add(deptNames);</span><br><span class="line"></span><br><span class="line">          <span class="comment">//获取Bucket中的多个Aggregation的Map，通过key获取对应的Aggregation</span></span><br><span class="line">          Map&lt;String, Aggregation&gt; subAggMap = deptNameBucket.getAggregations().getAsMap();</span><br><span class="line">          ParsedSum sum = (ParsedSum) subAggMap.get(<span class="string">"heat_num"</span>);</span><br><span class="line"></span><br><span class="line">          map.put(<span class="string">"sum"</span>,(<span class="keyword">int</span>) sum.getValue());</span><br><span class="line"></span><br><span class="line">          ParsedStringTerms deptId = (ParsedStringTerms) subAggMap.get(<span class="string">"dept_id"</span>);</span><br><span class="line">          <span class="keyword">for</span> (Terms.Bucket posBucket : deptId.getBuckets()) &#123;</span><br><span class="line">              String deptIds = (String) posBucket.getKey();</span><br><span class="line">              map.put(<span class="string">"deptIds"</span>,deptIds);</span><br><span class="line">          &#125;</span><br><span class="line">          result.add(map);</span><br><span class="line">      &#125;</span><br><span class="line">      resultMap.put(<span class="string">"result"</span>,result);</span><br><span class="line">      resultMap.put(<span class="string">"nameList"</span>,nameList);</span><br><span class="line">      <span class="keyword">return</span> resultMap;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>直接看Java代码会是有点懵，看不懂，那我们再获取结果之前对searchSourceBuilder的信息进行打印，并且直接在Elasticsearch中执行验证是否正确，在虚线的上方增加一行代码，虚线下方的代码可以暂时注掉：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(searchSourceBuilder.toString());</span><br></pre></td></tr></table></figure>
+<p>然后调用该方法，查看控制台的打印信息，复制该段json字符串，在Elasticsearch执行验证结果：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">GET daac0118_da_info/da_info/_search</span><br><span class="line">&#123;</span><br><span class="line">  "size": 0, --表示不查看具体的查询结果</span><br><span class="line">  "aggregations": &#123;</span><br><span class="line">    "dept_name": &#123; --起别名</span><br><span class="line">      "terms": &#123;</span><br><span class="line">        "field": "DAINFOATTR15.keyword", --group by的字段</span><br><span class="line">        "size": 10,</span><br><span class="line">        "min_doc_count": 1,</span><br><span class="line">        "shard_min_doc_count": 0,</span><br><span class="line">        "show_term_doc_count_error": false,</span><br><span class="line">        "order": [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"_count"</span>: <span class="string">"desc"</span></span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"_key"</span>: <span class="string">"asc"</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      "aggregations": &#123; --聚合的设置</span><br><span class="line">        "dept_id": &#123; --起的别名</span><br><span class="line">          "terms": &#123;</span><br><span class="line">            "field": "DAINFOATTR17", --group by的字段</span><br><span class="line">            "size": 10,</span><br><span class="line">            "min_doc_count": 1,</span><br><span class="line">            "shard_min_doc_count": 0,</span><br><span class="line">            "show_term_doc_count_error": false,</span><br><span class="line">            "order": [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"_count"</span>: <span class="string">"desc"</span></span><br><span class="line">              &#125;,</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"_key"</span>: <span class="string">"asc"</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        "heat_num": &#123; --起的别名</span><br><span class="line">          "sum": &#123;</span><br><span class="line">            "field": "DAINFOATTR19" --sum求和的字段</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们直接在kibana的开发者工具中执行，查看查询的结果：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"took"</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">"timed_out"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"_shards"</span>: &#123;</span><br><span class="line">    <span class="attr">"total"</span>: <span class="number">5</span>,</span><br><span class="line">    <span class="attr">"successful"</span>: <span class="number">5</span>,</span><br><span class="line">    <span class="attr">"skipped"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"failed"</span>: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"hits"</span>: &#123;</span><br><span class="line">    <span class="attr">"total"</span>: <span class="number">285</span>,</span><br><span class="line">    <span class="attr">"max_score"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"hits"</span>: []</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"aggregations"</span>: &#123;</span><br><span class="line">    "dept_name": &#123; --聚合条件一</span><br><span class="line">      "doc_count_error_upper_bound": 0,</span><br><span class="line">      "sum_other_doc_count": 0,</span><br><span class="line">      "buckets": [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"key"</span>: <span class="string">"集团理财部"</span>,</span><br><span class="line">          <span class="attr">"doc_count"</span>: <span class="number">156</span>,</span><br><span class="line">          <span class="attr">"heat_num"</span>: &#123;</span><br><span class="line">            <span class="attr">"value"</span>: <span class="number">294</span></span><br><span class="line">          &#125;,</span><br><span class="line">          "dept_id": &#123; --聚合条件二</span><br><span class="line">            "doc_count_error_upper_bound": 0,</span><br><span class="line">            "sum_other_doc_count": 0,</span><br><span class="line">            "buckets": [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"key"</span>: <span class="string">"33333333"</span>,</span><br><span class="line">                <span class="attr">"doc_count"</span>: <span class="number">156</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"key"</span>: <span class="string">"集团数据治理部"</span>,</span><br><span class="line">          <span class="attr">"doc_count"</span>: <span class="number">78</span>,</span><br><span class="line">          <span class="attr">"heat_num"</span>: &#123;</span><br><span class="line">            <span class="attr">"value"</span>: <span class="number">156</span></span><br><span class="line">          &#125;,</span><br><span class="line">          "dept_id": &#123; --聚合条件二</span><br><span class="line">            "doc_count_error_upper_bound": 0,</span><br><span class="line">            "sum_other_doc_count": 0,</span><br><span class="line">            "buckets": [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"key"</span>: <span class="string">"11111111"</span>,</span><br><span class="line">                <span class="attr">"doc_count"</span>: <span class="number">78</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"key"</span>: <span class="string">"集团法务部"</span>,</span><br><span class="line">          <span class="attr">"doc_count"</span>: <span class="number">45</span>,</span><br><span class="line">          <span class="attr">"heat_num"</span>: &#123;</span><br><span class="line">            <span class="attr">"value"</span>: <span class="number">112</span></span><br><span class="line">          &#125;,</span><br><span class="line">          "dept_id": &#123; --聚合条件二</span><br><span class="line">            "doc_count_error_upper_bound": 0,</span><br><span class="line">            "sum_other_doc_count": 0,</span><br><span class="line">            "buckets": [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"key"</span>: <span class="string">"22222222"</span>,</span><br><span class="line">                <span class="attr">"doc_count"</span>: <span class="number">45</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"key"</span>: <span class="string">""</span>,</span><br><span class="line">          <span class="attr">"doc_count"</span>: <span class="number">6</span>,</span><br><span class="line">          <span class="attr">"heat_num"</span>: &#123;</span><br><span class="line">            <span class="attr">"value"</span>: <span class="number">6</span></span><br><span class="line">          &#125;,</span><br><span class="line">          "dept_id": &#123; --聚合条件二</span><br><span class="line">            "doc_count_error_upper_bound": 0,</span><br><span class="line">            "sum_other_doc_count": 0,</span><br><span class="line">            "buckets": [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"key"</span>: <span class="string">"00000000"</span>,</span><br><span class="line">                <span class="attr">"doc_count"</span>: <span class="number">6</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看到这个结果，我们处理返回结果就会变得非常方便，首先聚合条件下返回的每一个结果都会放在buckets数组中，我们需要去遍历这个数组，拿到我们需要的值，如果有多个聚合的条件，还需要进一步到聚合条件中获取buckets数组，也就是进行双重for循环，以此类推，group by的字段越多，需要循环的次数就越多。这就是一次将SQL转化为Elasticsearch中查询的实战，我所用的组件的版本在上一篇数据同步的文章中都有叙述，这边就不再进行重复，有兴趣的同学可以自己尝试一下。</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://www.rossontheway.com">金奇</a>
+            </p><p>原文链接：<a href="https://www.rossontheway.com/2021/04/16/使用Elasticsearch的Java-API实现复杂查询/">https://www.rossontheway.com/2021/04/16/使用Elasticsearch的Java-API实现复杂查询/</a>
+            </p><p>发表日期：<a href="https://www.rossontheway.com/2021/04/16/使用Elasticsearch的Java-API实现复杂查询/">April 16th 2021, 12:00:00 am</a>
+            </p><p>更新日期：<a href="https://www.rossontheway.com/2021/04/16/使用Elasticsearch的Java-API实现复杂查询/">April 16th 2021, 4:45:49 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可，除特别声明外，转载请注明出处！</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2021/04/02/使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch/" title="使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch">
+                    <div class="prevTitle">使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81MjMyMC8yODc5OA==">
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:576163960@qq.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/jqdelove" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//weibo.com/5328235155/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" class="iconfont-archer weibo" target="_blank" title="weibo"></a>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//www.facebook.com/jqdelove" class="iconfont-archer facebook" target="_blank" title="facebook"></a>
+            
+        
+    
+        
+    
+        
+            
+                <a href="//www.instagram.com/jqdelove/" class="iconfont-archer instagram" target="_blank" title="instagram"></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 50
+        </div>
+        <!-- search  -->
+        
+            <div class="site-search popup-trigger">
+                <span class="iconfont-archer search-icon">&#xe627;</span>
+            </div>
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href="/2021/04/16/使用Elasticsearch的Java-API实现复杂查询/">使用Elasticsearch的Java API实现复杂查询</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span><a class="archive-post-title" href="/2021/04/02/使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch/">使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/04</span><a class="archive-post-title" href="/2021/01/04/构建ELK日志搜索运维平台/">构建ELK日志搜索运维平台</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2020/12/30/利用Jenkins一键多台服务器部署SpringCloud应用/">利用Jenkins一键多台服务器部署SpringCloud应用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href="/2020/12/29/Jenkins实现前后端自动化部署/">Jenkins实现前后端自动化部署</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/文件上传结合SpringCloud的Feign进行服务调用/">文件上传结合SpringCloud的Feign进行服务调用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/2020年我的回顾/">2020年我的回顾</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/30</span><a class="archive-post-title" href="/2020/09/30/Java使用POI导出Excel文件/">Java使用POI导出Excel文件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/03</span><a class="archive-post-title" href="/2020/09/03/java使用POI操作Excel/">Java使用POI操作Excel</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/29</span><a class="archive-post-title" href="/2020/08/29/Vue的父组件调用子组件方法/">Vue的父组件调用子组件方法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href="/2020/06/05/大数据技术生态体系/">大数据技术生态体系</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/31</span><a class="archive-post-title" href="/2020/05/31/Spring-Cloud分布式服务实现/">Spring Cloud分布式服务实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href="/2020/05/30/SpringCloud的分布式整体解决方案/">Spring Cloud的分布式整体解决方案</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/28</span><a class="archive-post-title" href="/2020/05/28/SpringBoot-Dubbo-ZooKeeper整合总结/">SpringBoot+Dubbo+ZooKeeper整合总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span><a class="archive-post-title" href="/2020/05/27/分布式架构Zookeeper-Dubbo介绍/">分布式架构ZooKeeper+Dubbo介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">SpringBoot整合Elasticsearch全文搜索引擎</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/">Elasticsearch的介绍与Docker部署并测试API</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/23</span><a class="archive-post-title" href="/2020/05/23/SpringBoot整合RabbitMQ消息队列/">SpringBoot整合RabbitMQ消息队列</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href="/2020/05/22/RabbitMQ的简介以及原理/">RabbitMQ的简介以及原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">SpringBoot整合Redis中间件进行缓存</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/消息中间件的概念以及应用场景/">消息中间件的概念以及应用场景</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/23</span><a class="archive-post-title" href="/2020/04/23/Oracle存储过程语法及常用函数总结/">Oracle存储过程语法及常用函数总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href="/2019/12/29/2019年度总结/">2019年度总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/23</span><a class="archive-post-title" href="/2019/12/23/使用Docker部署HBase并使用Java-API连接/">使用Docker部署HBase并使用Java API连接</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/20</span><a class="archive-post-title" href="/2019/12/20/初识MapReduce开发/">初识MapReduce开发</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/05</span><a class="archive-post-title" href="/2019/10/05/MyBatis-generator的使用/">MyBatis-generator的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span><a class="archive-post-title" href="/2019/07/27/自定义MyBatis框架/">自定义MyBatis框架</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/13</span><a class="archive-post-title" href="/2019/07/13/手写SpringMVC/">手写SpringMVC</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/21</span><a class="archive-post-title" href="/2019/04/21/SpringBoot嵌入式Servlet容器启动原理/">Spring Boot嵌入式Servlet容器启动原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href="/2019/04/20/SpringBoot嵌入式Servlet容器自动配置原理/">Spring Boot嵌入式Servlet容器自动配置原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href="/2019/03/21/SpringBoot配置文件的优先级/">Spring Boot配置文件的优先级</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/SpringBoot项目的快速搭建并启动/">Spring Boot项目的快速搭建并启动</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span><a class="archive-post-title" href="/2019/03/17/SSM框架总结1/">基于Maven的SSM框架的搭建</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/28</span><a class="archive-post-title" href="/2019/02/28/java回顾10/">手写简单Object Relationship Mapping框架</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span><a class="archive-post-title" href="/2019/02/23/Mac使用技巧分享/">Mac使用技巧分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/20</span><a class="archive-post-title" href="/2019/02/20/java回顾9/">Java网络编程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/19</span><a class="archive-post-title" href="/2019/02/19/java回顾8/">总结Java中的JDBC</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span><a class="archive-post-title" href="/2019/02/14/计划1/">撇除杂念</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/java回顾7/">Java多线程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/分享1/">分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/30</span><a class="archive-post-title" href="/2019/01/30/java回顾6/">Java IO总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/27</span><a class="archive-post-title" href="/2019/01/27/java回顾5/">手写字节流文件拷贝类</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/26</span><a class="archive-post-title" href="/2019/01/26/java回顾4/">Java中的异常处理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href="/2019/01/22/java回顾3/">Java中的多态</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href="/2019/01/17/java回顾2/">Java中数组插入和删除指定元素</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/13</span><a class="archive-post-title" href="/2019/01/13/java回顾1/">Java中变量的作用范围</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/2019/01/09/hello-world/">Java中的无参和有参构造方法以及封装的概念</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="年度总结"><span class="iconfont-archer">&#xe606;</span>年度总结</span>
+    
+        <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
+    
+        <span class="sidebar-tag-name" data-tags="Jenkins自动化部署"><span class="iconfont-archer">&#xe606;</span>Jenkins自动化部署</span>
+    
+        <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
+    
+        <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
+    
+        <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
+    
+        <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="SSM"><span class="iconfont-archer">&#xe606;</span>SSM</span>
+    
+        <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
+    
+        <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
+    
+        <span class="sidebar-tag-name" data-tags="Spring Boot"><span class="iconfont-archer">&#xe606;</span>Spring Boot</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据之HBase"><span class="iconfont-archer">&#xe606;</span>大数据之HBase</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据之MapReduce"><span class="iconfont-archer">&#xe606;</span>大数据之MapReduce</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据技术生态体系"><span class="iconfont-archer">&#xe606;</span>大数据技术生态体系</span>
+    
+        <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
+    
+        <span class="sidebar-tag-name" data-tags="运维"><span class="iconfont-archer">&#xe606;</span>运维</span>
+    
+        <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
+    
+        <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "金奇"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+        <div class="site-search">
+  <div class="algolia-popup popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="iconfont-archer">&#xe609;</i>
+    </span>
+  </div>
+</div>
+        <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.8.0/dist/instantsearch.min.js" defer></script>
+        <script src="/scripts/search.js" defer></script>
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
