@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="金奇">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="金奇">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>面试系列，JVM篇 · King&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/avatar/tx.png">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin="">
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin="">
+    
+        <!-- algolia -->
+        <script>
+            
+            var hits = JSON.parse('{"per_page":10}')
+            var labels = JSON.parse('{"input_placeholder":"搜索文章","hits_empty":"没有找到相关的结果: ${query}","hits_stats":"${hits} 结果用时 ${time} ms"}')
+
+            var algolia = {
+                applicationID: 'QDMIZFPIU8',
+                apiKey: 'c471e4f9de1aadf2db408196709b0132',
+                indexName: 'rossontheway',
+                hits: hits,
+                labels: labels
+            }
+        </script>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">King&#39;s Studio</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">面试系列，JVM篇</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">King's Studio</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random/1600x500)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            面试系列，JVM篇
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="面试">面试</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">4.3k</span>阅读时长: <span class="post-count reading-time">15 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2023/08/18</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="什么是跨平台性，已经在Java中是如何实现的？"><a href="#什么是跨平台性，已经在Java中是如何实现的？" class="headerlink" title="什么是跨平台性，已经在Java中是如何实现的？"></a>什么是跨平台性，已经在Java中是如何实现的？</h3><p>平台可以指OS+硬件，所谓跨平台性，是指语言编写的程序，可以在多个系统平台上运行。</p>
+<p>字节码是通过Java虚拟机在系统平台上运行的，只要该系统可以安装相应的java虚拟机，该系统就可以运行java程序编译后的字节码文件了，即一次编译，到处运行。</p>
+<h3 id="JVM是跨平台的吗？"><a href="#JVM是跨平台的吗？" class="headerlink" title="JVM是跨平台的吗？"></a>JVM是跨平台的吗？</h3><p>不是的，Java 平台的核心是执行字节码的”虚拟机器”的概念。无论程序运行在哪硬件或操作系统下，此字节码都是一样的。虽然 Java 程序是独立于平台的，但执行这些程序的 Java 虚拟机代码并非如此。每个操作系统或者硬件上都有不同的虚拟机。</p>
+<h3 id="JVM是如何工作的？"><a href="#JVM是如何工作的？" class="headerlink" title="JVM是如何工作的？"></a>JVM是如何工作的？</h3><p>用户创建 aobing.java 文件</p>
+<p>Java 编译器（javac）把文件编译到 aobing.class文件，这个地方会有一些编译期优化。</p>
+<p>Java 虚拟机器加载类，并由解释器逐条翻译或即时编译器将其编译为机器代码。</p>
+<p>转换后的机器代码是由 CPU 直接执行，主流的虚拟机都是架设在操作系统之上的。</p>
+<h3 id="什么时即时编译器？"><a href="#什么时即时编译器？" class="headerlink" title="什么时即时编译器？"></a>什么时即时编译器？</h3><p>即时编译器是 JRE 的一部分，全称 Just-In-Time Compiler ，一般称之为 JIT ，它可显著的提高 Java 应用程序在运行时间的性能。</p>
+<p>Java 编译成字节码后，这些代码可以通过 JVM 在许多不同的计算机架构上进行运行。在开始运行时，JVM 中的解释器首先开始工作，逐行的将字节码解释为本地机器码，意味着 Java 应用程序的执行速度比本地语言的应用程序慢，这是背景。</p>
+<p>为了提高效率，虚拟机引入了 JIT 技术，通过将热点代码编译成本机代码，以提高 Java 程序的性能。</p>
+<p>JIT 编译后的代码存放在方法区中。</p>
+<h3 id="虚拟机是怎么识别出热点代码的？"><a href="#虚拟机是怎么识别出热点代码的？" class="headerlink" title="虚拟机是怎么识别出热点代码的？"></a>虚拟机是怎么识别出热点代码的？</h3><p>目前热点代码的探测有两种方式：</p>
+<p>采样</p>
+<p>计数器</p>
+<p>HotSpot使用的是计数器的方式，它为每个方法准备了两类计数器：</p>
+<p>方法调用计数器（Invocation Counter）</p>
+<p>回边计数器（Back EdgeCounter）。</p>
+<p>这两个计数器都有一个确定的阈值，当计数器超过阈值溢出了，就会触发JIT编译。</p>
+<h3 id="JDK、JRE和JVM"><a href="#JDK、JRE和JVM" class="headerlink" title="JDK、JRE和JVM"></a>JDK、JRE和JVM</h3><p>JDK：JDK 是 （SDK） 软件开发套件的扩展子集，包括用于开发、调试和监控 Java 应用程序的工具。</p>
+<p>JRE：JRE 称为 Java 运行时间环境是 JDK 的一部分，是开发 Java 应用程序的一组编程工具。Java 运行时间环境为执行 Java 应用程序提供了最低要求，并且它由 Java 虚拟机器 （JVM） 核心类和核心类库组成。</p>
+<p>JVM：JVM是一种可以执行字节码的虚拟机器。它是 Java 平台的代码执行组件。</p>
+<h3 id="什么是虚引用？"><a href="#什么是虚引用？" class="headerlink" title="什么是虚引用？"></a>什么是虚引用？</h3><p>虚引用是虚拟机中定义的”非强”引用的级别之一。</p>
+<p>4种引用的级别由高到低依次为强引用、软引用、弱引用和虚引用。</p>
+<p>如果一个对象具有强引用，那垃圾回收器绝不会回收它。</p>
+<p>如果一个对象只具有软引用，则内存空间足够，垃圾回收器就不会回收它；如果内存空间不足了，就会回收这些对象的内存。</p>
+<p>弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。</p>
+<p>虚引用的对象，它是如此脆弱以至于我们通过虚引用甚至无法获取到被引用的对象，它存在的唯一作用就是当它指向的对象被回收后，虚引用本身会被加入到引用队列中，用作记录它指向的对象已被回收。</p>
+<p>什么是Java的内存结构、内存模型和对象模型</p>
+<p>内存结构是和运行时数据区有关。</p>
+<p>内存模型是指用于屏蔽掉各种硬件和操作系统的内存访问差异，以实现让Java程序在各种平台下都能达到一致的并发效果，是虚拟机的规范之一。</p>
+<p>对象模型是指java对象在内存中真正的存储（表示）形式有关。</p>
+<h3 id="运行时数据区包括哪几部分？"><a href="#运行时数据区包括哪几部分？" class="headerlink" title="运行时数据区包括哪几部分？"></a>运行时数据区包括哪几部分？</h3><p>存放实例对象的堆。</p>
+<p>用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器生成代码的方法区。</p>
+<p>为了支持多线程的程序计数器。</p>
+<p>用于支持方法的运行的虚拟机栈和本地方法栈。</p>
+<h3 id="面向对象的优点"><a href="#面向对象的优点" class="headerlink" title="面向对象的优点"></a>面向对象的优点</h3><p>模型和真实世界中的对象类似，理解起来更容易，又因为面向对象有封装、继承、多态的特性，可以设计出低耦合高内聚的系统，易维护、易复用、易扩展。</p>
+<h3 id="什么是多态？"><a href="#什么是多态？" class="headerlink" title="什么是多态？"></a>什么是多态？</h3><p>面向对象的第三大特性之一。</p>
+<p>是指同一个行为具有多个不同表现形式或形态的能力。</p>
+<p>Java作为面向对象的语言，同样可以描述一个事物的多种形态。如Student类继承了Person类，一个Student的对象便既是Student，又是Person。</p>
+<h3 id="final-finally-finalize区别"><a href="#final-finally-finalize区别" class="headerlink" title="final finally finalize区别"></a>final finally finalize区别</h3><p>final可以修饰类、变量、方法，修饰类表示该类不能被继承、修饰方法表示该方法不能被重写、修饰变量表示该变量是一个常量不能被重新赋值。</p>
+<p>finally一般作用在try-catch代码块中，在处理异常的时候，通常我们将一定要执行的代码方法finally代码块</p>
+<p>中，表示不管是否出现异常，该代码块都会执行，一般用来存放一些关闭资源的代码。</p>
+<p>finalize是一个方法，属于Object类的一个方法，而Object类是所有类的父类，该方法一般由垃圾回收器来调</p>
+<p>用。</p>
+<h3 id="说一下JVM加载一个类的过程"><a href="#说一下JVM加载一个类的过程" class="headerlink" title="说一下JVM加载一个类的过程"></a>说一下JVM加载一个类的过程</h3><p>JVM 中类的装载是由类加载器，也就是ClassLoader，和它的子类来实现的，Java 中的类加载器是一个重要的 Java 运行时系统组件，它负责在运行时查找和装入类文件中的类。</p>
+<p>由于 Java 的跨平台性， 经过编译的 Java 源程序并不是一个可执行程序， 而是一个或多个类文件。当 Java 程序需要使用某个类时，JVM 会确保这个类已经被加载、连接（ 验证、 准备和解析）和初始化。</p>
+<p>类的加载是指把类的.class 文件中的数据读入到内存中，通常是创建一个字节数组读入.class 文件，然后产生与所加载类对应的 Class 对象。加载完成后， Class 对象还不完整， 所以此时的类还不可用。当类被加载后就进入连接阶段， 这一阶段包括验证、准备（ 为静态变量分配内存并设置默认的初始值） 和解析（ 将符号引用替换为直接引用） 三个步骤。</p>
+<p>最后 JVM 对类进行初始化，包括：1)如果类存在直接的父类并且这个类还没有被初始化，那么就先初始化父类；2)如果类中存在初始化语句， 就依次执行这些初始化语句。</p>
+<h3 id="类加载器有哪些，各有什么作用？"><a href="#类加载器有哪些，各有什么作用？" class="headerlink" title="类加载器有哪些，各有什么作用？"></a>类加载器有哪些，各有什么作用？</h3><p>从JDK 1.2开始， 类加载过程采取了双亲委派机制。更好的保证了 Java 平台的安全性，在该机制中，JVM 自带的 Bootstrap 是根加载器， 其他的加载器都有且仅有一个父类加载器。类的加载首先请求父类加载器加载，父类加载器无能为力时才由其子类加载。</p>
+<p>JVM 不会向 Java 程序提供对 Bootstrap 的引用。</p>
+<p>加载一个类两次</p>
+<p>可以加载两次，但是第二次会把第一次覆盖。</p>
+<h3 id="error和exception有什么区别？"><a href="#error和exception有什么区别？" class="headerlink" title="error和exception有什么区别？"></a>error和exception有什么区别？</h3><p>error 表示恢复不是不可能但很困难的情况下的一种严重问题。比如说内存溢出。不可能指望程序能处理这样的情况。exception表示一种设计或实现问题。也就是说，它表示如果程序运行正常，从不会发生的情况。</p>
+<h3 id="System-out-println-，System是什么，out是什么，println又是什么？"><a href="#System-out-println-，System是什么，out是什么，println又是什么？" class="headerlink" title="System.out.println()，System是什么，out是什么，println又是什么？"></a>System.out.println()，System是什么，out是什么，println又是什么？</h3><p>System是捆绑在java.lang包中的最终类。</p>
+<p>out是打印流类的参考，它是系统类的静态成员。</p>
+<p>println是一种打印流类的方法，它捆绑在 java.io 包中打印输出。</p>
+<h3 id="方法区、永久区和元数据区它们之间是什么关系？"><a href="#方法区、永久区和元数据区它们之间是什么关系？" class="headerlink" title="方法区、永久区和元数据区它们之间是什么关系？"></a>方法区、永久区和元数据区它们之间是什么关系？</h3><p>方法区是jvm规范里要求的，永久区是Hotspot虚拟机对方法区的具体实现，前者是规范，后者是实现方式。jdk1.8作了改变。</p>
+<h3 id="说说GC是什么，以及为什么要有GC？"><a href="#说说GC是什么，以及为什么要有GC？" class="headerlink" title="说说GC是什么，以及为什么要有GC？"></a>说说GC是什么，以及为什么要有GC？</h3><p>GC 是垃圾收集的意思，内存处理是编程人员容易出现问题的地方，忘记或者错误的内存回收会导致程序或系统的不稳定甚至崩溃。</p>
+<p>Java 虚拟机提供的 GC 功能可以自动监测对象是否超过作用域从而达到自动回收内存的目的，Java 语言没有提供释放已分配内存的显示操作方法。Java 程序员不用担心内存管理， 因为垃圾收集器会自动进行管理。</p>
+<h3 id="GC中STW是什么？"><a href="#GC中STW是什么？" class="headerlink" title="GC中STW是什么？"></a>GC中STW是什么？</h3><p>Java中Stop-The-World机制简称STW，是在执行垃圾收集算法时，Java应用程序的其他所有线程(除了垃圾收集)都被挂起。</p>
+<p>Java中一种全局暂停现象，全局停顿，所有Java代码停止，native代码可以执行，但不能与JVM交互。</p>
+<h3 id="如何识别出垃圾？"><a href="#如何识别出垃圾？" class="headerlink" title="如何识别出垃圾？"></a>如何识别出垃圾？</h3><p>常用有两种方式：</p>
+<p>引用计数法，这种难以解决对象之间的循环引用的问题。</p>
+<p>可达性分析算法，主流的JVM采用的是这种方式。</p>
+<h3 id="简单聊聊垃圾回收算法"><a href="#简单聊聊垃圾回收算法" class="headerlink" title="简单聊聊垃圾回收算法"></a>简单聊聊垃圾回收算法</h3><ul>
+<li>标记-清除算法，如它的名字一样，算法分为“标记”和“清除”两个阶段：首先标记出所有需要回收的对象，在标记完成后统一回收掉所有被标记的对象。</li>
+<li>复制算法，它将可用内存按容量划分为大小相等的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活着的对象复制到另外一块上面，然后再把已使用过的内存空间一次清理掉。缺点是浪费空间，优点是回收速度快，没碎片。</li>
+<li>标记-压缩算法，标记过程仍然与“标记-清除”算法一样，但后续步骤不是直接对可回收对象进行清理，而是让所有存活的对象都向一端移动，完成碎片整理。</li>
+<li>分代收集算法，把Java堆分为新生代和老年代，这样就可以根据各个年代的特点采用最适当的收集算法，我觉得它更像是一种思想，而不是算法。</li>
+</ul>
+<h3 id="你知道有哪些垃圾回收器？"><a href="#你知道有哪些垃圾回收器？" class="headerlink" title="你知道有哪些垃圾回收器？"></a>你知道有哪些垃圾回收器？</h3><ul>
+<li>Serial 收集器，串行收集器是最古老，最稳定以及效率高的收集器，可能会产生较长的停顿，只使用一个线程去回收。</li>
+<li>ParNew 收集器，ParNew 收集器其实就是 Serial 收集器的多线程版本。</li>
+<li>Parallel 收集器，Parallel Scavenge 收集器类似 ParNew 收集器，Parallel 收集器更关注系统的吞吐量。</li>
+<li>Parallel Old 收集器，Parallel Old 是 Parallel Scavenge 收集器的老年代版本，使用多线程和“标记－整理”算法</li>
+<li>CMS 收集器，CMS（Concurrent Mark Sweep）收集器是一种以获取最短回收停顿时间为目标的收集器。</li>
+<li>G1 收集器，G1 (Garbage-First)是一款面向服务器的垃圾收集器,主要针对配备多颗处理器及大容量内存的机器. 以极高概率满足 GC 停顿时间要求的同时,还具备高吞吐量性能特征</li>
+</ul>
+<h3 id="基于栈和寄存器的指令集架构是什么？"><a href="#基于栈和寄存器的指令集架构是什么？" class="headerlink" title="基于栈和寄存器的指令集架构是什么？"></a>基于栈和寄存器的指令集架构是什么？</h3><p>前者的指令运行过程，需要借助栈这个数据结构来完成，主要的优点就是可移植，缺点是执行速度慢。</p>
+<p>后者的寄存器指令由硬件直接提供，速度很快，但是缺点是和硬件强绑定。</p>
+<p>我们主流的java虚拟机采用的都是基于栈的指令集架构。</p>
+<h3 id="虚拟机栈是什么？"><a href="#虚拟机栈是什么？" class="headerlink" title="虚拟机栈是什么？"></a>虚拟机栈是什么？</h3><p>JVM规范让每个Java线程拥有自己的独立的JVM栈，也就是Java方法的调用栈。</p>
+<p>当方法调用的时候，会生成一个栈帧。方法的调用返回过程，其实就是栈帧的入栈出栈。</p>
+<p>栈帧是保存在虚拟机栈中的，栈帧存储了方法的局部变量表、操作数栈、动态连接和方法返回地址等信息。</p>
+<p>线程运行过程中，只有一个栈帧是处于活跃状态，称为“当前活跃栈帧”，当前活动栈帧始终是虚拟机栈的栈顶元素。</p>
+<h3 id="程序计数器为什么是私有的？"><a href="#程序计数器为什么是私有的？" class="headerlink" title="程序计数器为什么是私有的？"></a>程序计数器为什么是私有的？</h3><p>虚拟机是支持多线程并发的，程序计数器私有主要是为了线程切换后能恢复到正确的执行位置。</p>
+<p>在多线程的情况下，程序计数器用于记录当前线程执行的位置，从而当线程被切换回来的时候能够知道该线程上次运行到哪儿了。</p>
+<p>需要注意的是，如果执行的是 native 修饰的本地方法，那么程序计数器记录的是 undefined 地址，只有执行的是 Java 代码时程序计数器记录的才是下一条指令的地址。</p>
+<h3 id="SafePoint-是什么"><a href="#SafePoint-是什么" class="headerlink" title="SafePoint 是什么?"></a>SafePoint 是什么?</h3><p>比如 GC 的时候必须要等到 Java 线程都进入到 safepoint 的时候 VMThread 才能开始执行 GC 1.循环的末尾 (防止大循环的时候一直不进入 safepoint，而其他线程在等待它进入 safepoint) 2.方法返回前 3.调用方法的 call 之后 4.抛出异常的位置</p>
+<h3 id="Java对象的创建过程清楚吗？"><a href="#Java对象的创建过程清楚吗？" class="headerlink" title="Java对象的创建过程清楚吗？"></a>Java对象的创建过程清楚吗？</h3><ol>
+<li>JVM 遇到一条新建对象的指令时首先去检查这个指令的参数是否能在常量池中定义到一个类的符号引用。然后加载这个类（类加载过程在后边讲）</li>
+<li>为对象分配内存。一种办法“指针碰撞”、一种办法“空闲列表”，最终常用的办法“本地线程缓冲分配(TLAB)”</li>
+<li>将除对象头外的对象内存空间初始化为 0</li>
+<li>对对象头进行必要设置</li>
+</ol>
+<h3 id="Java-对象结构了解过吗？"><a href="#Java-对象结构了解过吗？" class="headerlink" title="Java 对象结构了解过吗？"></a>Java 对象结构了解过吗？</h3><p>Java 对象由三个部分组成：对象头、实例数据、对齐填充。</p>
+<ol>
+<li>对象头由两部分组成，第一部分存储对象自身的运行时数据：哈希码、GC 分代年龄、锁标识状态、线程持有的锁、偏向线程 ID（一般占 32/64 bit）。第二部分是指针类型，指向对象的类元数据类型（即对象代表哪个类）。如果是数组对象，则对象头中还有一部分用来记录数组长度。</li>
+<li>实例数据用来存储对象真正的有效信息（包括父类继承下来的和自己定义的）</li>
+<li>对齐填充：JVM 要求对象起始地址必须是 8 字节的整数倍（8 字节对齐）</li>
+</ol>
+<h3 id="Java-对象的定位方式你清楚吗？"><a href="#Java-对象的定位方式你清楚吗？" class="headerlink" title="Java 对象的定位方式你清楚吗？"></a>Java 对象的定位方式你清楚吗？</h3><p>句柄池、直接指针。</p>
+<h3 id="方法区和永久代有什么区别"><a href="#方法区和永久代有什么区别" class="headerlink" title="方法区和永久代有什么区别"></a>方法区和永久代有什么区别</h3><p>永久代又叫 Perm 区，只存在于 HotSpot JVM 中，并且只存在于 JDK 1.7 和之前的版本中，JDK 1.8 中已经彻底移除了永久代，JDK 1.8 中引入了一个新的内存区域叫 metaspace。</p>
+<ul>
+<li>并不是所有的 JVM 中都有永久代，IBM 的 9，Oracle 的 JRocket 都没有永久代。</li>
+<li>永久代是实现层面的东西。</li>
+<li>永久代里面存的东西基本上就是方法区规定的那些东西。</li>
+</ul>
+<p>因此，我们可以说，在 JDK 1.7 中永久代是方法区的一种实现，当然，在 HotSpot JDK 1.8 中 metaspace 可以看成是方法区的一种实现。</p>
+<h3 id="为什么要用-metaspace-替换-permspace-呢"><a href="#为什么要用-metaspace-替换-permspace-呢" class="headerlink" title="为什么要用 metaspace 替换 permspace 呢"></a>为什么要用 metaspace 替换 permspace 呢</h3><p>主要有如下几点：</p>
+<ul>
+<li>字符串存在永久代中，容易出现性能问题和内存溢出。</li>
+<li>类及方法的信息等比较难确定其大小，因此对于永久代的大小指定比较困难，太小容易出现永久代溢出，太大则容易导致老年代溢出。</li>
+<li>永久代会为 GC 带来不必要的复杂度，并且回收效率偏低。</li>
+<li>移除永久代是为融合 HotSpot JVM 与 JRockit VM 而做出的努力，因为 JRockit 没有永久代，不需要配置永久代。</li>
+</ul>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://www.rossontheway.com">金奇</a>
+            </p><p>原文链接：<a href="https://www.rossontheway.com/2023/08/18/面试系列，JVM篇/">https://www.rossontheway.com/2023/08/18/面试系列，JVM篇/</a>
+            </p><p>发表日期：<a href="https://www.rossontheway.com/2023/08/18/面试系列，JVM篇/">August 18th 2023, 12:00:00 am</a>
+            </p><p>更新日期：<a href="https://www.rossontheway.com/2023/08/18/面试系列，JVM篇/">August 18th 2023, 4:06:22 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可，除特别声明外，转载请注明出处！</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2021/12/31/2021年度总结/" title="2021年度总结">
+                    <div class="prevTitle">2021年度总结</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81MjMyMC8yODc5OA==">
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:576163960@qq.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/jqdelove" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//weibo.com/5328235155/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" class="iconfont-archer weibo" target="_blank" title="weibo"></a>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//www.facebook.com/jqdelove" class="iconfont-archer facebook" target="_blank" title="facebook"></a>
+            
+        
+    
+        
+    
+        
+            
+                <a href="//www.instagram.com/jqdelove/" class="iconfont-archer instagram" target="_blank" title="instagram"></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是跨平台性，已经在Java中是如何实现的？"><span class="toc-number">1.</span> <span class="toc-text">什么是跨平台性，已经在Java中是如何实现的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JVM是跨平台的吗？"><span class="toc-number">2.</span> <span class="toc-text">JVM是跨平台的吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JVM是如何工作的？"><span class="toc-number">3.</span> <span class="toc-text">JVM是如何工作的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么时即时编译器？"><span class="toc-number">4.</span> <span class="toc-text">什么时即时编译器？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机是怎么识别出热点代码的？"><span class="toc-number">5.</span> <span class="toc-text">虚拟机是怎么识别出热点代码的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK、JRE和JVM"><span class="toc-number">6.</span> <span class="toc-text">JDK、JRE和JVM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是虚引用？"><span class="toc-number">7.</span> <span class="toc-text">什么是虚引用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行时数据区包括哪几部分？"><span class="toc-number">8.</span> <span class="toc-text">运行时数据区包括哪几部分？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#面向对象的优点"><span class="toc-number">9.</span> <span class="toc-text">面向对象的优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是多态？"><span class="toc-number">10.</span> <span class="toc-text">什么是多态？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#final-finally-finalize区别"><span class="toc-number">11.</span> <span class="toc-text">final finally finalize区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说一下JVM加载一个类的过程"><span class="toc-number">12.</span> <span class="toc-text">说一下JVM加载一个类的过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类加载器有哪些，各有什么作用？"><span class="toc-number">13.</span> <span class="toc-text">类加载器有哪些，各有什么作用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#error和exception有什么区别？"><span class="toc-number">14.</span> <span class="toc-text">error和exception有什么区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#System-out-println-，System是什么，out是什么，println又是什么？"><span class="toc-number">15.</span> <span class="toc-text">System.out.println()，System是什么，out是什么，println又是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法区、永久区和元数据区它们之间是什么关系？"><span class="toc-number">16.</span> <span class="toc-text">方法区、永久区和元数据区它们之间是什么关系？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说说GC是什么，以及为什么要有GC？"><span class="toc-number">17.</span> <span class="toc-text">说说GC是什么，以及为什么要有GC？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GC中STW是什么？"><span class="toc-number">18.</span> <span class="toc-text">GC中STW是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何识别出垃圾？"><span class="toc-number">19.</span> <span class="toc-text">如何识别出垃圾？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单聊聊垃圾回收算法"><span class="toc-number">20.</span> <span class="toc-text">简单聊聊垃圾回收算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#你知道有哪些垃圾回收器？"><span class="toc-number">21.</span> <span class="toc-text">你知道有哪些垃圾回收器？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于栈和寄存器的指令集架构是什么？"><span class="toc-number">22.</span> <span class="toc-text">基于栈和寄存器的指令集架构是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机栈是什么？"><span class="toc-number">23.</span> <span class="toc-text">虚拟机栈是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#程序计数器为什么是私有的？"><span class="toc-number">24.</span> <span class="toc-text">程序计数器为什么是私有的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SafePoint-是什么"><span class="toc-number">25.</span> <span class="toc-text">SafePoint 是什么?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java对象的创建过程清楚吗？"><span class="toc-number">26.</span> <span class="toc-text">Java对象的创建过程清楚吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-对象结构了解过吗？"><span class="toc-number">27.</span> <span class="toc-text">Java 对象结构了解过吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-对象的定位方式你清楚吗？"><span class="toc-number">28.</span> <span class="toc-text">Java 对象的定位方式你清楚吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法区和永久代有什么区别"><span class="toc-number">29.</span> <span class="toc-text">方法区和永久代有什么区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么要用-metaspace-替换-permspace-呢"><span class="toc-number">30.</span> <span class="toc-text">为什么要用 metaspace 替换 permspace 呢</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 52
+        </div>
+        <!-- search  -->
+        
+            <div class="site-search popup-trigger">
+                <span class="iconfont-archer search-icon">&#xe627;</span>
+            </div>
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2023 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/18</span><a class="archive-post-title" href="/2023/08/18/面试系列，JVM篇/">面试系列，JVM篇</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href="/2021/12/31/2021年度总结/">2021年度总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href="/2021/04/16/使用Elasticsearch的Java-API实现复杂查询/">使用Elasticsearch的Java API实现复杂查询</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span><a class="archive-post-title" href="/2021/04/02/使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch/">使用阿里开源神器canal将MySQL数据实时同步到Elasticsearch</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/04</span><a class="archive-post-title" href="/2021/01/04/构建ELK日志搜索运维平台/">构建ELK日志搜索运维平台</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2020/12/30/利用Jenkins一键多台服务器部署SpringCloud应用/">利用Jenkins一键多台服务器部署SpringCloud应用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href="/2020/12/29/Jenkins实现前后端自动化部署/">Jenkins实现前后端自动化部署</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/文件上传结合SpringCloud的Feign进行服务调用/">文件上传结合SpringCloud的Feign进行服务调用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/Oracle数据库整体迁移并采用定时任务备份/">Oracle数据库整体迁移并采用定时任务备份</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href="/2020/12/28/2020年我的回顾/">2020年我的回顾</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/30</span><a class="archive-post-title" href="/2020/09/30/Java使用POI导出Excel文件/">Java使用POI导出Excel文件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/03</span><a class="archive-post-title" href="/2020/09/03/java使用POI操作Excel/">Java使用POI操作Excel</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/29</span><a class="archive-post-title" href="/2020/08/29/Vue的父组件调用子组件方法/">Vue的父组件调用子组件方法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href="/2020/06/05/大数据技术生态体系/">大数据技术生态体系</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/31</span><a class="archive-post-title" href="/2020/05/31/Spring-Cloud分布式服务实现/">Spring Cloud分布式服务实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href="/2020/05/30/SpringCloud的分布式整体解决方案/">Spring Cloud的分布式整体解决方案</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/28</span><a class="archive-post-title" href="/2020/05/28/SpringBoot-Dubbo-ZooKeeper整合总结/">SpringBoot+Dubbo+ZooKeeper整合总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span><a class="archive-post-title" href="/2020/05/27/分布式架构Zookeeper-Dubbo介绍/">分布式架构ZooKeeper+Dubbo介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/Elasticsearch的介绍与Docker部署并测试API/">Elasticsearch的介绍与Docker部署并测试API</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href="/2020/05/24/SpringBoot整合Elasticsearch全文搜索引擎/">SpringBoot整合Elasticsearch全文搜索引擎</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/23</span><a class="archive-post-title" href="/2020/05/23/SpringBoot整合RabbitMQ消息队列/">SpringBoot整合RabbitMQ消息队列</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href="/2020/05/22/RabbitMQ的简介以及原理/">RabbitMQ的简介以及原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/SpringBoot整合Redis中间件进行缓存/">SpringBoot整合Redis中间件进行缓存</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/2020/05/21/消息中间件的概念以及应用场景/">消息中间件的概念以及应用场景</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/23</span><a class="archive-post-title" href="/2020/04/23/Oracle存储过程语法及常用函数总结/">Oracle存储过程语法及常用函数总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href="/2019/12/29/2019年度总结/">2019年度总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/23</span><a class="archive-post-title" href="/2019/12/23/使用Docker部署HBase并使用Java-API连接/">使用Docker部署HBase并使用Java API连接</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/20</span><a class="archive-post-title" href="/2019/12/20/初识MapReduce开发/">初识MapReduce开发</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/05</span><a class="archive-post-title" href="/2019/10/05/MyBatis-generator的使用/">MyBatis-generator的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span><a class="archive-post-title" href="/2019/07/27/自定义MyBatis框架/">自定义MyBatis框架</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/13</span><a class="archive-post-title" href="/2019/07/13/手写SpringMVC/">手写SpringMVC</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/21</span><a class="archive-post-title" href="/2019/04/21/SpringBoot嵌入式Servlet容器启动原理/">Spring Boot嵌入式Servlet容器启动原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href="/2019/04/20/SpringBoot嵌入式Servlet容器自动配置原理/">Spring Boot嵌入式Servlet容器自动配置原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自动配置原理/">Spring Boot自动配置原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href="/2019/03/24/SpringBoot自定义配置属性/">Spring Boot自定义配置属性</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href="/2019/03/21/SpringBoot配置文件的优先级/">Spring Boot配置文件的优先级</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/19</span><a class="archive-post-title" href="/2019/03/19/SpringBoot项目的快速搭建并启动/">Spring Boot项目的快速搭建并启动</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span><a class="archive-post-title" href="/2019/03/17/SSM框架总结1/">基于Maven的SSM框架的搭建</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/28</span><a class="archive-post-title" href="/2019/02/28/java回顾10/">手写简单Object Relationship Mapping框架</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span><a class="archive-post-title" href="/2019/02/23/Mac使用技巧分享/">Mac使用技巧分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/20</span><a class="archive-post-title" href="/2019/02/20/java回顾9/">Java网络编程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/19</span><a class="archive-post-title" href="/2019/02/19/java回顾8/">总结Java中的JDBC</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span><a class="archive-post-title" href="/2019/02/14/计划1/">撇除杂念</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/分享1/">分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href="/2019/02/03/java回顾7/">Java多线程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/30</span><a class="archive-post-title" href="/2019/01/30/java回顾6/">Java IO总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/27</span><a class="archive-post-title" href="/2019/01/27/java回顾5/">手写字节流文件拷贝类</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/26</span><a class="archive-post-title" href="/2019/01/26/java回顾4/">Java中的异常处理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href="/2019/01/22/java回顾3/">Java中的多态</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href="/2019/01/17/java回顾2/">Java中数组插入和删除指定元素</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/13</span><a class="archive-post-title" href="/2019/01/13/java回顾1/">Java中变量的作用范围</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/2019/01/09/hello-world/">Java中的无参和有参构造方法以及封装的概念</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="年度总结"><span class="iconfont-archer">&#xe606;</span>年度总结</span>
+    
+        <span class="sidebar-tag-name" data-tags="Elasticsearch"><span class="iconfont-archer">&#xe606;</span>Elasticsearch</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Jenkins自动化部署"><span class="iconfont-archer">&#xe606;</span>Jenkins自动化部署</span>
+    
+        <span class="sidebar-tag-name" data-tags="Oracle数据库"><span class="iconfont-archer">&#xe606;</span>Oracle数据库</span>
+    
+        <span class="sidebar-tag-name" data-tags="消息中间件"><span class="iconfont-archer">&#xe606;</span>消息中间件</span>
+    
+        <span class="sidebar-tag-name" data-tags="分享"><span class="iconfont-archer">&#xe606;</span>分享</span>
+    
+        <span class="sidebar-tag-name" data-tags="MyBatis"><span class="iconfont-archer">&#xe606;</span>MyBatis</span>
+    
+        <span class="sidebar-tag-name" data-tags="SSM"><span class="iconfont-archer">&#xe606;</span>SSM</span>
+    
+        <span class="sidebar-tag-name" data-tags="分布式架构"><span class="iconfont-archer">&#xe606;</span>分布式架构</span>
+    
+        <span class="sidebar-tag-name" data-tags="Spring Boot开发"><span class="iconfont-archer">&#xe606;</span>Spring Boot开发</span>
+    
+        <span class="sidebar-tag-name" data-tags="Spring Boot"><span class="iconfont-archer">&#xe606;</span>Spring Boot</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据之HBase"><span class="iconfont-archer">&#xe606;</span>大数据之HBase</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据之MapReduce"><span class="iconfont-archer">&#xe606;</span>大数据之MapReduce</span>
+    
+        <span class="sidebar-tag-name" data-tags="SpringMVC"><span class="iconfont-archer">&#xe606;</span>SpringMVC</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据技术生态体系"><span class="iconfont-archer">&#xe606;</span>大数据技术生态体系</span>
+    
+        <span class="sidebar-tag-name" data-tags="SpringCloud组件"><span class="iconfont-archer">&#xe606;</span>SpringCloud组件</span>
+    
+        <span class="sidebar-tag-name" data-tags="运维"><span class="iconfont-archer">&#xe606;</span>运维</span>
+    
+        <span class="sidebar-tag-name" data-tags="励志"><span class="iconfont-archer">&#xe606;</span>励志</span>
+    
+        <span class="sidebar-tag-name" data-tags="面试"><span class="iconfont-archer">&#xe606;</span>面试</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "金奇"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+        <div class="site-search">
+  <div class="algolia-popup popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="iconfont-archer">&#xe609;</i>
+    </span>
+  </div>
+</div>
+        <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.8.0/dist/instantsearch.min.js" defer></script>
+        <script src="/scripts/search.js" defer></script>
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
